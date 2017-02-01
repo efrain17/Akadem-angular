@@ -42,25 +42,15 @@
   <!-- this part is hidden for xs screens -->
   <div class="collapse navbar-collapse">
     <!-- search-results form! link it to your search-results server -->
-    <form class="navbar-form float-xs-left" role="search" #f="ngForm" (ngSubmit)="onDashboardSearch(f)">
-      <div class="form-group">
-        <div class="input-group input-group-no-border">
-          <span class="input-group-addon">
-              <i class="fa fa-search"></i>
-          </span>
-          <input class="form-control" name="search" ngModel type="text" placeholder="Search Dashboard">
-        </div>
-      </div>
-    </form>
     <ul class="nav navbar-nav float-xs-right" (click)="$event.preventDefault()">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle dropdown-toggle-notifications"
            id="notifications-dropdown-toggle" data-toggle="dropdown">
                 <span class="thumb-sm avatar float-xs-left">
-                    <img class="rounded-circle" src="assets/img/people/a5.jpg" alt="...">
+                    <img class="rounded-circle" src="assets/img/avatar.png" alt="...">
                 </span>
           &nbsp;
-          Philip <strong>Smith</strong>&nbsp;
+          Efrain <strong>Coello</strong>&nbsp;
                 <span class="circle bg-warning fw-bold">
                     13
                 </span>
@@ -85,22 +75,6 @@
           <li class="dropdown-divider"></li>
           <li><a class="dropdown-item" [routerLink]=" ['/login'] "><i class="fa fa-sign-out"></i> &nbsp; Log Out</a></li>
         </ul>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#" (click)="toggleChat()" id="toggle-chat">
-          <i class="fa fa-globe fa-lg"></i>
-        </a>
-        <div id="chat-notification" class="chat-notification hide" (click)="toggleChat()">
-          <div class="chat-notification-inner">
-            <h6 class="title">
-              <span class="thumb-xs">
-                  <img src="assets/img/people/a6.jpg" class="rounded-circle mr-xs float-xs-left">
-              </span>
-              Jess Smith
-            </h6>
-            <p class="text">Hi there! <br> This is a completely new version of Sing App <br> built with <strong class="text-danger">Angular 2.0 Final Release</strong> </p>
-          </div>
-        </div>
       </li>
     </ul>
   </div>

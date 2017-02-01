@@ -5,9 +5,9 @@ declare let jQuery: any;
 @Injectable()
 export class AppConfig {
   config = {
-    name: 'sing',
-    title: 'Sing Dashboard App with Angular 2.0 support by Flatlogic',
-    version: '3.2.0',
+    name: 'Akadem',
+    title: 'Sistema de gestion educativa',
+    version: '1.0.0',
     /**
      * Whether to print and alert some log information
      */
