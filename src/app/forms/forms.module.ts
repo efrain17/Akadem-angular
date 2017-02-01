@@ -39,12 +39,14 @@ import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
 import { Elements } from './elements/elements.component';
 import { Validation } from './validation/validation.component';
 import { Wizard } from './wizard/wizard.component';
+import { Elements as ingresoUser } from './ingresoUsuario/elements.component';
 
 export const routes = [
   {path: '', redirectTo: 'elements', pathMatch: 'full'},
   {path: 'elements', component: Elements},
   {path: 'validation', component: Validation},
-  {path: 'wizard', component: Wizard}
+  {path: 'wizard', component: Wizard},
+  {path: 'usuarios', component: ingresoUser}
 ];
 
 @NgModule({
@@ -54,7 +56,8 @@ export const routes = [
     Validation,
     BootstrapApplicationWizard,
     Wizard,
-    DropzoneDemo
+    DropzoneDemo,
+    ingresoUser
   ],
   imports: [
     CommonModule,

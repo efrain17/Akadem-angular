@@ -14,7 +14,7 @@ const routes: Routes = [
     { path: 'tables', loadChildren: '../tables/tables.module#TablesModule' },
     { path: 'maps', loadChildren: '../maps/maps.module#MapsModule' },
     { path: 'grid', loadChildren: '../grid/grid.module#GridModule' },
-    { path: 'widgets', loadChildren: '../widgets/widgets.module#WidgetsModule' },
+    { path: 'widgets', loadChildren: '../widgets/widgets.module#WidgetsModule' }
   ]}
 ];
 
