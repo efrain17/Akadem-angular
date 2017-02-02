@@ -2,6 +2,8 @@ import { Component, ViewEncapsulation, Injector } from '@angular/core';
 import { Select2OptionData } from 'ng2-select2';
 import { __platform_browser_private__ } from '@angular/platform-browser';
 import * as data from './elements.data';
+import { Persona } from '../../common/interfaces'
+import { FormsService } from '../forms.service'
 declare var jQuery: any;
 
 @Component({
@@ -11,45 +13,28 @@ declare var jQuery: any;
   encapsulation: ViewEncapsulation.None,
 })
 export class Elements {
-  date: Date = new Date(2016, 5, 10);
   colorOptions: Object = {color: '#f0b518'};
   injector: Injector;
   domSharedStylesHost: any;
-  selected: any;
-  select2Options: any = {
-    theme: 'bootstrap'
-  };
-
-  phoneMask = {
-    mask: ['(', /[1-9]/, /\d/, /\d/, ')',
-      ' ', /\d/, /\d/, /\d/,
-      '-', /\d/, /\d/, /\d/, /\d/]
-  };
-
-  interPhoneMask = {
-    mask: ['+', /[1-9]/, /\d/, /\d/,
-      ' ', /\d/, /\d/, /\d/,
-      ' ', /\d/, /\d/, /\d/, /\d/,
-      ' ', /\d/, /\d/, /\d/, /\d/]
-  };
-
   dateMask = {
     mask: [/\d/, /\d/,
-      '-', /\d/, /\d/,
-      '-', /[1-9]/, /\d/, /\d/, /\d/]
+      '/', /\d/, /\d/,
+      '/', /[1-9]/, /\d/, /\d/, /\d/]
+  };
+  persona: Persona = {
+    id_persona: '',
+    nombres: '',
+    apellidos: '',
+    direccion: '',
+    provincia:'',
+    ciudad: '', 
+    fecha_nacimiento: ''
   };
 
-  timeMask = {
-    mask: [/\d/, /\d/,
-      ':', /\d/, /\d/]
-  };
-
-  phoneValue = '';
-  interPhoneValue = '';
-  dateValue = '';
-  timeValue = '';
-
-  constructor(injector: Injector) {
+  constructor(
+    injector: Injector,
+    private formsService: FormsService
+    ) {
     //
     // This is a hack on angular style loader to prevent ng2-select2 from adding its styles.
     // They are hard-coded into the component, so there are no other way to get rid of them
@@ -62,6 +47,9 @@ export class Elements {
         this.domSharedStylesHost.__onStylesAdded__(additions);
       }
     };
+    //for (var prop in this.persona) {
+    //  this.persona[prop] = '1';
+    //}
   }
 
   ngOnInit(): void {
@@ -71,24 +59,16 @@ export class Elements {
     jQuery('.selectpicker').selectpicker();
   }
 
+  ngOnDestroy(): void {
+    // detach custom hook
+    this.domSharedStylesHost.onStylesAdded = this.domSharedStylesHost.__onStylesAdded__;
+  }
+
   unmask(event) {
     return event.replace(/\D+/g, '');
   }
 
-  getSelect2DefaultList(): Select2OptionData[] {
-    return data.select2DefaultData;
-  }
-
-  getSelect2GroupedList(): Select2OptionData[] {
-    return data.select2GroupedData;
-  }
-
-  select2Changed(e: any): void {
-    this.selected = e.value;
-  }
-
-  ngOnDestroy(): void {
-    // detach custom hook
-    this.domSharedStylesHost.onStylesAdded = this.domSharedStylesHost.__onStylesAdded__;
+  guardar(): void {
+    this.formsService.guardarPersona(this.persona)
   }
 }

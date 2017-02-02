@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-
 declare var global: any;
 // libs
 /* tslint:disable */
@@ -41,6 +40,8 @@ import { Validation } from './validation/validation.component';
 import { Wizard } from './wizard/wizard.component';
 import { Elements as ingresoUser } from './ingresoUsuario/elements.component';
 
+import { FormsService } from './forms.service'
+
 export const routes = [
   {path: '', redirectTo: 'elements', pathMatch: 'full'},
   {path: 'elements', component: Elements},
@@ -71,7 +72,8 @@ export const routes = [
     NKDatetimeModule,
     Select2Module,
     RouterModule.forChild(routes),
-  ]
+  ],
+  providers: [ FormsService ]
 })
 export class FormModule {
   static routes = routes;
