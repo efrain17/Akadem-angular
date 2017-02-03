@@ -1,11 +1,14 @@
 [ 
   {
     "id_persona": "1314842673",
-    "nombres": "Juan Carlos Cedeño Zamora",
+    "nombres": "Juan Carlos",
+    "apellidos": "Cedeño Zamora",
     "direccion": "Urb la fuente 2",
     "ciudad": "Portoviejo",
     "tipo_usuario": "Administrador",
     "telefono": "090246360, 052442142",
+    "provincia": "Manabí",
+    "fecha_nacimiento": "12/12/2016",
     "status": {
       "progress": "29%",
       "type": "success"
@@ -13,11 +16,14 @@
   }, 
   {
     "id_persona": "1306942721",
-    "nombres": "Ruth Maria Delgado Delgado",
+    "nombres": "Ruth Maria",
+    "apellidos": "Delgado Delgado",
     "direccion": "Urb la fuente 2",
     "ciudad": "Portoviejo",
     "tipo_usuario": "Profesor",
     "telefono": "090246360,052442142",
+    "provincia": "Manabí",
+    "fecha_nacimiento": "12/12/2016",
     "status": {
       "progress": "38%",
       "type": "warning"

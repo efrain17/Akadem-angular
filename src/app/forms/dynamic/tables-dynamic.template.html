@@ -41,9 +41,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let person of mf.data | SearchPipe : searchText">
+        <tr (click)="modalWindow.show()" (click)="cargarDatos(person)" *ngFor="let person of mf.data | SearchPipe : searchText">
           <td>{{person.id_persona}}</td>
-          <td><span class="fw-semi-bold">{{person.nombres}}</span></td>
+          <td ><span class="fw-semi-bold">{{person.nombres}}" "{{person.apellidos}}</span></td>
           <td class="hidden-sm-down">
             <small>
               <span class="fw-semi-bold">Ciudad:</span>
@@ -80,3 +80,76 @@
     </div>
   </div>
 </section>
+
+<!--modal-->
+<div bsModal #modalWindow="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button (click)="modalWindow.hide()" aria-label="Close" class="close" type="button">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title text-xs-center fw-bold mt" id="myModalLabel18">Datos del Usuario</h4>
+      </div>
+      <div class="modal-body">
+        <section class="widget" widget>
+          <div class="widget-body">
+            <form class="form-horizontal" role="form">
+              <fieldset>
+                <div class="form-group row">
+                  <label for="normal-field" class="col-md-4  col-form-label text-md-right">Cedula</label>
+                  <div class="col-md-7 ">
+                    <input type="text" name="cedula" [(ngModel)]="persona.id_persona" class="form-control" placeholder="Cedula">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="normal-field" class="col-md-4  col-form-label text-md-right">Nombres</label>
+                  <div class="col-md-7 ">
+                    <input type="text" name="nombres" [(ngModel)]="persona.nombres" class="form-control" placeholder="Nombres">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="normal-field" class="col-md-4  col-form-label text-md-right">Apellidos</label>
+                  <div class="col-md-7 ">
+                    <input type="text" name="apellidos" [(ngModel)]="persona.apellidos" class="form-control" placeholder="Apellidos">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="normal-field" class="col-md-4  col-form-label text-md-right">Dirección</label>
+                  <div class="col-md-7 ">
+                    <input type="text" name="direccion" [(ngModel)]="persona.direccion" class="form-control" placeholder="Dirección">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="normal-field" class="col-md-4  col-form-label text-md-right">Provincia</label>
+                  <div class="col-md-7 ">
+                    <input type="text" name="provincia" [(ngModel)]="persona.provincia" class="form-control" placeholder="Provincia">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="normal-field" class="col-md-4  col-form-label text-md-right">Ciudad</label>
+                  <div class="col-md-7 ">
+                    <input type="text" name="ciudad" [(ngModel)]="persona.ciudad" class="form-control" placeholder="Ciudad">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="form-control-label col-md-4 col-xs-12  col-form-label text-md-right" for="mask-date">
+                    Fecha de Nacimiento
+                    <span class="help-block">07/03/2013</span>
+                  </label>
+                  <div class="col-md-7 col-xs-12">
+                    <input id="mask-date" name="mask-phone" class="form-control" [textMask]="dateMask" [(ngModel)]="persona.fecha_nacimiento" type="text"/>
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        </section>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-gray" (click)="modalWindow.hide()">Close</button>
+        <button type="button" class="btn btn-success" (click)="modalWindow.hide()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

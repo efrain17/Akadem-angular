@@ -35,6 +35,7 @@ import { DataTableModule } from 'angular2-datatable';
 import { Ng2TableModule } from 'ng2-table';
 import { UtilsModule } from '../layout/utils/utils.module';
 import { JqSparklineModule } from '../components/sparkline/sparkline.module'; 
+import { ModalModule } from 'ng2-bootstrap';
 /* tslint:disable */
 import { BootstrapWizardModule } from '../components/wizard/wizard.module';
 import { BootstrapApplicationWizard } from './wizard/bootstrap-application-wizard/bootstrap-application-wizard.directive';
@@ -88,6 +89,7 @@ export const routes = [
     BootstrapWizardModule,
     NKDatetimeModule,
     Select2Module,
+    ModalModule,
     RouterModule.forChild(routes)
   ],
   providers: [ FormsService ]
