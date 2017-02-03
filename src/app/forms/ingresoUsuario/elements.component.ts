@@ -10,7 +10,7 @@ declare var jQuery: any;
   selector: '[elements]',
   templateUrl: './elements.template.html',
   styleUrls: [ './elements.style.scss' ],
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None
 })
 export class Elements {
   colorOptions: Object = {color: '#f0b518'};
@@ -70,5 +70,23 @@ export class Elements {
 
   guardar(): void {
     this.formsService.guardarPersona(this.persona)
+      /*.then(data=> {
+        this.messengerDemo.mensajeSucessFull();
+        this.nuevo();
+      })
+      .catch(err=> this.messengerDemo.mensajeError())*/
   }
+
+  nuevo(): void {
+    this.persona= {
+      id_persona: '',
+      nombres: '',
+      apellidos: '',
+      direccion: '',
+      provincia:'',
+      ciudad: '', 
+      fecha_nacimiento: ''
+    };
+  }
+
 }

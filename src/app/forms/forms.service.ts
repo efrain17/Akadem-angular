@@ -13,13 +13,26 @@ export class FormsService {
   guardarPersona(params: Object) {
     let body = { data:{} };
     body.data=params;
-    console.log(body)
     let headers = new Headers({'Content-Type': 'application/json' });
     let options = new RequestOptions({
       headers: headers,
       method: RequestMethod.Post
     });
     return this.http.post(this.BASE_URL + '/personas/guardar-persona', body, options)
+      .toPromise()
+      .catch(this.error);
+  }
+
+  updatePersona(id: string ,params: Object) {
+    let body = { id_persona: '', data:{} };
+    body.id_persona = id;
+    body.data = params;
+    let headers = new Headers({'Content-Type': 'application/json' });
+    let options = new RequestOptions({
+      headers: headers,
+      method: RequestMethod.Post
+    });
+    return this.http.post(this.BASE_URL + '/personas/actualizar-persona', body, options)
       .toPromise()
       .catch(this.error);
   }

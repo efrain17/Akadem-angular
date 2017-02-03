@@ -48,6 +48,7 @@ import { Wizard } from './wizard/wizard.component';
 import { Elements as ingresoUser } from './ingresoUsuario/elements.component';
 import { TablesDynamic } from './dynamic/tables-dynamic.component';
 import { SearchPipe } from './dynamic/pipes/search-pipe';
+import { MessengerDemo } from './messenger/messenger.directive';
 
 import { FormsService } from './forms.service'
 
@@ -70,7 +71,8 @@ export const routes = [
     DropzoneDemo,
     ingresoUser,
     TablesDynamic,
-    SearchPipe
+    SearchPipe,
+    MessengerDemo
   ],
   imports: [
     CommonModule,
