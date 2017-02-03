@@ -65,12 +65,17 @@
   <h5 class="sidebar-nav-title">Modulos <a class="action-link" href="#"><i class="glyphicon glyphicon-refresh"></i></a></h5>
   <ul class="sidebar-nav">
     <li>
-      <a [routerLink]=" ['forms/usuarios'] ">
+      <a class="collapsed" data-target="#sidebar-forms" data-toggle="collapse" data-parent="#sidebar">
           <span class="icon">
             <i class="fa fa-group"></i>
           </span>
-        Usuarios
+        Forms
+        <i class="toggle fa fa-angle-down"></i>
       </a>
+      <ul id="sidebar-forms" class="collapse">
+        <li><a [routerLink]=" ['forms/usuarios'] ">Ingresar usuario</a></li>
+        <li><a [routerLink]=" ['forms/administrar-usuarios'] ">Administar usuarios</a></li>
+      </ul>
     </li> 
   </ul> 
 </div>

@@ -29,6 +29,12 @@ import { Autosize } from 'angular2-autosize';
 import { Select2Module } from 'ng2-select2';
 import { WidgetModule } from '../layout/widget/widget.module';
 import { TextMaskModule } from 'angular2-text-mask';
+//tablem-module
+import { ButtonsModule, PaginationModule  } from 'ng2-bootstrap';
+import { DataTableModule } from 'angular2-datatable';
+import { Ng2TableModule } from 'ng2-table';
+import { UtilsModule } from '../layout/utils/utils.module';
+import { JqSparklineModule } from '../components/sparkline/sparkline.module'; 
 /* tslint:disable */
 import { BootstrapWizardModule } from '../components/wizard/wizard.module';
 import { BootstrapApplicationWizard } from './wizard/bootstrap-application-wizard/bootstrap-application-wizard.directive';
@@ -39,6 +45,8 @@ import { Elements } from './elements/elements.component';
 import { Validation } from './validation/validation.component';
 import { Wizard } from './wizard/wizard.component';
 import { Elements as ingresoUser } from './ingresoUsuario/elements.component';
+import { TablesDynamic } from './dynamic/tables-dynamic.component';
+import { SearchPipe } from './dynamic/pipes/search-pipe';
 
 import { FormsService } from './forms.service'
 
@@ -47,7 +55,8 @@ export const routes = [
   {path: 'elements', component: Elements},
   {path: 'validation', component: Validation},
   {path: 'wizard', component: Wizard},
-  {path: 'usuarios', component: ingresoUser}
+  {path: 'usuarios', component: ingresoUser},
+  {path: 'administrar-usuarios', component: TablesDynamic},
 ];
 
 @NgModule({
@@ -58,20 +67,28 @@ export const routes = [
     BootstrapApplicationWizard,
     Wizard,
     DropzoneDemo,
-    ingresoUser
+    ingresoUser,
+    TablesDynamic,
+    SearchPipe
   ],
   imports: [
     CommonModule,
+    JqSparklineModule,
     FormsModule,
     TextMaskModule,
     TooltipModule.forRoot(),
+    ButtonsModule.forRoot(),
     AlertModule.forRoot(),
     DropdownModule.forRoot(),
+    PaginationModule.forRoot(),
     WidgetModule,
+    UtilsModule,
+    Ng2TableModule,
+    DataTableModule,
     BootstrapWizardModule,
     NKDatetimeModule,
     Select2Module,
-    RouterModule.forChild(routes),
+    RouterModule.forChild(routes)
   ],
   providers: [ FormsService ]
 })

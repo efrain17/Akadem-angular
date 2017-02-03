@@ -24,8 +24,8 @@ export class FormsService {
       .catch(this.error);
   }
 
-  getCarteraAutoPagoHabil(){
-    let url = this.BASE_URL + '/deudoresAutoPagoHabil';
+  getPersonas(){
+    let url = '/assets/data/dataPersonas.json';
     return this.http.get(url)
       .toPromise()
       .then(response => response.json())
