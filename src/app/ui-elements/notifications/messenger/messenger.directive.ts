@@ -3,10 +3,10 @@ declare var jQuery: any;
 declare var Messenger: any;
 
 @Directive ({
-  selector: '[messenger-demo]'
+  selector: '[messenger-demos]'
 })
 
-export class MessengerDemo {
+export class MessengerDemos {
   $el: any;
 
   initializationCode(): void {
@@ -75,8 +75,6 @@ export class MessengerDemo {
     jQuery.globalMessenger({ theme: theme });
     Messenger.options = { theme: theme  };
 
-    Messenger().post('Thanks for checking out Messenger!');
-
     let loc = ['top', 'right'];
 
     let $lsel = jQuery('.location-selector');
@@ -99,77 +97,23 @@ export class MessengerDemo {
         update();
       });
 
-    jQuery('#show-error-message').on('click', function(): boolean {
-      let i;
+    
+  }
 
-      i = 0;
-
-      Messenger().run({
-        errorMessage: 'Error destroying alien planet',
-        successMessage: 'Alien planet destroyed!',
-        action: function(opts): any {
-          if (++i < 3) {
-            return opts.error({
-              status: 500,
-              readyState: 0,
-              responseText: 0
-            });
-          } else {
-            return opts.success();
-          }
-        }
-      });
-
-      return false;
-    });
-
-    jQuery('#show-info-message').on('click', function(): boolean {
-      let msg = Messenger().post({
-        message: 'Launching thermonuclear war...',
-        actions: {
-          cancel: {
-            label: 'cancel launch',
-            action: function(): any {
-              return msg.update({
-                message: 'Thermonuclear war averted',
-                type: 'success',
-                actions: false
-              });
-            }
-          }
-        }
-      });
-
-      return false;
-    });
-
-    jQuery('#show-success-message').on('click', function(): boolean {
-      Messenger().post({
-        message: 'Showing success message was successful!',
-        type: 'success',
-        showCloseButton: true
-      });
-
-      return false;
+  public mensajeSucessFull(): void {
+    Messenger().post({
+      message: 'Operación realiazada con exito!',
+      type: 'success',
+      showCloseButton: true
     });
   }
 
-  public mensaje(): void {
-    let msg = Messenger().post({
-        message: 'Launching thermonuclear war...',
-        actions: {
-          cancel: {
-            label: 'cancel launch',
-            action: function(): any {
-              return msg.update({
-                message: 'Thermonuclear war averted',
-                type: 'success',
-                actions: false
-              });
-            }
-          }
-        }
-      });
+  public mensajeError(): void {
+    Messenger().post({
+      message: 'Ocurrio un error en la operación!',
+      type: 'error',
+      showCloseButton: true
+    });
   }
 
   ngOnInit(): void {

@@ -9,6 +9,10 @@ declare var global: any;
 var markdown = require('markdown').markdown;
 /* tslint:enable */
 global.markdown = markdown;
+
+import 'messenger/build/js/messenger.js';
+import 'jquery-ui/ui/sortable.js';
+import 'jquery.nestable/jquery.nestable.js';
 import 'bootstrap-markdown/js/bootstrap-markdown.js';
 import 'bootstrap-select/dist/js/bootstrap-select.js';
 import 'parsleyjs';
@@ -35,7 +39,9 @@ import { DataTableModule } from 'angular2-datatable';
 import { Ng2TableModule } from 'ng2-table';
 import { UtilsModule } from '../layout/utils/utils.module';
 import { JqSparklineModule } from '../components/sparkline/sparkline.module'; 
+import { TabsModule, AccordionModule } from 'ng2-bootstrap';
 import { ModalModule } from 'ng2-bootstrap';
+
 /* tslint:disable */
 import { BootstrapWizardModule } from '../components/wizard/wizard.module';
 import { BootstrapApplicationWizard } from './wizard/bootstrap-application-wizard/bootstrap-application-wizard.directive';
@@ -76,23 +82,25 @@ export const routes = [
   ],
   imports: [
     CommonModule,
-    JqSparklineModule,
     FormsModule,
-    TextMaskModule,
-    TooltipModule.forRoot(),
-    ButtonsModule.forRoot(),
+    RouterModule.forChild(routes),
     AlertModule.forRoot(),
-    DropdownModule.forRoot(),
-    PaginationModule.forRoot(),
     WidgetModule,
+    TooltipModule.forRoot(),
+    ModalModule,
+    ButtonsModule.forRoot(),
+    DropdownModule.forRoot(),
+    TabsModule.forRoot(),
+    AccordionModule.forRoot(),
+    JqSparklineModule,
+    TextMaskModule,
+    PaginationModule.forRoot(),
     UtilsModule,
     Ng2TableModule,
     DataTableModule,
     BootstrapWizardModule,
     NKDatetimeModule,
-    Select2Module,
-    ModalModule,
-    RouterModule.forChild(routes)
+    Select2Module
   ],
   providers: [ FormsService ]
 })

@@ -43,7 +43,7 @@
         <tbody>
         <tr (click)="modalWindow.show()" (click)="cargarDatos(person)" *ngFor="let person of mf.data | SearchPipe : searchText">
           <td>{{person.id_persona}}</td>
-          <td ><span class="fw-semi-bold">{{person.nombres}}" "{{person.apellidos}}</span></td>
+          <td ><span class="fw-semi-bold">{{person.nombres}} {{person.apellidos}}</span></td>
           <td class="hidden-sm-down">
             <small>
               <span class="fw-semi-bold">Ciudad:</span>
@@ -55,8 +55,16 @@
               &nbsp; {{person.direccion}}
             </small>
           </td>
-          <td class="hidden-sm-down"><a href="#">{{person.telefono}}</a></td>
-          <td class="hidden-sm-down">{{person.tipo_usuario}}</td>
+          <td class="hidden-sm-down">
+            <span *ngFor="let telf of person.telefono">
+              <a href="#">{{telf.numero}}</a>
+            </span>
+          </td>
+          <td class="hidden-sm-down">
+            <span *ngFor="let tipo of person.tipo_usuario">
+              <a href="#">{{tipo.descripcion}}</a>
+            </span>
+          </td>
           <td class="width-150">
             <div class="bg-gray-lighter progress-bar mt-xs">
               <progress class="progress progress-sm progress-{{person.status.type}}" value="100" max="100" [ngStyle]="{ 'width': person.status.progress}"></progress>
@@ -81,7 +89,6 @@
   </div>
 </section>
 
-<!--modal-->
 <div bsModal #modalWindow="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -95,52 +102,103 @@
         <section class="widget" widget>
           <div class="widget-body">
             <form class="form-horizontal" role="form">
-              <fieldset>
-                <div class="form-group row">
-                  <label for="normal-field" class="col-md-4  col-form-label text-md-right">Cedula</label>
-                  <div class="col-md-7 ">
-                    <input type="text" name="cedula" [(ngModel)]="persona.id_persona" class="form-control" placeholder="Cedula">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="normal-field" class="col-md-4  col-form-label text-md-right">Nombres</label>
-                  <div class="col-md-7 ">
-                    <input type="text" name="nombres" [(ngModel)]="persona.nombres" class="form-control" placeholder="Nombres">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="normal-field" class="col-md-4  col-form-label text-md-right">Apellidos</label>
-                  <div class="col-md-7 ">
-                    <input type="text" name="apellidos" [(ngModel)]="persona.apellidos" class="form-control" placeholder="Apellidos">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="normal-field" class="col-md-4  col-form-label text-md-right">Dirección</label>
-                  <div class="col-md-7 ">
-                    <input type="text" name="direccion" [(ngModel)]="persona.direccion" class="form-control" placeholder="Dirección">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="normal-field" class="col-md-4  col-form-label text-md-right">Provincia</label>
-                  <div class="col-md-7 ">
-                    <input type="text" name="provincia" [(ngModel)]="persona.provincia" class="form-control" placeholder="Provincia">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="normal-field" class="col-md-4  col-form-label text-md-right">Ciudad</label>
-                  <div class="col-md-7 ">
-                    <input type="text" name="ciudad" [(ngModel)]="persona.ciudad" class="form-control" placeholder="Ciudad">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label class="form-control-label col-md-4 col-xs-12  col-form-label text-md-right" for="mask-date">
-                    Fecha de Nacimiento
-                    <span class="help-block">07/03/2013</span>
-                  </label>
-                  <div class="col-md-7 col-xs-12">
-                    <input id="mask-date" name="mask-phone" class="form-control" [textMask]="dateMask" [(ngModel)]="persona.fecha_nacimiento" type="text"/>
-                  </div>
-                </div>
+              <fieldset>  
+                <accordion [closeOthers]="true" class="mb-lg show" id="accordion2">
+                  <accordion-group>
+                    <div accordion-heading>
+                          Información personal
+                          <i class="fa fa-angle-down float-xs-right"></i>
+                    </div>
+                    <div class="form-group row">
+                      <label for="normal-field" class="col-md-4  col-form-label text-md-right">Cedula</label>
+                      <div class="col-md-7 ">
+                        <input type="text" name="cedula" [(ngModel)]="persona.id_persona" class="form-control" placeholder="Cedula">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="normal-field" class="col-md-4  col-form-label text-md-right">Nombres</label>
+                      <div class="col-md-7 ">
+                        <input type="text" name="nombres" [(ngModel)]="persona.nombres" class="form-control" placeholder="Nombres">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="normal-field" class="col-md-4  col-form-label text-md-right">Apellidos</label>
+                      <div class="col-md-7 ">
+                        <input type="text" name="apellidos" [(ngModel)]="persona.apellidos" class="form-control" placeholder="Apellidos">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="normal-field" class="col-md-4  col-form-label text-md-right">Dirección</label>
+                      <div class="col-md-7 ">
+                        <input type="text" name="direccion" [(ngModel)]="persona.direccion" class="form-control" placeholder="Dirección">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="normal-field" class="col-md-4  col-form-label text-md-right">Provincia</label>
+                      <div class="col-md-7 ">
+                        <input type="text" name="provincia" [(ngModel)]="persona.provincia" class="form-control" placeholder="Provincia">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="normal-field" class="col-md-4  col-form-label text-md-right">Ciudad</label>
+                      <div class="col-md-7 ">
+                        <input type="text" name="ciudad" [(ngModel)]="persona.ciudad" class="form-control" placeholder="Ciudad">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="form-control-label col-md-4 col-xs-12  col-form-label text-md-right" for="mask-date">
+                        Fecha de Nacimiento
+                        <span class="help-block">07/03/2013</span>
+                      </label>
+                      <div class="col-md-7 col-xs-12">
+                        <input id="mask-date" name="mask-phone" class="form-control" [textMask]="dateMask" [(ngModel)]="persona.fecha_nacimiento" type="text"/>
+                      </div>
+                    </div>   
+                  </accordion-group>
+                  <accordion-group>
+                    <div accordion-heading>
+                          Teléfonos
+                          <i class="fa fa-angle-down float-xs-right"></i>
+                    </div>
+                    <div class="col-md-7 col-xs-12 offset-md-4">
+                      <span *ngFor="let telf of persona.telefono">
+                        <span class="fw-semi-bold">{{telf.numero}}</span>
+                        &nbsp; {{telf.propietario}}
+                        <a href="#">Eliminar</a>
+                      <br>
+                      </span>
+                      <a href="#">+Agregar otro número de teléfono</a>
+                    </div>        
+                  </accordion-group>
+                  <accordion-group>
+                    <div accordion-heading>
+                          Roles de usuario
+                          <i class="fa fa-angle-down float-xs-right"></i>
+                    </div>
+                    <div class="col-md-7 col-xs-12 offset-md-4">
+                      <span *ngFor="let tipo of persona.tipo_usuario">
+                        <span class="fw-semi-bold">{{tipo.descripcion}}</span>
+                        <a href="#">Eliminar</a>
+                      <br>
+                      </span>
+                      <a href="#">+Agregar rol de usuario</a>
+                    </div>        
+                  </accordion-group>
+                  <accordion-group>
+                    <div accordion-heading>
+                          Discapacidad
+                          <i class="fa fa-angle-down float-xs-right"></i>
+                    </div>
+                    <div class="col-md-7 col-xs-12 offset-md-4">
+                      <span *ngFor="let dis of persona.discapacidad">
+                        <span class="fw-semi-bold">{{dis.descripcion}}</span>
+                        <a href="#">Eliminar</a>
+                      <br>
+                      </span>
+                      <a href="#">+Agregar discapacidad</a>
+                    </div>        
+                  </accordion-group>                    
+                </accordion>
               </fieldset>
             </form>
           </div>
@@ -153,3 +211,4 @@
     </div>
   </div>
 </div>
+

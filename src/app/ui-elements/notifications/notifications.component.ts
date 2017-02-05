@@ -1,20 +1,20 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { MessengerDemo } from './messenger/messenger.directive'
+import { MessengerDemos } from './messenger/messenger.directive'
 @Component({
   selector: '[ui-components]',
   templateUrl: './notifications.template.html',
   encapsulation: ViewEncapsulation.None,
   styleUrls: ['./notifications.style.scss'],
-  providers:[MessengerDemo]
+  providers:[MessengerDemos]
 })
 export class Notifications {
 
-  constructor (private messengerDemo: MessengerDemo) {
+  constructor (private messengerDemo: MessengerDemos) {
 
   }
 
   mensaje(): void {
-    this.messengerDemo.mensaje();
+    this.messengerDemo.mensajeSucessFull();
   }
 }
 

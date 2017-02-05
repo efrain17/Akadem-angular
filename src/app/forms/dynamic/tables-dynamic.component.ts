@@ -9,7 +9,7 @@ declare var jQuery: any;
   selector: '[tables-dynamic]',
   templateUrl: './tables-dynamic.template.html',
   encapsulation: ViewEncapsulation.None,
-  styleUrls: ['./tables-dynamic.style.scss'], 
+  styleUrls: ['./tables-dynamic.style.scss', '../notifications.style.scss'], 
   providers: [MessengerDemo]
 })
 export class TablesDynamic {
@@ -22,7 +22,8 @@ export class TablesDynamic {
     direccion: '',
     provincia:'',
     ciudad: '', 
-    fecha_nacimiento: ''
+    fecha_nacimiento: '',
+    telefono: []
   };
   dateMask = {
     mask: [/\d/, /\d/,
@@ -68,6 +69,10 @@ export class TablesDynamic {
     this.formService.updatePersona(this.persona_id, this.persona)
       .then(data=>  this.messengerDemo.mensajeSucessFull())
       .catch(err => this.messengerDemo.mensajeError())
+  }
+
+  mensaje(): void {
+    this.messengerDemo.mensajeSucessFull()
   }
 
 }

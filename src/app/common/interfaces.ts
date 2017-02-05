@@ -5,5 +5,6 @@ export interface Persona {
   direccion: string,
   provincia: string,
   ciudad: string,
-  fecha_nacimiento: string
+  fecha_nacimiento: string,
+  telefono: any
 }

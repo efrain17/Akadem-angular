@@ -1,0 +1,23 @@
+{
+    "discapacidades":[
+        { "descripcion": "Sindrome de down", "id": "1" },
+        { "descripcion": "Autismo", "id": "2" },
+        { "descripcion": "Ceguera", "id": "3" }
+    ],
+    "operadores_telefonicos":[
+        { "descripcion": "Claro", "id": "1" },
+        { "descripcion": "Movistar", "id": "2" },
+        { "descripcion": "CNT movil", "id": "3" },
+        { "descripcion": "CNT Fijo", "id": "4" }
+    ],
+    "tipos_usuarios":[
+        { "descripcion": "Administrador", "id": "1" },
+        { "descripcion": "Docente", "id": "2" },
+        { "descripcion": "Estudiante", "id": "3" }
+    ], 
+    "tipos_persona":[
+        { "descripcion": "Administrador", "id": "1" },
+        { "descripcion": "Docente", "id": "2" },
+        { "descripcion": "Estudiante", "id": "3" }
+    ]
+}
