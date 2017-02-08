@@ -45,6 +45,14 @@ export class FormsService {
       .catch(this.error);
   }
 
+  getAtributoPersonas(){
+    let url = '/assets/data/dataAtributosPersona.json';
+    return this.http.get(url)
+      .toPromise()
+      .then(response => response.json())
+      .catch(this.error);
+  }
+
   error(error: any){
     return Promise.reject(error.message || error);
   }

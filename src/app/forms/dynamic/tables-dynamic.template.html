@@ -89,7 +89,7 @@
   </div>
 </section>
 
-<div bsModal #modalWindow="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div bsModal #modalWindow="bs-modal" class="modal fade" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -162,13 +162,44 @@
                     </div>
                     <div class="col-md-7 col-xs-12 offset-md-4">
                       <span *ngFor="let telf of persona.telefono">
-                        <span class="fw-semi-bold">{{telf.numero}}</span>
-                        &nbsp; {{telf.propietario}}
-                        <a href="#">Eliminar</a>
-                      <br>
+                        <div *ngIf="telf.operacion != 'delete'">
+                          <span class="fw-semi-bold">{{telf.numero}}</span>
+                          &nbsp; {{telf.propietario}}
+                          <a (click)="eliminarTelefono(telf)">Eliminar</a>
+                          <br>
+                        </div>
                       </span>
-                      <a href="#">+Agregar otro número de teléfono</a>
-                    </div>        
+                      <a href="#" (click)="addTelefono=!addTelefono">
+                        +Agregar otro número de teléfono
+                      </a>
+                    </div>
+                    <!--form add -->
+                    <div *ngIf="addTelefono">
+                      <div class="form-group row">
+                        <label for="normal-field" class="col-md-4  col-form-label text-md-right">Telefono</label>
+                        <div class="col-md-7 ">
+                          <input type="text" name="numberTlf" [(ngModel)]="numberTlf" class="form-control" placeholder="Número de telefono">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="normal-field" class="col-md-4  col-form-label text-md-right">Propietario</label>
+                        <div class="col-md-7 ">
+                          <input type="text" name="propietarioTlf" [(ngModel)]="propietarioTlf" class="form-control" placeholder="Propietario">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-4 col-form-label text-md-right" for="default-select">Operadora</label>
+                        <div class="col-md-7 ">
+                          <select2 id="default-select"
+                                  (valueChanged)="select2Changed($event)"
+                                  [data]="getTipoTelefono()" [options]="select2Options" width="100%"></select2>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" (click)="addTelefono=false" class="btn btn-gray" >Close</button>
+                        <button type="button" (click)="agregarTelefono()" class="btn btn-success">Save</button>
+                      </div> 
+                    </div>       
                   </accordion-group>
                   <accordion-group>
                     <div accordion-heading>
@@ -211,4 +242,6 @@
     </div>
   </div>
 </div>
+
+
 

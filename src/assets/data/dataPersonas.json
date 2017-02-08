@@ -6,23 +6,24 @@
     "direccion": "Urb la fuente 2",
     "ciudad": "Portoviejo",
     "telefono": [
-      { "numero":"0939522786", "propietario": "Efrain coello", "id_telefono": "1" },
-      { "numero":"052442142", "propietario": "Casa Efrain coello", "id_telefono": "2"}
+      { "numero":"0939522786", "propietario": "Efrain coello", "id_telefono": "1", "operacion": "null" },
+      { "numero":"052442142", "propietario": "Casa Efrain coello", "id_telefono": "2", "operacion": "null"}
     ],
     "discapacidad": [
-      { "descripcion":"0939522786", "porcentaje": "25%", "id_discapacidad": "1" },
-      { "descripcion":"052442142", "porcentaje": "10%", "id_discapacidad": "2"}
+      { "descripcion":"0939522786", "porcentaje": "25%", "id_discapacidad": "1", "operacion": "null"},
+      { "descripcion":"052442142", "porcentaje": "10%", "id_discapacidad": "2", "operacion": "null"}
     ],
     "tipo_usuario": [
-      { "descripcion":"Administrador","id_tipo_usuario": "1" },
-      { "descripcion":"Docente", "id_tipo_usuario": "2"}
+      { "descripcion":"Administrador","id_tipo_usuario": "1" , "operacion": "null"},
+      { "descripcion":"Docente", "id_tipo_usuario": "2", "operacion": "null"}
     ],
     "provincia": "Manabí",
     "fecha_nacimiento": "12/12/2016",
     "status": {
       "progress": "29%",
       "type": "success"
-    }
+    },
+    "operacion": "null"
   }, 
   {
     "id_persona": "1306942721",
@@ -31,22 +32,23 @@
     "direccion": "Urb la fuente 2",
     "ciudad": "Portoviejo",
     "telefono": [
-      { "numero":"0939522786", "propietario": "Efrain coello", "id_telefono": "1" },
-      { "numero":"052442142", "propietario": "Casa Efrain coello", "id_telefono": "2"}
+      { "numero":"0939522786", "propietario": "Efrain coello", "id_telefono": "1" , "operacion": "null"},
+      { "numero":"052442142", "propietario": "Casa Efrain coello", "id_telefono": "2", "operacion": "null"}
     ],
     "discapacidad": [
-      { "descripcion":"0939522786", "porcentaje": "25%", "id_discapacidad": "1" },
-      { "descripcion":"052442142", "porcentaje": "10%", "id_discapacidad": "2"}
+      { "descripcion":"0939522786", "porcentaje": "25%", "id_discapacidad": "1", "operacion": "null"},
+      { "descripcion":"052442142", "porcentaje": "10%", "id_discapacidad": "2", "operacion": "null"}
     ],
     "tipo_usuario": [
-      { "descripcion":"Administrador","id_tipo_usuario": "1" },
-      { "descripcion":"Docente", "id_tipo_usuario": "2"}
+      { "descripcion":"Administrador","id_tipo_usuario": "1", "operacion": "null"},
+      { "descripcion":"Docente", "id_tipo_usuario": "2", "operacion": "null"}
     ],
     "provincia": "Manabí",
     "fecha_nacimiento": "12/12/2016",
     "status": {
       "progress": "38%",
       "type": "warning"
-    }
+    },
+    "operacion": "null"
   }
 ]

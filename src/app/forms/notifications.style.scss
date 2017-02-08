@@ -480,3 +480,13 @@ ul.messenger-theme-air .messenger-message{
   right: 0; }
 .location-selector .bit.left {
   left: 0; }
+  
+.tag.tag-pill {
+  padding: .4em .6em;
+  font-weight: $font-weight-bold;
+}
+
+.modal-body {
+  background: $gray-lighter;
+}
+

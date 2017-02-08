@@ -28,7 +28,9 @@ export class Elements {
     direccion: '',
     provincia:'',
     ciudad: '', 
-    fecha_nacimiento: ''
+    fecha_nacimiento: '',
+    telefono: [],
+    operacion: ''
   };
 
   constructor(
@@ -85,7 +87,9 @@ export class Elements {
       direccion: '',
       provincia:'',
       ciudad: '', 
-      fecha_nacimiento: ''
+      fecha_nacimiento: '',
+      telefono: [],
+      operacion: ''
     };
   }
 
