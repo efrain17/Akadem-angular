@@ -133,17 +133,32 @@ export class TablesDynamic {
   agregarTelefono(): void {
     let idTelefono: any = this.dataAtributos.operadores_telefonicos;
     idTelefono = idTelefono.find(date =>date.descripcion == this.selectedTlf);
-    let objTelefono = {'numero':this.numberTlf, 'propietario': this.propietarioTlf, 'id_telefono': idTelefono.id, 'operacion': 'insert'};
+    let objTelefono = {
+      'numero': this.numberTlf,
+      'propietario': this.propietarioTlf,
+      'id_telefono': 'null',
+      'operacion': 'insert',
+      'id_operadora': idTelefono.id,
+    };
     this.persona.telefono.push(objTelefono);
     this.addTelefono = false;
-    console.log(this.persona.telefono);
   }
 
   eliminarTelefono(telefono): void {
     this.persona.telefono = this.persona.telefono.map(date =>{
-      if(date == telefono) date.operacion = 'delete';
+      if(date == telefono && date.operacion == 'insert') date.operacion = 'deleteLocal';
+      else if (date == telefono) date.operacion = 'delete';
       return date;
     });
+    this.persona.telefono = this.persona.telefono.filter(date =>
+      date.operacion != 'deleteLocal');
+    console.log(this.persona.telefono);
+  }
+
+  newUpdate(optionUpdate): void {
+    this.addTelefono = false;
+    this.propietarioTlf = '';
+    this.numberTlf = '';
   }
 
 }

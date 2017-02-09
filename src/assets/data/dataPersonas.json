@@ -6,12 +6,12 @@
     "direccion": "Urb la fuente 2",
     "ciudad": "Portoviejo",
     "telefono": [
-      { "numero":"0939522786", "propietario": "Efrain coello", "id_telefono": "1", "operacion": "null" },
-      { "numero":"052442142", "propietario": "Casa Efrain coello", "id_telefono": "2", "operacion": "null"}
+      { "numero":"0939522786", "propietario": "Efrain coello", "id_telefono": "1", "operacion": "null", "id_operadora": "1"},
+      { "numero":"052442142", "propietario": "Casa Efrain coello", "id_telefono": "2", "operacion": "null", "id_operadora": "1"}
     ],
     "discapacidad": [
-      { "descripcion":"0939522786", "porcentaje": "25%", "id_discapacidad": "1", "operacion": "null"},
-      { "descripcion":"052442142", "porcentaje": "10%", "id_discapacidad": "2", "operacion": "null"}
+      { "descripcion":"Sindrome de down", "porcentaje": "25%", "id_discapacidad": "1", "operacion": "null"},
+      { "descripcion":"Autismo", "porcentaje": "10%", "id_discapacidad": "2", "operacion": "null"}
     ],
     "tipo_usuario": [
       { "descripcion":"Administrador","id_tipo_usuario": "1" , "operacion": "null"},
@@ -32,12 +32,12 @@
     "direccion": "Urb la fuente 2",
     "ciudad": "Portoviejo",
     "telefono": [
-      { "numero":"0939522786", "propietario": "Efrain coello", "id_telefono": "1" , "operacion": "null"},
-      { "numero":"052442142", "propietario": "Casa Efrain coello", "id_telefono": "2", "operacion": "null"}
+      { "numero":"0939522786", "propietario": "Efrain coello", "id_telefono": "1" , "operacion": "null", "id_operadora": "1"},
+      { "numero":"052442142", "propietario": "Casa Efrain coello", "id_telefono": "2", "operacion": "null", "id_operadora": "1"}
     ],
     "discapacidad": [
-      { "descripcion":"0939522786", "porcentaje": "25%", "id_discapacidad": "1", "operacion": "null"},
-      { "descripcion":"052442142", "porcentaje": "10%", "id_discapacidad": "2", "operacion": "null"}
+      { "descripcion":"Ceguera", "porcentaje": "25%", "id_discapacidad": "1", "operacion": "null"},
+      { "descripcion":"Auditiva", "porcentaje": "10%", "id_discapacidad": "2", "operacion": "null"}
     ],
     "tipo_usuario": [
       { "descripcion":"Administrador","id_tipo_usuario": "1", "operacion": "null"},

@@ -155,8 +155,8 @@
                       </div>
                     </div>   
                   </accordion-group>
-                  <accordion-group>
-                    <div accordion-heading>
+                  <accordion-group >
+                    <div accordion-heading (click)="newUpdate(addTelefono)">
                           Teléfonos
                           <i class="fa fa-angle-down float-xs-right"></i>
                     </div>
@@ -165,11 +165,11 @@
                         <div *ngIf="telf.operacion != 'delete'">
                           <span class="fw-semi-bold">{{telf.numero}}</span>
                           &nbsp; {{telf.propietario}}
-                          <a (click)="eliminarTelefono(telf)">Eliminar</a>
+                          <a class="text-primary" (click)="eliminarTelefono(telf)">Eliminar</a>
                           <br>
                         </div>
                       </span>
-                      <a href="#" (click)="addTelefono=!addTelefono">
+                      <a class="text-primary" (click)="addTelefono=!addTelefono">
                         +Agregar otro número de teléfono
                       </a>
                     </div>
