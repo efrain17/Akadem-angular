@@ -33,12 +33,12 @@ import { Autosize } from 'angular2-autosize';
 import { Select2Module } from 'ng2-select2';
 import { WidgetModule } from '../layout/widget/widget.module';
 import { TextMaskModule } from 'angular2-text-mask';
-//tablem-module
+/* tablem-module */
 import { ButtonsModule, PaginationModule  } from 'ng2-bootstrap';
 import { DataTableModule } from 'angular2-datatable';
 import { Ng2TableModule } from 'ng2-table';
 import { UtilsModule } from '../layout/utils/utils.module';
-import { JqSparklineModule } from '../components/sparkline/sparkline.module'; 
+import { JqSparklineModule } from '../components/sparkline/sparkline.module';
 import { TabsModule, AccordionModule } from 'ng2-bootstrap';
 import { ModalModule } from 'ng2-bootstrap';
 
@@ -56,7 +56,7 @@ import { TablesDynamic } from './dynamic/tables-dynamic.component';
 import { SearchPipe } from './dynamic/pipes/search-pipe';
 import { MessengerDemo } from './messenger/messenger.directive';
 
-import { FormsService } from './forms.service'
+import { FormsService } from './forms.service';
 
 export const routes = [
   {path: '', redirectTo: 'elements', pathMatch: 'full'},

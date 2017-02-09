@@ -11,8 +11,8 @@ export class FormsService {
   constructor(private http: Http ) { }
 
   guardarPersona(params: Object) {
-    let body = { data:{} };
-    body.data=params;
+    let body = { data: {} };
+    body.data = params;
     let headers = new Headers({'Content-Type': 'application/json' });
     let options = new RequestOptions({
       headers: headers,
@@ -23,8 +23,8 @@ export class FormsService {
       .catch(this.error);
   }
 
-  updatePersona(id: string ,params: Object) {
-    let body = { id_persona: '', data:{} };
+  updatePersona(id: string, params: Object) {
+    let body = { id_persona: '', data: {} };
     body.id_persona = id;
     body.data = params;
     let headers = new Headers({'Content-Type': 'application/json' });

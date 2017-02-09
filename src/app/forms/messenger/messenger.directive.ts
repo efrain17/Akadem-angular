@@ -96,8 +96,6 @@ export class MessengerDemo {
 
         update();
       });
-
-    
   }
 
   public mensajeSucessFull(): void {

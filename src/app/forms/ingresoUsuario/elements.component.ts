@@ -2,8 +2,8 @@ import { Component, ViewEncapsulation, Injector } from '@angular/core';
 import { Select2OptionData } from 'ng2-select2';
 import { __platform_browser_private__ } from '@angular/platform-browser';
 import * as data from './elements.data';
-import { Persona } from '../../common/interfaces'
-import { FormsService } from '../forms.service'
+import { Persona } from '../../common/interfaces';
+import { FormsService } from '../forms.service';
 declare var jQuery: any;
 
 @Component({
@@ -26,8 +26,8 @@ export class Elements {
     nombres: '',
     apellidos: '',
     direccion: '',
-    provincia:'',
-    ciudad: '', 
+    provincia: '',
+    ciudad: '',
     fecha_nacimiento: '',
     telefono: [],
     operacion: ''
@@ -49,9 +49,6 @@ export class Elements {
         this.domSharedStylesHost.__onStylesAdded__(additions);
       }
     };
-    //for (var prop in this.persona) {
-    //  this.persona[prop] = '1';
-    //}
   }
 
   ngOnInit(): void {
@@ -71,7 +68,7 @@ export class Elements {
   }
 
   guardar(): void {
-    this.formsService.guardarPersona(this.persona)
+    this.formsService.guardarPersona(this.persona);
       /*.then(data=> {
         this.messengerDemo.mensajeSucessFull();
         this.nuevo();
@@ -80,13 +77,13 @@ export class Elements {
   }
 
   nuevo(): void {
-    this.persona= {
+    this.persona = {
       id_persona: '',
       nombres: '',
       apellidos: '',
       direccion: '',
-      provincia:'',
-      ciudad: '', 
+      provincia: '',
+      ciudad: '',
       fecha_nacimiento: '',
       telefono: [],
       operacion: ''

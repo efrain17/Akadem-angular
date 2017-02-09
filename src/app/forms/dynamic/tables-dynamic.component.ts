@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation, Injector } from '@angular/core';
-import { FormsService } from '../forms.service'
+import { FormsService } from '../forms.service';
 import { tableData } from './tables-dynamic.data';
 import { Persona, AtributosPersonas } from '../../common/interfaces';
 import { MessengerDemo } from '../messenger/messenger.directive';
@@ -14,13 +14,13 @@ declare var jQuery: any;
     './tables-dynamic.style.scss',
     '../notifications.style.scss',
     './elements.style.scss'
-  ], 
+  ],
   providers: [MessengerDemo]
 })
 export class TablesDynamic {
   data: any[];
   selectedTlf;
-  persona_id: string;
+  personaId: string;
   addTelefono: boolean = false;
   numberTlf: string = '';
   propietarioTlf: string = '';
@@ -28,7 +28,8 @@ export class TablesDynamic {
   dataAtributos: AtributosPersonas;
   injector: Injector;
   domSharedStylesHost: any;
-  select2Options: any = {
+  select2Options: any =
+  {
     theme: 'bootstrap'
   };
   colorOptions: Object = {color: '#f0b518'};
@@ -37,8 +38,8 @@ export class TablesDynamic {
     nombres: '',
     apellidos: '',
     direccion: '',
-    provincia:'',
-    ciudad: '', 
+    provincia: '',
+    ciudad: '',
     fecha_nacimiento: '',
     telefono: [],
     operacion: ''
@@ -52,7 +53,7 @@ export class TablesDynamic {
   constructor(
     injector: Injector,
     private formService: FormsService,
-    private messengerDemo: MessengerDemo 
+    private messengerDemo: MessengerDemo
   ) {
     this.domSharedStylesHost = injector.get(__platform_browser_private__.DomSharedStylesHost);
     this.domSharedStylesHost.__onStylesAdded__ = this.domSharedStylesHost.onStylesAdded;
@@ -63,11 +64,11 @@ export class TablesDynamic {
       }
     };
     this.formService.getPersonas()
-      .then(data => this.data = data); 
+      .then(data => this.data = data);
   }
 
-  cargarDatos(datos:any):void {
-    this.persona_id = datos.id_persona;
+  cargarDatos(datos: any): void {
+    this.personaId = datos.id_persona;
     console.log(datos);
     this.persona = datos;
     this.getAtributosPersonas();
@@ -94,14 +95,14 @@ export class TablesDynamic {
     return event.replace(/\D+/g, '');
   }
 
-  updatePersona() :void {
-    this.formService.updatePersona(this.persona_id, this.persona)
-      .then(data=>  this.messengerDemo.mensajeSucessFull())
-      .catch(err => this.messengerDemo.mensajeError())
+  updatePersona(): void {
+    this.formService.updatePersona(this.personaId, this.persona)
+      .then(data =>  this.messengerDemo.mensajeSucessFull())
+      .catch(err => this.messengerDemo.mensajeError());
   }
 
   mensaje(): void {
-    this.messengerDemo.mensajeSucessFull()
+    this.messengerDemo.mensajeSucessFull();
   }
 
   select2Changed(e: any): void {
@@ -123,16 +124,16 @@ export class TablesDynamic {
         this.dataAtributos = data;
         this.selectedTlf = data.operadores_telefonicos[0].descripcion;
         console.log(this.selectedTlf);
-        this.operadorTlf = []
+        this.operadorTlf = [];
         data.operadores_telefonicos.map(date =>
           this.operadorTlf.push(date.descripcion)
         );
       });
   }
-  
+
   agregarTelefono(): void {
     let idTelefono: any = this.dataAtributos.operadores_telefonicos;
-    idTelefono = idTelefono.find(date =>date.descripcion == this.selectedTlf);
+    idTelefono = idTelefono.find(date => date.descripcion === this.selectedTlf);
     let objTelefono = {
       'numero': this.numberTlf,
       'propietario': this.propietarioTlf,
@@ -145,13 +146,13 @@ export class TablesDynamic {
   }
 
   eliminarTelefono(telefono): void {
-    this.persona.telefono = this.persona.telefono.map(date =>{
-      if(date == telefono && date.operacion == 'insert') date.operacion = 'deleteLocal';
-      else if (date == telefono) date.operacion = 'delete';
+    this.persona.telefono = this.persona.telefono.map(date => {
+      if (date === telefono && date.operacion === 'insert') date.operacion = 'deleteLocal';
+      else if (date === telefono) date.operacion = 'delete';
       return date;
     });
     this.persona.telefono = this.persona.telefono.filter(date =>
-      date.operacion != 'deleteLocal');
+      date.operacion !== 'deleteLocal');
     console.log(this.persona.telefono);
   }
 
