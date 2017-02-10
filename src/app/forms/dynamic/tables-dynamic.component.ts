@@ -107,9 +107,10 @@ export class TablesDynamic {
   }
 
   updatePersona(): void {
-    this.formService.updatePersona(this.personaId, this.persona)
+    console.log(this.persona)
+    /* this.formService.updatePersona(this.personaId, this.persona)
       .then(data =>  this.messengerDemo.mensajeSucessFull())
-      .catch(err => this.messengerDemo.mensajeError());
+      .catch(err => this.messengerDemo.mensajeError()); */
   }
 
   mensaje(): void {
@@ -164,17 +165,19 @@ export class TablesDynamic {
   }
 
   agregarTelefono(): void {
-    let idTelefono: any = this.dataAtributos.operadores_telefonicos;
-    idTelefono = idTelefono.find(date => date.descripcion === this.selectedTlf);
-    let objTelefono = {
-      'numero': this.numberTlf,
-      'propietario': this.propietarioTlf,
-      'id_telefono': 'null',
-      'operacion': 'insert',
-      'id_operadora': idTelefono.id,
-    };
-    this.persona.telefono.push(objTelefono);
-    this.addTelefono = false;
+    if (this.numberTlf && this.propietarioTlf) {
+      let idTelefono: any = this.dataAtributos.operadores_telefonicos;
+      idTelefono = idTelefono.find(date => date.descripcion === this.selectedTlf);
+      let objTelefono = {
+        'numero': this.numberTlf,
+        'propietario': this.propietarioTlf,
+        'id_telefono': 'null',
+        'operacion': 'insert',
+        'id_operadora': idTelefono.id,
+      };
+      this.persona.telefono.push(objTelefono);
+      this.addTelefono = false;
+    }
   }
 
   agregarRolUsuario(): void {
