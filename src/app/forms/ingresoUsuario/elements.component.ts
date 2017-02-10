@@ -30,6 +30,8 @@ export class Elements {
     ciudad: '',
     fecha_nacimiento: '',
     telefono: [],
+    tipo_usuario: [],
+    discapacidad: [],
     operacion: ''
   };
 
@@ -86,6 +88,8 @@ export class Elements {
       ciudad: '',
       fecha_nacimiento: '',
       telefono: [],
+      tipo_usuario: [],
+      discapacidad: [],
       operacion: ''
     };
   }

@@ -208,11 +208,27 @@
                     </div>
                     <div class="col-md-7 col-xs-12 offset-md-4">
                       <span *ngFor="let tipo of persona.tipo_usuario">
-                        <span class="fw-semi-bold">{{tipo.descripcion}}</span>
-                        <a href="#">Eliminar</a>
-                      <br>
+                        <div *ngIf="tipo.operacion != 'delete'">
+                          <span class="fw-semi-bold">{{tipo.descripcion}}</span>
+                          <a class="text-primary" (click)="eliminarRolUser(tipo)">Eliminar</a>
+                          <br>
+                        </div>
                       </span>
-                      <a href="#">+Agregar rol de usuario</a>
+                      <a class="text-primary" (click)="addRolUsuario=!addRolUsuario">+Agregar rol de usuario</a>
+                    </div>
+                    <div *ngIf="addRolUsuario">
+                      <div class="form-group row">
+                        <label class="col-md-4 col-form-label text-md-right" for="default-select">Rol de Usuario</label>
+                        <div class="col-md-7 ">
+                          <select2 id="default-select" 
+                                  (valueChanged)="selectRolChanged($event)"
+                                  [data]="getTipoRolUsuario()" [options]="select2Options" width="100%"></select2>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" (click)="addRolUsuario=false" class="btn btn-gray" >Close</button>
+                        <button type="button" (click)="agregarRolUsuario()" class="btn btn-success">Save</button>
+                      </div> 
                     </div>        
                   </accordion-group>
                   <accordion-group>

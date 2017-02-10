@@ -13,7 +13,9 @@
     "tipos_usuarios":[
         { "descripcion": "Administrador", "id": "1" },
         { "descripcion": "Docente", "id": "2" },
-        { "descripcion": "Estudiante", "id": "3" }
+        { "descripcion": "Estudiante", "id": "3" },
+        { "descripcion": "Secretario", "id": "4" },
+        { "descripcion": "Invitado", "id": "5" }
     ], 
     "tipos_persona":[
         { "descripcion": "Administrador", "id": "1" },

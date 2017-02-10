@@ -7,6 +7,8 @@ export interface Persona {
   ciudad: string;
   fecha_nacimiento: string;
   telefono: any;
+  tipo_usuario: any;
+  discapacidad: any; 
   operacion: string;
 }
 

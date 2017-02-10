@@ -14,8 +14,8 @@
       { "descripcion":"Autismo", "porcentaje": "10%", "id_discapacidad": "2", "operacion": "null"}
     ],
     "tipo_usuario": [
-      { "descripcion":"Administrador","id_tipo_usuario": "1" , "operacion": "null"},
-      { "descripcion":"Docente", "id_tipo_usuario": "2", "operacion": "null"}
+      { "descripcion":"Administrador","id_tipo_usuario": "1" , "operacion": "null", "id": "1"},
+      { "descripcion":"Docente", "id_tipo_usuario": "2", "operacion": "null",  "id": "2"}
     ],
     "provincia": "Manabí",
     "fecha_nacimiento": "12/12/2016",
@@ -32,16 +32,15 @@
     "direccion": "Urb la fuente 2",
     "ciudad": "Portoviejo",
     "telefono": [
-      { "numero":"0939522786", "propietario": "Efrain coello", "id_telefono": "1" , "operacion": "null", "id_operadora": "1"},
-      { "numero":"052442142", "propietario": "Casa Efrain coello", "id_telefono": "2", "operacion": "null", "id_operadora": "1"}
+      { "numero":"000000000", "propietario": "Efrain coello", "id_telefono": "1" , "operacion": "null", "id_operadora": "1"},
+      { "numero":"052442142", "propietario": "Juanito Alimaña", "id_telefono": "2", "operacion": "null", "id_operadora": "1"}
     ],
     "discapacidad": [
       { "descripcion":"Ceguera", "porcentaje": "25%", "id_discapacidad": "1", "operacion": "null"},
       { "descripcion":"Auditiva", "porcentaje": "10%", "id_discapacidad": "2", "operacion": "null"}
     ],
     "tipo_usuario": [
-      { "descripcion":"Administrador","id_tipo_usuario": "1", "operacion": "null"},
-      { "descripcion":"Docente", "id_tipo_usuario": "2", "operacion": "null"}
+      { "descripcion":"Administrador","id_tipo_usuario": "1", "operacion": "null", "id": "3"}
     ],
     "provincia": "Manabí",
     "fecha_nacimiento": "12/12/2016",
