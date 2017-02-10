@@ -21,14 +21,19 @@ export class TablesDynamic {
   data: any[];
   selectedTlf;
   selectedRolUser;
+  selectedDiscapacidad;
   personaId: string;
   addTelefono: boolean = false;
   addRolUsuario: boolean = false;
+  addDiscapacidad: boolean = false;
   numberTlf: string = '';
+  porcentajeDiscapacidad: string = '';
   propietarioTlf: string = '';
   operadorTlf: any = [];
   rolesUsuarios: any = [];
+  discapacidades: any = []
   rolesUsuariosOld: any = [];
+  discapacidadesOld: any = [];
   dataAtributos: AtributosPersonas;
   injector: Injector;
   domSharedStylesHost: any;
@@ -119,11 +124,20 @@ export class TablesDynamic {
     this.selectedRolUser = e.value;
   }
 
+  selectDiscapacidadChanged(e: any): void {
+    this.selectedDiscapacidad = e.value;
+  }
+
   getTipoTelefono(): void {
     return this.operadorTlf;
   }
+
   getTipoRolUsuario(): void {
     return this.rolesUsuarios;
+  }
+
+  getTipoDiscapacidad(): void {
+    return this.discapacidades;
   }
 
   ngOnDestroy(): void {
@@ -141,8 +155,11 @@ export class TablesDynamic {
         this.rolesUsuarios =  [];
         data.operadores_telefonicos.map(date => this.operadorTlf.push(date.descripcion));
         data.tipos_usuarios.map(date => this.rolesUsuarios.push(date.descripcion));
+        data.discapacidades.map(date => this.discapacidades.push(date.descripcion));
         this.rolesUsuariosOld = this.rolesUsuarios;
+        this.discapacidadesOld = this.discapacidades;
         this.filtrarRolesRepetidos();
+        this.filtrarDiscapacidadesRepetidos();
       });
   }
 
@@ -161,7 +178,7 @@ export class TablesDynamic {
   }
 
   agregarRolUsuario(): void {
-    if(this.selectedRolUser){
+    if (this.selectedRolUser) {
       let idRolUser: any = this.dataAtributos.tipos_usuarios;
       idRolUser = idRolUser.find(date => date.descripcion === this.selectedRolUser);
       let objRolUser = {
@@ -176,35 +193,63 @@ export class TablesDynamic {
     }
   }
 
-  eliminarTelefono(telefono): void {
-    this.persona.telefono = this.persona.telefono.map(date => {
-      if (date === telefono && date.operacion === 'insert') date.operacion = 'deleteLocal';
-      else if (date === telefono) date.operacion = 'delete';
+  agregarDiscapacidad(): void {
+    if (this.selectedDiscapacidad && this.porcentajeDiscapacidad) {
+      let idDiscapacidad: any = this.dataAtributos.discapacidades;
+      idDiscapacidad = idDiscapacidad.find(date => date.descripcion === this.selectedDiscapacidad);
+      let objDiscapacidad = {
+        'descripcion': idDiscapacidad.descripcion,
+        'id_discapacidad': idDiscapacidad.id_discapacidad,
+        'operacion': 'insert',
+        'porcentaje': this.porcentajeDiscapacidad
+      };
+      this.persona.discapacidad.push(objDiscapacidad);
+      this.addDiscapacidad = false;
+      this.filtrarDiscapacidadesRepetidos();
+    }
+  }
+
+  eliminarParametro(parametrosArray, parametroDelete): void {
+    parametrosArray = parametrosArray.map(date => {
+      if (date === parametroDelete && date.operacion === 'insert') date.operacion = 'deleteLocal';
+      else if (date === parametroDelete) date.operacion = 'delete';
       return date;
     });
-    this.persona.telefono = this.persona.telefono.filter(date =>
-      date.operacion !== 'deleteLocal');
-    console.log(this.persona.telefono);
+    parametrosArray = parametrosArray.filter(date => date.operacion !== 'deleteLocal');
+    console.log(parametrosArray);
+    return parametrosArray;
+  }
+
+  eliminarTelefono(telefono): void {
+    this.persona.telefono = this.eliminarParametro(this.persona.telefono, telefono);
   }
 
   eliminarRolUser(rolUser): void {
-    this.persona.tipo_usuario = this.persona.tipo_usuario.map(date => {
-      if (date === rolUser && date.operacion === 'insert') date.operacion = 'deleteLocal';
-      else if (date === rolUser) date.operacion = 'delete';
-      return date;
-    });
-    this.persona.tipo_usuario = this.persona.tipo_usuario.filter(date =>
-      date.operacion !== 'deleteLocal');
+    this.persona.tipo_usuario = this.eliminarParametro(this.persona.tipo_usuario, rolUser);
     this.filtrarRolesRepetidos();
-    console.log(this.persona.tipo_usuario);
+  }
+
+  eliminarDiscapacidad(discapcidadUser): void {
+    this.persona.discapacidad =  this.eliminarParametro(this.persona.discapacidad, discapcidadUser);
+    this.filtrarRolesRepetidos();
+  }
+
+  filtrarParametros(parametrosArray, parametrosArrayFilter): void {
+    return parametrosArray.filter(dataFilter => {
+      let dataReturn =parametrosArrayFilter.find(data => data.descripcion === dataFilter);
+      if (!dataReturn) return dataFilter;
+    });
   }
 
   filtrarRolesRepetidos(): void {
-    this.rolesUsuarios = this.rolesUsuariosOld.filter(dataFilter => {
-      let dataReturn = this.persona.tipo_usuario.find(data => data.descripcion === dataFilter);
-      if (!dataReturn) return dataFilter;
-    });
+    this.rolesUsuarios = this.filtrarParametros(this.rolesUsuariosOld, this.persona.tipo_usuario);
     this.selectedRolUser = this.rolesUsuarios[0];
+  }
+
+  filtrarDiscapacidadesRepetidos(): void {
+    this.discapacidades = this.filtrarParametros(this.discapacidadesOld, this.persona.discapacidad);
+    this.selectedDiscapacidad = this.discapacidades[0];
+    this.porcentajeDiscapacidad = '';
   }
 
   newUpdate(): void {
