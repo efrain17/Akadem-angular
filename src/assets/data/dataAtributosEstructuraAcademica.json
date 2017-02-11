@@ -1,0 +1,37 @@
+{
+	"area_academica":[
+		{ "descripcion": "Estudios de Lengua y Literatura", "id_area_academica": "1" },
+		{ "descripcion": "Adquisición de Lenguas", "id_area_academica": "2" },
+		{ "descripcion": "Individuos y Sociedades", "id_area_academica": "3" },
+		{ "descripcion": "Ciencias Experimentales", "id_area_academica": "4" },
+		{ "descripcion": "Matemáticas", "id_area_academica": "5" },
+		{ "descripcion": "Artes", "id_area_academica": "6" }
+	], 
+	"tipo_grado":[
+		{ "descripcion": "Preparatoria", "id_tipo_grado": "1"}, 
+		{ "descripcion": "Básica Elemental", "id_tipo_grado": "2"},
+		{ "descripcion": "Básica Media", "id_tipo_grado": "3"},
+		{ "descripcion": "Básica Superior", "id_tipo_grado": "4"},
+	],
+	"grado":[
+		{ "descripcion": "Primer", "id_grado": "1", "id_tipo_grado": "1" },
+		{ "descripcion": "Segundo", "id_grado": "2", "id_tipo_grado": "2" },
+		{ "descripcion": "Tercero", "id_grado": "2", "id_tipo_grado": "2" },
+		{ "descripcion": "Cuarto", "id_grado": "2", "id_tipo_grado": "2" },
+	],
+	"paralelo":[
+		{ "descripcion": "A", "id_paralelo": "1"}, 
+		{ "descripcion": "B", "id_paralelo": "2"}, 
+		{ "descripcion": "C", "id_paralelo": "3"}
+	],
+	"asignatura":[
+		{ "descripcion": "lengua", "id_asignatura": "1", "id_area_academica": "1", "area_academica": "Estudios de Lengua y Literatura"},
+		{ "descripcion": "Ingles", "id_asignatura": "2", "id_area_academica": "2", "area_academica": "Adquisición de Lenguas"},
+		{ "descripcion": "Calculo de variables", "id_asignatura": "3", "id_area_academica": "5", "area_academica": "Matemáticas"}
+	], 
+	"tipo_curso":[
+		{ "descripcion": "Matutino", "id_tipo_curso": "1" }, 
+		{ "descripcion": "Vespertino", "id_tipo_curso": "2" }
+	]
+
+}

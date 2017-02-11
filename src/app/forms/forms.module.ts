@@ -55,6 +55,7 @@ import { Elements as ingresoUser } from './ingresoUsuario/elements.component';
 import { TablesDynamic } from './dynamic/tables-dynamic.component';
 import { SearchPipe } from './dynamic/pipes/search-pipe';
 import { MessengerDemo } from './messenger/messenger.directive';
+import { EstructuraEducativa } from './estructura-educativa/estructura-educativa.component';
 
 import { FormsService } from './forms.service';
 
@@ -65,6 +66,7 @@ export const routes = [
   {path: 'wizard', component: Wizard},
   {path: 'usuarios', component: ingresoUser},
   {path: 'administrar-usuarios', component: TablesDynamic},
+  {path: 'estructura-educativa', component: EstructuraEducativa}
 ];
 
 @NgModule({
@@ -78,7 +80,8 @@ export const routes = [
     ingresoUser,
     TablesDynamic,
     SearchPipe,
-    MessengerDemo
+    MessengerDemo,
+    EstructuraEducativa
   ],
   imports: [
     CommonModule,

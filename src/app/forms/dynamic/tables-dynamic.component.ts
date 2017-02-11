@@ -11,9 +11,9 @@ declare var jQuery: any;
   templateUrl: './tables-dynamic.template.html',
   encapsulation: ViewEncapsulation.None,
   styleUrls: [
-    './tables-dynamic.style.scss',
-    '../notifications.style.scss',
-    './elements.style.scss'
+    '../scss/tables-dynamic.style.scss',
+    '../scss/notifications.style.scss',
+    '../scss/elements.style.scss'
   ],
   providers: [MessengerDemo]
 })
