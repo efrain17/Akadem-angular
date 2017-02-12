@@ -12,6 +12,167 @@
         </div>
       </header>
       <div class="widget-body">
+       <form class="form-horizontal" role="form">
+        <fieldset>  
+          <accordion [closeOthers]="true" class="mb-lg show" id="accordion2">
+            <accordion-group >
+              <div accordion-heading>
+                    Área Academica
+                    <i class="fa fa-angle-down float-xs-right"></i>
+              </div>
+              <div>
+                <span *ngFor="let area of estructuraAcademica.area_academica">
+                  <div *ngIf="area.operacion != 'delete'">
+                    <span class="fw-semi-bold">{{area.descripcion}}</span>
+                    <a class="text-primary" (click)="eliminarAreaAcademica(area)">Eliminar</a>
+                    <br>
+                  </div>
+                </span>
+                <a class="text-primary" (click)="addAreaAcademica=!addAreaAcademica">
+                  +Agregar otra área academica
+                </a>
+              </div>
+              <!--form add -->
+              <div *ngIf="addAreaAcademica">
+                <div class="form-group">
+                  <label for="normal-field" class="col-form-label text-md-right">Nombre del área</label>
+                  <div>
+                    <input type="text" name="nombreAreaAcademica" [(ngModel)]="nombreAreaAcademica" class="form-control" placeholder="Nombre del área">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" (click)="addAreaAcademica=false" class="btn btn-gray" >Close</button>
+                  <button type="button" (click)="agregarAreaAcademica()" class="btn btn-success">Save</button>
+                </div> 
+              </div>       
+            </accordion-group>
+            <accordion-group >
+              <div accordion-heading>
+                    Tipo de grado Academico
+                    <i class="fa fa-angle-down float-xs-right"></i>
+              </div>
+              <div>
+                <span *ngFor="let tipogrado of estructuraAcademica.tipo_grado">
+                  <div *ngIf="tipogrado.operacion != 'delete'">
+                    <span class="fw-semi-bold">{{tipogrado.descripcion}}</span>
+                    <a class="text-primary" (click)="eliminarTipoGrado(tipogrado)">Eliminar</a>
+                    <br>
+                  </div>
+                </span>
+                <a class="text-primary" (click)="addTipoGrado=!addTipoGrado">
+                  +Agregar tipo de grado academico
+                </a>
+              </div>
+              <!--form add -->
+              <div *ngIf="addTipoGrado">
+                <div class="form-group">
+                  <label for="normal-field" class="col-form-label text-md-right">Nombre del tipo de grado</label>
+                  <div>
+                    <input type="text" name="nombreTipoGrado" [(ngModel)]="nombreTipoGrado" class="form-control" placeholder="Nombre del tipo de grado">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" (click)="addTipoGrado=false" class="btn btn-gray" >Close</button>
+                  <button type="button" (click)="agregarTipoGrado()" class="btn btn-success">Save</button>
+                </div>
+              </div>
+            </accordion-group>
+            <accordion-group >
+              <div accordion-heading>
+                    Grado Academico
+                    <i class="fa fa-angle-down float-xs-right"></i>
+              </div>
+              <div>
+                <span *ngFor="let grado of estructuraAcademica.grado">
+                  <div *ngIf="grado.operacion != 'delete'">
+                    <span class="fw-semi-bold">{{grado.descripcion}}</span>
+                    <a class="text-primary" (click)="eliminarGrado(grado)">Eliminar</a>
+                    <br>
+                  </div>
+                </span>
+                <a class="text-primary" (click)="addGrado=!addGrado">
+                  +Agregar grado academico
+                </a>
+              </div>
+              <!--form add -->
+              <div *ngIf="addGrado">
+                <div class="form-group">
+                  <label for="normal-field" class="col-form-label text-md-right">Nombre del grado</label>
+                  <div>
+                    <input type="text" name="nombreGrado" [(ngModel)]="nombreGrado" class="form-control" placeholder="Nombre del grado">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" (click)="addGrado=false" class="btn btn-gray" >Close</button>
+                  <button type="button" (click)="agregarGrado()" class="btn btn-success">Save</button>
+                </div>
+              </div>
+            </accordion-group>
+            <accordion-group >
+              <div accordion-heading>
+                    Tipo de curso
+                    <i class="fa fa-angle-down float-xs-right"></i>
+              </div>
+              <div>
+                <span *ngFor="let tipoCurso of estructuraAcademica.tipo_curso">
+                  <div *ngIf="tipoCurso.operacion != 'delete'">
+                    <span class="fw-semi-bold">{{tipoCurso.descripcion}}</span>
+                    <a class="text-primary" (click)="eliminarTipoCurso(tipoCurso)">Eliminar</a>
+                    <br>
+                  </div>
+                </span>
+                <a class="text-primary" (click)="addTipoCurso=!addTipoCurso">
+                  +Agregar tipo curso
+                </a>
+              </div>
+              <!--form add -->
+              <div *ngIf="addTipoCurso">
+                <div class="form-group">
+                  <label for="normal-field" class="col-form-label text-md-right">Nombre del curso</label>
+                  <div>
+                    <input type="text" name="nombreTipoCurso" [(ngModel)]="nombreTipoCurso" class="form-control" placeholder="Nombre del tipo de curso">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" (click)="addTipoCurso=false" class="btn btn-gray" >Close</button>
+                  <button type="button" (click)="agregarTipoCurso()" class="btn btn-success">Save</button>
+                </div>
+              </div>
+            </accordion-group>
+            <accordion-group >
+              <div accordion-heading>
+                    Paralelo Academico
+                    <i class="fa fa-angle-down float-xs-right"></i>
+              </div>
+              <div>
+                <span *ngFor="let paralelo of estructuraAcademica.paralelo">
+                  <div *ngIf="paralelo.operacion != 'delete'">
+                    <span class="fw-semi-bold">{{paralelo.descripcion}}</span>
+                    <a class="text-primary"  (click)="eliminarParalelo(paralelo)">Eliminar</a>
+                    <br>
+                  </div>
+                </span>
+                <a class="text-primary" (click)="addParalelo=!addParalelo">
+                  +Agregar paralelo academico
+                </a>
+              </div>
+              <!--form add -->
+              <div *ngIf="addParalelo">
+                <div class="form-group">
+                  <label for="normal-field" class="col-form-label text-md-right">Nombre del paralelo</label>
+                  <div >
+                    <input type="text" name="nombreParalelo" [(ngModel)]="nombreParalelo" class="form-control" placeholder="Nombre del paralelo">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" (click)="addParalelo=false" class="btn btn-gray" >Close</button>
+                  <button type="button" (click)="agregarParalelo()" class="btn btn-success">Save</button>
+                </div>
+              </div>
+            </accordion-group>                
+          </accordion>
+        </fieldset>
+       </form>
       </div>
     </section>
   </div>

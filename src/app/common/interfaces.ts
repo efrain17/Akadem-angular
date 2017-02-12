@@ -30,3 +30,11 @@ export interface AtributosPersonas {
     id: any
   };
 }
+
+export interface AtributosEstructuraClase {
+  area_academica: any;
+  tipo_grado: any;
+  grado: any;
+  paralelo: any;
+  tipo_curso: any;
+}

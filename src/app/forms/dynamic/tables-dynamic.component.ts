@@ -75,7 +75,8 @@ export class TablesDynamic {
       }
     };
     this.formService.getPersonas()
-      .then(data => this.data = data);
+      .then(data => this.data = data)
+      .catch(err => this.messengerDemo.mensajeError());
   }
 
   cargarDatos(datos: any): void {

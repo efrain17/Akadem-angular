@@ -11,13 +11,13 @@
 		{ "descripcion": "Preparatoria", "id_tipo_grado": "1"}, 
 		{ "descripcion": "Básica Elemental", "id_tipo_grado": "2"},
 		{ "descripcion": "Básica Media", "id_tipo_grado": "3"},
-		{ "descripcion": "Básica Superior", "id_tipo_grado": "4"},
+		{ "descripcion": "Básica Superior", "id_tipo_grado": "4"}
 	],
 	"grado":[
 		{ "descripcion": "Primer", "id_grado": "1", "id_tipo_grado": "1" },
 		{ "descripcion": "Segundo", "id_grado": "2", "id_tipo_grado": "2" },
 		{ "descripcion": "Tercero", "id_grado": "2", "id_tipo_grado": "2" },
-		{ "descripcion": "Cuarto", "id_grado": "2", "id_tipo_grado": "2" },
+		{ "descripcion": "Cuarto", "id_grado": "2", "id_tipo_grado": "2" }
 	],
 	"paralelo":[
 		{ "descripcion": "A", "id_paralelo": "1"}, 
