@@ -190,9 +190,9 @@
                       <div class="form-group row">
                         <label class="col-md-4 col-form-label text-md-right" for="default-select">Operadora</label>
                         <div class="col-md-7 ">
-                          <select2 id="default-select"
-                                  (valueChanged)="select2Changed($event)"
-                                  [data]="getTipoTelefono()" [options]="select2Options" width="100%"></select2>
+                          <select2 id="default-select"(valueChanged)="select2Changed($event)"
+                            [data]="getTipoTelefono()" [options]="select2Options" width="100%">
+                          </select2>
                         </div>
                       </div>
                       <div class="modal-footer">

@@ -37,4 +37,10 @@ export interface AtributosEstructuraClase {
   grado: any;
   paralelo: any;
   tipo_curso: any;
+  periodo: any; 
+}
+
+export interface AtributosAsignatura {
+  area_academica: any;
+  asignatura: any;
 }

@@ -56,6 +56,7 @@ import { TablesDynamic } from './dynamic/tables-dynamic.component';
 import { SearchPipe } from './dynamic/pipes/search-pipe';
 import { MessengerDemo } from './messenger/messenger.directive';
 import { EstructuraEducativa } from './estructura-educativa/estructura-educativa.component';
+import { Clase } from './clase/clase.component';
 
 import { FormsService } from './forms.service';
 
@@ -66,7 +67,8 @@ export const routes = [
   {path: 'wizard', component: Wizard},
   {path: 'usuarios', component: ingresoUser},
   {path: 'administrar-usuarios', component: TablesDynamic},
-  {path: 'estructura-educativa', component: EstructuraEducativa}
+  {path: 'estructura-educativa', component: EstructuraEducativa},
+  {path: 'clase', component: Clase}
 ];
 
 @NgModule({
@@ -81,7 +83,8 @@ export const routes = [
     TablesDynamic,
     SearchPipe,
     MessengerDemo,
-    EstructuraEducativa
+    EstructuraEducativa,
+    Clase
   ],
   imports: [
     CommonModule,

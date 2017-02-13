@@ -32,6 +32,16 @@
 	"tipo_curso":[
 		{ "descripcion": "Matutino", "id_tipo_curso": "1" }, 
 		{ "descripcion": "Vespertino", "id_tipo_curso": "2" }
+	],
+	"periodo": [
+		{ "descripcion": "2016-2017","id_periodo": "1", "estado": false, "fecha_inicio": "12/3/2016", "fecha_fin": "26/2/2017"},
+		{ "descripcion": "2015-2016","id_periodo": "2", "estado": false, "fecha_inicio": "12/3/2015", "fecha_fin": "26/2/2016"},
+		{ "descripcion": "2014-2015","id_periodo": "3", "estado": false, "fecha_inicio": "12/3/2014", "fecha_fin": "26/2/2015"},
+		{ "descripcion": "2013-2014","id_periodo": "4", "estado": false, "fecha_inicio": "12/3/2013", "fecha_fin": "26/2/2014"},
+		{ "descripcion": "2012-2013","id_periodo": "5", "estado": false, "fecha_inicio": "12/3/2012", "fecha_fin": "26/2/2013"},
+		{ "descripcion": "2011-2013","id_periodo": "6", "estado": false, "fecha_inicio": "12/3/2011", "fecha_fin": "26/2/2012"},
+		{ "descripcion": "2010-2011","id_periodo": "7", "estado": false, "fecha_inicio": "12/3/2010", "fecha_fin": "26/2/2011"},
+		{ "descripcion": "2009-2010","id_periodo": "8", "estado": false, "fecha_inicio": "12/3/2009", "fecha_fin": "26/2/2010"},
+		{ "descripcion": "2008-2009","id_periodo": "9", "estado": false, "fecha_inicio": "12/3/2008", "fecha_fin": "26/2/2009"}
 	]
-
 }

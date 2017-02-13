@@ -51,14 +51,20 @@ export class FormsService {
     return this.getServer(url);
   }
 
+  getAtributosAsignatura() {
+    let url = '/assets/data/dataAsignatura.json';
+    return this.getServer(url);
+  }
+
   deleteAtributosEstrClase(url, id) {
     url = url +'?id='+ id;
     return this.getServer(url);
   }
 
-  insertAtributosEstrClase(url, nombre) {
-    url = url +'?nombre='+ nombre;
-    return this.getServer(url);
+  insertAtributosEstrClase(url, params) {
+    let body = { data: {} };
+    body.data = params;
+    return this.postServerAppJson(url, body);
   }
 
   getServer(url)  {

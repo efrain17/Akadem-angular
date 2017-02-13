@@ -3,6 +3,7 @@ import { FormsService } from '../forms.service';
 import { AtributosEstructuraClase } from '../../common/interfaces';
 import { MessengerDemo } from '../messenger/messenger.directive';
 import { __platform_browser_private__ } from '@angular/platform-browser';
+import { deleteParametro, eliminarParametroObj, addParametro } from '../../common/funtions'
 declare var jQuery: any;
 
 @Component({
@@ -34,8 +35,14 @@ export class EstructuraEducativa {
     grado: [],
     tipo_curso: [],
     paralelo: [],
-    tipo_grado: []
+    tipo_grado: [], 
+    periodo: []
   };
+  periodo: any = {
+    fechaInicio: '',
+    fechaFin: '',
+    descripcion: ''
+  }
   nombreAreaAcademica;
   nombreGrado;
   nombreTipoCurso;
@@ -45,7 +52,8 @@ export class EstructuraEducativa {
   addGrado: boolean = false;
   addTipoCurso: boolean = false;
   addTipoGrado: boolean = false;
-  addParalelo: boolean = false; 
+  addParalelo: boolean = false;
+  addPeriodo: boolean = false; 
 
   constructor(
     injector: Injector,
@@ -167,10 +175,31 @@ export class EstructuraEducativa {
     this.addParalelo = false;
   }
 
-  agregarParametro(url, parametro, callback): void {  
-    this.formService.deleteAtributosEstrClase(url, parametro)
-    .then(data => callback())
-    .catch(err => this.messengerDemo.mensajeError());   
+  agregarPeriodo(): void {
+    // this.agregarParametro('/educacion/agregar-periodo', this.periodo, ()=> {
+    //   let date = { descripcion: '', fecha_inicio: '', fecha_fin: ''}
+    //   date.descripcion = this.periodo.descripcion;
+    //   date.fecha_inicio = this.periodo.fechaInicio;
+    //   date.fecha_fin = this.periodo.fechaFin;
+    //   this.estructuraAcademica.periodo.push(date);
+    //   this.periodo.descripcion = '';
+    //   this.periodo.fechaInicio = '';
+    //   this.periodo.fechaFin = ''; 
+    //   this.addPeriodo = false; 
+    // });
+    let date = { descripcion: '', fecha_inicio: '', fecha_fin: '', estado: false}
+    date.descripcion = this.periodo.descripcion;
+    date.fecha_inicio = this.periodo.fechaInicio;
+    date.fecha_fin = this.periodo.fechaFin;
+    this.estructuraAcademica.periodo.push(date);
+    this.periodo.descripcion = '';
+    this.periodo.fechaInicio = '';
+    this.periodo.fechaFin = ''; 
+    this.addPeriodo = false;
+  }
+
+  agregarParametro(url, parametro, callback): void {
+    addParametro(url, parametro, callback, this.formService, this.messengerDemo);
   }
 
   eliminarAreaAcademica(area): void {
@@ -178,7 +207,7 @@ export class EstructuraEducativa {
     //   let newEstructura = this.eliminarParametroObj(area, this.estructuraAcademica.area_academica);
     //   this.estructuraAcademica.area_academica = newEstructura;
     // });
-    let newEstructura = this.eliminarParametroObj(area, this.estructuraAcademica.area_academica);
+    let newEstructura = eliminarParametroObj(area, this.estructuraAcademica.area_academica);
     this.estructuraAcademica.area_academica = newEstructura;
   }
 
@@ -187,7 +216,7 @@ export class EstructuraEducativa {
     //   let newEstructura = this.eliminarParametroObj(tipogrado, this.estructuraAcademica.tipo_grado);
     //   this.estructuraAcademica.tipo_grado = newEstructura;
     // });
-    let newEstructura = this.eliminarParametroObj(tipogrado, this.estructuraAcademica.tipo_grado);
+    let newEstructura = eliminarParametroObj(tipogrado, this.estructuraAcademica.tipo_grado);
     this.estructuraAcademica.tipo_grado = newEstructura;
   }
 
@@ -196,7 +225,7 @@ export class EstructuraEducativa {
     //   let newEstructura = this.eliminarParametroObj(grado, this.estructuraAcademica.grado);
     //   this.estructuraAcademica.grado = newEstructura;
     // });
-    let newEstructura = this.eliminarParametroObj(grado, this.estructuraAcademica.grado);
+    let newEstructura = eliminarParametroObj(grado, this.estructuraAcademica.grado);
     this.estructuraAcademica.grado = newEstructura;
   }
 
@@ -205,7 +234,7 @@ export class EstructuraEducativa {
     //   let newEstructura = this.eliminarParametroObj(tipoCurso, this.estructuraAcademica.tipo_curso);
     //   this.estructuraAcademica.tipo_curso = newEstructura;
     // });
-    let newEstructura = this.eliminarParametroObj(tipoCurso, this.estructuraAcademica.tipo_curso);
+    let newEstructura = eliminarParametroObj(tipoCurso, this.estructuraAcademica.tipo_curso);
     this.estructuraAcademica.tipo_curso = newEstructura;
   }
 
@@ -214,18 +243,26 @@ export class EstructuraEducativa {
     //   let newEstructura = this.eliminarParametroObj(paralelo, this.estructuraAcademica.paralelo);
     //   this.estructuraAcademica.paralelo = newEstructura;
     // });
-    let newEstructura = this.eliminarParametroObj(paralelo, this.estructuraAcademica.paralelo);
+    let newEstructura = eliminarParametroObj(paralelo, this.estructuraAcademica.paralelo);
     this.estructuraAcademica.paralelo = newEstructura;
   }
 
-  eliminarParametroObj(param, paramArray) {
-    return paramArray.filter(data => data !== param);
+  desactivarPeriodo(thisPeriodo): void {
+    // this.eliminarParametro('/educacion/desactivar-periodo', thisPeriodo, ()=> {
+    //    thisPeriodo.estado = false;
+    // });
+    thisPeriodo.estado = false;
+  }
+
+  ActivarPeriodo(thisPeriodo): void {
+    // this.eliminarParametro('/educacion/activar-periodo', thisPeriodo, ()=> {
+    //    thisPeriodo.estado = true;
+    // });
+    thisPeriodo.estado = true;
   }
 
   eliminarParametro(url, parametro, callback){
-    this.formService.deleteAtributosEstrClase(url, parametro)
-    .then(data => callback())
-    .catch(err => this.messengerDemo.mensajeError());
+    deleteParametro(url, parametro, callback, this.formService, this.messengerDemo);
   }
 
 }
