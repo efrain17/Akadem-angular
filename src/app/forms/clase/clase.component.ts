@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation, Injector } from '@angular/core';
 import { FormsService } from '../forms.service';
-import { AtributosAsignatura } from '../../common/interfaces';
+import { AtributosAsignatura, AtributosCurso } from '../../common/interfaces';
 import { MessengerDemo } from '../messenger/messenger.directive';
 import { __platform_browser_private__ } from '@angular/platform-browser';
 import { deleteParametro, eliminarParametroObj, addParametro } from '../../common/funtions'
@@ -19,25 +19,39 @@ declare var jQuery: any;
 })
 export class Clase {
   domSharedStylesHost: any;
-  select2Options: any =
-  {
-    theme: 'bootstrap'
-  };
+  nombreAsignatura;
+  nombreCurso;
+  selectedAreaAcademica;
+  selectedGrado;
+  selectedParalelo;
+  selectedPeriodo;
+  selectedTipoCurso;
+  addAsignatura: boolean = false;
+  addCurso: boolean = false;  
+  areasAcademicas: any = [];
+  grados: any = [];
+  paralelos: any = [];
+  periodos: any = [];
+  tipoCursos: any = [];
   colorOptions: Object = {color: '#f0b518'};
+  select2Options: any = {theme: 'bootstrap'};
   dataAsignatura: AtributosAsignatura = 
   {
     area_academica: [], 
     asignatura: [],
   };
+  atributosCurso: AtributosCurso = {
+    curso: [],
+    grado: [],
+    paralelo: [],
+    periodo: [],
+    tipo_curso: []
+  };
   periodo: any = {
     fechaInicio: '',
     fechaFin: '',
     descripcion: ''
-  }
-  nombreAsignatura;
-  selectedAreaAcademica;
-  addAsignatura: boolean = false;
-  areasAcademicas: any = [];
+  };
 
   constructor(
     injector: Injector,
@@ -56,9 +70,23 @@ export class Clase {
     this.formService.getAtributosAsignatura()
       .then(data => {
         this.dataAsignatura = data;
-        this.areasAcademicas = [];
-        data.area_academica.map(date => this.areasAcademicas.push(date.descripcion));
+        this.areasAcademicas = this.cargarLista(this.areasAcademicas, data.area_academica);
         this.selectedAreaAcademica = this.areasAcademicas[0];
+    })
+      .catch(err => this.messengerDemo.mensajeError());
+
+    this.formService.getAtributosCurso()
+      .then(data => {
+        this.atributosCurso = data;
+        this.grados = this.cargarLista(this.grados, data.grado);
+        this.paralelos = this.cargarLista(this.paralelos, data.paralelo);
+        this.periodos = this.cargarLista(this.periodos, data.periodo);
+        this.tipoCursos = this.cargarLista(this.tipoCursos, data.tipo_curso);
+        this.selectedGrado = this.grados[0];
+        this.selectedParalelo = this.paralelos[0];
+        this.selectedPeriodo = this.periodos[0];
+        this.selectedTipoCurso = this.tipoCursos[0];
+
       })
       .catch(err => this.messengerDemo.mensajeError());
   }
@@ -84,29 +112,75 @@ export class Clase {
     // detach custom hook
     this.domSharedStylesHost.onStylesAdded = this.domSharedStylesHost.__onStylesAdded__;
   }
-  
+
+  cargarLista(lista, data): void {
+    lista = [];
+    data.map(date => lista.push(date.descripcion));
+    return lista;
+  }  
+
   selectAreaAcademica(e: any): void {
     this.selectedAreaAcademica = e.value;
   }
 
-  getAreaAcademica(): void {
-    return this.areasAcademicas;
+  selectGrado(e: any): void {
+    this.selectedGrado = e.value;
+  }
+
+  selectParalelo(e: any): void {
+    this.selectedParalelo = e.value;
+  }
+
+  selectPeriodo(e: any): void {
+    this.selectedPeriodo = e.value;
+  }
+
+  selectTipoCurso(e: any): void {
+    this.selectedTipoCurso = e.value;
+  }
+
+  getIdLista(data, datefien) {
+    return data = data.find(date => date.descripcion == datefien);
   }
 
   agregarAsignatura(): void {
     if (this.nombreAsignatura) {
-      // this.agregarParametro('/educacion/agregar-asignatura', this.nombreAsignatura, () => {
-      //   let date = { descripcion: '', area_academica: '', estado: '' }
-      //   date.descripcion = this.nombreAsignatura;
-      //   date.area_academica = this.selectedAreaAcademica;
+      let date = { descripcion: '', area_academica: '', id_area_academica: '', estado: false }
+      date.descripcion = this.nombreAsignatura;
+      date.area_academica = this.selectedAreaAcademica;
+      date.id_area_academica = this.getIdLista(this.dataAsignatura.area_academica, this.selectedAreaAcademica).id_area_academica;
+      // this.agregarParametro('/educacion/agregar-asignatura', date, () => {
       //   this.dataAsignatura.asignatura.push(date);
       //   this.nombreAsignatura = '';
       //   this.addAsignatura = false; 
       // });
-      let date = { descripcion: '', area_academica: '', estado: true }
-      date.descripcion = this.nombreAsignatura;
-      date.area_academica = this.selectedAreaAcademica;
       this.dataAsignatura.asignatura.push(date);
+      this.nombreAsignatura = '';
+      this.addAsignatura = false;
+    }
+  }
+
+  agregarCurso(): void {
+    if (this.nombreCurso) {
+      let date = { descripcion: '', grado: '', paralelo: '', periodo: '', tipo_curso: '', estado: false}
+      let dateId = { descripcion: '', id_grado: '', id_paralelo: '',id_periodo: '', id_tipo_curso: '' }
+      date.descripcion = this.nombreCurso;
+      date.grado = this.selectedGrado;
+      date.paralelo = this.selectedParalelo;
+      date.periodo = this.selectedPeriodo;
+      date.tipo_curso = this.selectedTipoCurso;
+      dateId.descripcion = this.nombreCurso;
+      dateId.id_grado = this.getIdLista(this.atributosCurso.grado, this.selectedGrado).id_grado;
+      dateId.id_paralelo = this.getIdLista(this.atributosCurso.paralelo, this.selectedParalelo).id_paralelo;
+      dateId.id_periodo = this.getIdLista(this.atributosCurso.periodo, this.selectedPeriodo).id_periodo;
+      dateId.id_tipo_curso = this.getIdLista(this.atributosCurso.tipo_curso, this.selectedTipoCurso).id_tipo_curso;
+      // this.agregarParametro('/educacion/agregar-curso', dateId, () => {
+      //   this.dataAsignatura.asignatura.push(date);
+      //   this.nombreAsignatura = '';
+      //   this.addAsignatura = false; 
+      // });
+      console.log(dateId);
+      this.atributosCurso.curso.push(date);
       this.nombreAsignatura = '';
       this.addAsignatura = false;
     }

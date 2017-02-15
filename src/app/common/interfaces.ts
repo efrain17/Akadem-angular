@@ -44,3 +44,11 @@ export interface AtributosAsignatura {
   area_academica: any;
   asignatura: any;
 }
+
+export interface AtributosCurso {
+  grado: any; 
+  paralelo: any;
+  periodo: any;
+  tipo_curso: any;
+  curso: any;
+}

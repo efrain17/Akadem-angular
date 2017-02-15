@@ -56,6 +56,16 @@ export class FormsService {
     return this.getServer(url);
   }
 
+  getAtributosClase() {
+    let url = '/assets/data/dataClase.json';
+    return this.getServer(url);
+  }
+
+   getAtributosCurso() {
+    let url = '/assets/data/dataCurso.json';
+    return this.getServer(url);
+  }
+
   deleteAtributosEstrClase(url, id) {
     url = url +'?id='+ id;
     return this.getServer(url);

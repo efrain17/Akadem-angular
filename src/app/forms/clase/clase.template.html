@@ -1,5 +1,5 @@
 <div class="row ">
-  <div class="col-lg-6 offset-lg-3">
+  <div class="col-lg-8 offset-lg-2">
     <section class="widget" widget>
       <header>
         <h6>
@@ -14,31 +14,16 @@
       <div class="widget-body">
        <form class="form-horizontal" role="form">
         <fieldset>  
-          <accordion [closeOthers]="true" class="mb-lg show" id="accordion2">
+          <accordion [closeOthers]="true" class="mb-lg show" id="accordion3">
             <accordion-group >
               <div accordion-heading>
                     Asignatura
                     <i class="fa fa-angle-down float-xs-right"></i>
               </div>
               <div>
-                <a class="text-primary" (click)="addAsignatura=!addAsignatura">
+                <a class="text-primary" (click)="modalWindow.show()" (click)= "addAsignatura=true">
                   +Agregar asignatura
                 </a>
-              </div>
-              <!--form add -->
-              <div *ngIf="addAsignatura">
-                <div class="form-group">
-                  <label for="normal-field" class="col-form-label text-md-right">Asignatura</label>
-                  <input type="text" name="nombreAsignatura" [(ngModel)]="nombreAsignatura" class="form-control" placeholder="Nombre la Asignatura">
-                  <label for="normal-field" class="col-form-label text-md-right">Área Academica</label>
-                  <select2 id="default-select"(valueChanged)="selectAreaAcademica($event)"
-                            [data]="getAreaAcademica()" [options]="select2Options" width="100%">
-                  </select2>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" (click)="addAsignatura=false" class="btn btn-gray" >Close</button>
-                  <button type="button" (click)="agregarAsignatura()" class="btn btn-success">Save</button>
-                </div>
               </div>
               <!--tabla-->
               <table class="table table-striped table-hover" [mfData]="dataAsignatura.asignatura" #mf="mfDataTable" [mfRowsOnPage]="5">
@@ -78,11 +63,142 @@
                 </tr>
                 </tfoot>
               </table>
+            </accordion-group>
+            <accordion-group >
+              <div accordion-heading>
+                    Cursos
+                    <i class="fa fa-angle-down float-xs-right"></i>
+              </div>
+              <div>
+                <a class="text-primary" (click)="modalWindow.show()" (click)= "addAsignatura=false">
+                  +Agregar Curso
+                </a>
+              </div>
+             
+              <!--tabla-->
+              <table class="table table-striped table-hover" [mfData]="atributosCurso.curso" #mf2="mfDataTable" [mfRowsOnPage]="5">
+                <thead>
+                <tr>
+                  <th>
+                    <mfDefaultSorter by="descripcion">Nombre</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="grado">Grado</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="paralelo">Paralelo</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="periodo">Perido</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="tipo_curso">Tipo</mfDefaultSorter>
+                  </th>
+                  <th class="hidden-sm-down">
+                    <mfDefaultSorter by="estado">Opcion</mfDefaultSorter>
+                  </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let curso of mf2.data ">
+                  <td>{{curso.descripcion}}</td>
+                  <td>{{curso.grado}}</td>
+                  <td>{{curso.paralelo}}</td>
+                  <td>{{curso.periodo}}</td>
+                  <td>{{curso.tipo_curso}}</td>
+                  <td>
+                    <a *ngIf="curso.estado" class="text-primary" (click)="desactivarAsignatura(curso)">Desactivar</a>
+                    <a *ngIf="!curso.estado" class="text-success" (click)="activarAsignatura(curso)">Activar</a>
+                  </td>    
+                </tr>
+                <tr *ngIf="(mf2.data).length === 0">
+                  <td colspan="100">
+                    No matches
+                  </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                  <td colspan="12">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+                  </td>
+                </tr>
+                </tfoot>
+              </table>
             </accordion-group>                
           </accordion>
         </fieldset>
        </form>
       </div>
     </section>
+  </div>
+</div>
+
+<div bsModal #modalWindow="bs-modal" class="modal fade" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button (click)="modalWindow.hide()" aria-label="Close" class="close" type="button">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title text-xs-center fw-bold mt" id="myModalLabel18">Datos de la clase</h4>
+      </div>
+      <div>
+        <section class="widget" widget>
+          <div class="widget-body" *ngIf="!addAsignatura">
+            <!--form add -->
+            <div class="form-group row">
+              <label for="normal-field" class="col-md-4 col-form-label text-md-right">Nombre de curso</label>
+              <div class="col-md-8 ">
+                <input type="text" class="form-control" name="nombreCurso" [(ngModel)]="nombreCurso" placeholder="Nombre del curso">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="normal-field" class="col-md-4 col-form-label text-md-right">Grado Academico</label>
+              <div class="col-md-8">
+               <select2 id="default-select"(valueChanged)="selectGrado($event)"[data]="grados" [options]="select2Options" width="100%"> </select2>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="normal-field" class="col-md-4 col-form-label text-md-right">Paralelo</label>
+              <div class="col-md-8">
+               <select2 id="default-select"(valueChanged)="selectParalelo($event)"[data]="paralelos" [options]="select2Options" width="100%"> </select2>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="normal-field" class="col-md-4 col-form-label text-md-right">Periodo</label>
+              <div class="col-md-8">
+               <select2 id="default-select"(valueChanged)="selectPeriodo($event)"[data]="periodos" [options]="select2Options" width="100%"> </select2>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="normal-field" class="col-md-4 col-form-label text-md-right">Tipo de curso</label>
+              <div class="col-md-8">
+               <select2 id="default-select"(valueChanged)="selectTipoCurso($event)"[data]="tipoCursos" [options]="select2Options" width="100%"> </select2>
+              </div>
+            </div>
+          </div>
+            <!--form add -->
+          <div class="widget-body" *ngIf="addAsignatura">
+            <div class="form-group">
+              <label for="normal-field" class="col-form-label text-md-right">Asignatura</label>
+              <input type="text" name="nombreAsignatura" [(ngModel)]="nombreAsignatura" class="form-control" placeholder="Nombre la Asignatura">
+              <label for="normal-field" class="col-form-label text-md-right">Área Academica</label>
+              <select2 id="default-select"(valueChanged)="selectAreaAcademica($event)"
+                        [data]="areasAcademicas" [options]="select2Options" width="100%">
+              </select2>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div *ngIf="!addAsignatura" class="modal-footer">
+        <button type="button" class="btn btn-gray" (click)="modalWindow.hide()">Close</button>
+        <button type="button" class="btn btn-success" (click)="agregarCurso()" (click)="modalWindow.hide()">Save changes</button>
+      </div>
+      <div *ngIf="addAsignatura" class="modal-footer">
+        <button type="button" class="btn btn-gray" (click)="modalWindow.hide()">Close</button>
+        <button type="button" class="btn btn-success" (click)="agregarAsignatura()" (click)="modalWindow.hide()">Save changes</button>
+      </div>
+    </div>
   </div>
 </div>
