@@ -56,6 +56,11 @@ export class FormsService {
     return this.getServer(url);
   }
 
+  getAtributoClase() {
+    let url = '/assets/data/dataClase.json';
+    return this.getServer(url);
+  }
+
   getAtributosClase() {
     let url = '/assets/data/dataClase.json';
     return this.getServer(url);

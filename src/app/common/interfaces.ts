@@ -52,3 +52,10 @@ export interface AtributosCurso {
   tipo_curso: any;
   curso: any;
 }
+
+export interface AtributosClase {
+  profesor: any;
+  curso: any;
+  asignatura: any;
+  clase: any;
+}

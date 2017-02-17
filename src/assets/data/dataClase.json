@@ -1,18 +1,25 @@
 {
     "profesor":[
+        {"nombre": "Carlos Efrain Coello Delgado", "id_profesor": "1314842673"}, 
+        {"nombre": "Pedro Pablo Cedeño saltos", "id_profesor": "1306942721"}
 
     ],
-    "curso":[
-
+    "curso": [
+        { "descripcion": "Primero A-BACH. 2016-2017", "id_curso":"1"},
+        { "descripcion": "Segundo A-BACH. 2016-2017", "id_curso":"2"},
+        { "descripcion": "Tercero A-BACH. 2016-2017", "id_curso":"3"},
+        { "descripcion": "Octavo A-BASC. 2016-2017", "id_curso":"4"},
+        { "descripcion": "Octavo B-BASC. 2016-2017", "id_curso":"5"}
     ],
     "asignatura":[
-		{ "descripcion": "lengua", "id_asignatura": "1", "id_area_academica": "1", "area_academica": "Estudios de Lengua y Literatura", "estado": true},
-		{ "descripcion": "Ingles", "id_asignatura": "2", "id_area_academica": "2", "area_academica": "Adquisición de Lenguas", "estado": true},
-		{ "descripcion": "Calculo de variables", "id_asignatura": "3", "id_area_academica": "5", "area_academica": "Matemáticas", "estado": true}
+		{ "descripcion": "lengua", "id_asignatura": "1"},
+		{ "descripcion": "Ingles", "id_asignatura": "2"},
+		{ "descripcion": "Calculo de variables", "id_asignatura": "3"}
 	], 
     "clase":[
         { "id_clase": "1","profesor": "juan pedro", "asignatura": "Calculo de variables",
-          "curso": "Primero A-BACH." }
+          "curso": "Primero A-BACH.  2016-2017","estado": true }
     ]
     
 }
+
