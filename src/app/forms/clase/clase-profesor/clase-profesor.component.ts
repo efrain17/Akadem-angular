@@ -4,6 +4,7 @@ import { AtributosClase } from '../../../common/interfaces';
 import { MessengerDemo } from '../../messenger/messenger.directive';
 import { __platform_browser_private__ } from '@angular/platform-browser';
 import { deleteParametro, eliminarParametroObj, addParametro } from '../../../common/funtions';
+import { Select2TemplateFunction, Select2OptionData } from 'ng2-select2';
 declare var jQuery: any;
 
 @Component({
@@ -17,18 +18,19 @@ declare var jQuery: any;
   ],
   providers: [MessengerDemo]
 })
+
 export class ClaseProfesor {
   domSharedStylesHost: any;
   colorOptions: Object = {color: '#f0b518'};
-  select2Options: any = {theme: 'bootstrap'};
+  select2Options: any = { theme: 'bootstrap' };
+  select2OptionsTemplate: any;
   asignaturas;
   profesores;
   cursos;
   clases;
-  selectedAsignatura;
-  selectedProfesor;
-  selectedCurso;
-  selectedClase;
+  selectedAsignatura = null;
+  selectedProfesor = null;
+  selectedCurso = null;
   atributosClase: AtributosClase =
   {
     profesor: [],
@@ -54,14 +56,14 @@ export class ClaseProfesor {
     this.formService.getAtributosClase()
       .then(data => {
         this.atributosClase = data;
-        this.profesores = this.cargarLista(this.profesores, data.profesor);
+        this.profesores = data.profesor;
+        //this.profesores = this.cargarLista(this.profesores, data.profesor);
         this.cursos = this.cargarLista(this.cursos, data.curso);
         this.asignaturas = this.cargarLista(this.asignaturas, data.asignatura);
         this.clases = this.cargarLista(this.clases, data.clase);
-        this.selectedProfesor = this.profesores[0];
-        this.selectedCurso = this.cursos[0];
-        this.selectedAsignatura = this.asignaturas[0];
-        this.selectedClase = this.clases[0];
+        // this.selectedProfesor = this.profesores[0];
+        // this.selectedCurso = this.cursos[0];
+        // this.selectedAsignatura = this.asignaturas[0];
       })
       .catch(err => this.messengerDemo.mensajeError());
   }
@@ -81,11 +83,27 @@ export class ClaseProfesor {
     jQuery('.js-slider').slider();
     jQuery('#colorpicker').colorpicker(this.colorOptions);
     jQuery('.selectpicker').selectpicker();
+    this.select2OptionsTemplate = {
+      theme: 'bootstrap',
+      templateResult: this.templateResult
+    }
   }
 
   ngOnDestroy(): void {
     // detach custom hook
     this.domSharedStylesHost.onStylesAdded = this.domSharedStylesHost.__onStylesAdded__;
+  }
+
+  public templateSelection: Select2TemplateFunction = (state: Select2OptionData): JQuery | string => {
+    if (!state.id) return state.text;
+
+    return jQuery('<span><b>' + state.additional.winner + '.</b> ' + state.text + '</span>');
+  }
+
+  public templateResult: Select2TemplateFunction = (state: Select2OptionData): JQuery | string => {
+    if (!state.id) return state.text;
+
+    return jQuery('<span><b>' + state.id + '</b> <br>' + state.text + '</span>');
   }
 
   cargarLista(lista, data): void {
@@ -95,54 +113,57 @@ export class ClaseProfesor {
   }  
 
   selectAsignatura(e: any): void {
-    // this.selectedAreaAcademica = e.value;
+    this.selectedAsignatura = e.value;
   }
 
   selectProfesor(e: any): void {
-    // this.selectedAreaAcademica = e.value;
+    this.selectedProfesor = e.value;
+    console.log(this.selectedProfesor);
   }
 
   selectCurso(e: any): void {
-    // this.selectedAreaAcademica = e.value;
+    this.selectedCurso = e.value;
   }
 
   getIdLista(data, datefien) {
     return data = data.find(date => date.descripcion == datefien);
   }
 
+  getIdListaText(data, datefien) {
+    return data = data.find(date => date.id == datefien);
+  }
+
   agregarClase(): void {
-    // if (this.nombreAsignatura) {
-    //   let date = { descripcion: '', area_academica: '', id_area_academica: '', estado: false }
-    //   date.descripcion = this.nombreAsignatura;
-    //   date.area_academica = this.selectedAreaAcademica;
-    //   date.id_area_academica = this.getIdLista(this.dataAsignatura.area_academica, this.selectedAreaAcademica).id_area_academica;
-    //   // this.agregarParametro('/educacion/agregar-asignatura', date, () => {
-    //   //   this.dataAsignatura.asignatura.push(date);
-    //   //   this.nombreAsignatura = '';
-    //   //   this.addAsignatura = false; 
-    //   // });
-    //   this.dataAsignatura.asignatura.push(date);
-    //   this.nombreAsignatura = '';
-    //   this.addAsignatura = false;
-    // }
+      let date = { profesor: '', asignatura: '', curso: '', estado: false }
+      date.profesor = this.getIdListaText(this.atributosClase.profesor, this.selectedProfesor).text;
+      date.asignatura = this.selectedAsignatura;
+      date.curso = this.selectedCurso;
+      let dateId = { id_profesor: '', id_asignatura: '', id_curso: ''}
+      dateId.id_profesor = this.selectedProfesor;
+      dateId.id_asignatura = this.getIdLista(this.atributosClase.asignatura, this.selectedAsignatura).id_asignatura;
+      dateId.id_curso = this.getIdLista(this.atributosClase.curso, this.selectedCurso).id_curso;
+      // this.agregarParametro('/educacion/agregar-clase', dateId, () => {
+      //   this.atributosClase.clase.push(date); 
+      // });
+      this.atributosClase.clase.push(date); 
   }
 
   agregarParametro(url, parametro, callback): void {
     addParametro(url, parametro, callback, this.formService, this.messengerDemo);
   }
 
-  desactivarAsignatura(asignatura): void {
-    // this.eliminarParametro('/educacion/descactivar-asignatura', asignatura, ()=> {
-    //   asignatura.estado = false;
+  desactivarClase(clase): void {
+    // this.eliminarParametro('/educacion/descactivar-clase', clase, ()=> {
+    //   clase.estado = false;
     // });
-    asignatura.estado = false;
+    clase.estado = false;
   }
 
-  activarAsignatura(asignatura): void {
-    // this.eliminarParametro('/educacion/descactivar-asignatura', asignatura, ()=> {
-    //   asignatura.estado = true;
+  activarClase(clase): void {
+    // this.eliminarParametro('/educacion/descactivar-clase', clase, ()=> {
+    //   clase.estado = true;
     // });
-    asignatura.estado = true;
+    clase.estado = true;
   }
 
   eliminarParametro(url, parametro, callback) {

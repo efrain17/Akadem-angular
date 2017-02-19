@@ -1,8 +1,7 @@
 {
     "profesor":[
-        {"nombre": "Carlos Efrain Coello Delgado", "id_profesor": "1314842673"}, 
-        {"nombre": "Pedro Pablo Cedeño saltos", "id_profesor": "1306942721"}
-
+        {"text": "Carlos Efrain Coello Delgado", "id": "1314842673" }, 
+        {"text": "Pedro Pablo Cedeño saltos", "id": "1306942721"}
     ],
     "curso": [
         { "descripcion": "Primero A-BACH. 2016-2017", "id_curso":"1"},
