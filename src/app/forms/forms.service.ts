@@ -66,8 +66,29 @@ export class FormsService {
     return this.getServer(url);
   }
 
-   getAtributosCurso() {
+  getCursosEstudiantes() {
+    let url = '/assets/data/dataClase/dataClaseEstudiante.json';
+    return this.getServer(url);
+  }
+
+  getCursos() {
+    let url = '/assets/data/dataClase/dataClaseCurso.json';
+    return this.getServer(url);
+  }
+
+  getEstudiantes() {
+    let url = '/assets/data/dataClase/dataEstudiantes.json';
+    return this.getServer(url);
+  }
+
+  getAtributosCurso() {
     let url = '/assets/data/dataCurso.json';
+    return this.getServer(url);
+  }
+  
+  getAsignaturasCurso(idCurso) {
+    //consultar por idCurso
+    let url = '/assets/data/dataClase/dataClasesCurso.json';
     return this.getServer(url);
   }
 

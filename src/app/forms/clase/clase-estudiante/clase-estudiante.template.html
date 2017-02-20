@@ -1,0 +1,129 @@
+<div class="row ">
+  <div class="col-lg-8 offset-lg-2">
+    <section class="widget" widget>
+      <header>
+        <h6>
+          Ingreso de Clase Estudiante
+        </h6>
+        <div class="widget-controls">
+          <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+          <a href="#"><i class="fa fa-refresh"></i></a>
+          <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
+        </div>
+      </header>
+      <div class="widget-body">
+       <form class="form-horizontal" role="form">
+        <fieldset> 
+          <div>
+            <a class="text-primary" (click)="modalWindow.show()" (click)= "addAsignatura=true">
+              +Agregar clase
+            </a>
+          </div>
+          <!--tabla-->
+          <table class="table table-striped table-hover" [mfData]="estudiantes" #mf="mfDataTable" [mfRowsOnPage]="5">
+            <thead>
+            <tr>
+              <th>
+                <mfDefaultSorter by="curso">curso</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="nombre">Estudiante</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="asignatura">Asignaturas</mfDefaultSorter>
+              </th>
+              <th class="hidden-sm-down">
+                <mfDefaultSorter by="estado">Opcion</mfDefaultSorter>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let estudiante of mf.data ">
+              <td>{{estudiante.curso}}</td>
+              <td >
+                <span>{{estudiante.nombre}}</span>
+                <br>
+                <small><span class="fw-semi-bold">{{estudiante.id_estudiante}}</span></small>
+              </td>
+              <td>
+                <accordion [closeOthers]="true" >
+                  <accordion-group>
+                    <div accordion-heading > 
+                        Clases
+                        <i class="fa fa-angle-down float-xs-right"></i>
+                    </div>
+                    <div *ngFor="let clase of estudiante.clases">
+                      {{clase}}
+                    </div>
+                  </accordion-group>
+                </accordion>
+              </td>
+              <td>
+                <a *ngIf="estudiante.estado" class="text-primary" (click)="desactivarClase(estudiante)">Desactivar</a>
+                <a *ngIf="!estudiante.estado" class="text-success" (click)="activarClase(estudiante)">Activar</a>
+              </td>    
+            </tr>
+            <tr *ngIf="(mf.data).length === 0">
+              <td colspan="100">
+                No matches
+              </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+              <td colspan="12">
+                <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+              </td>
+            </tr>
+            </tfoot>
+          </table>
+        </fieldset>
+       </form>
+      </div>
+    </section>
+  </div>
+</div>
+<div bsModal #modalWindow="bs-modal" class="modal fade" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button (click)="modalWindow.hide()" aria-label="Close" class="close" type="button">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title text-xs-center fw-bold mt" id="myModalLabel18">Datos de matricula</h4>
+      </div>
+      <div>
+        <section class="widget" widget>
+          <div class="widget-body">
+            <!--form add -->
+            <div class="form-group row">
+              <label for="normal-field" class="col-md-4 col-form-label text-md-right">Estudiante</label>
+              <div class="col-md-8">
+               <select2 id="default-select"(valueChanged)="selectEstudiante($event)"[data]="estudiantesSearch" [options]="select2OptionsTemplate" width="100%"> </select2>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="normal-field" class="col-md-4 col-form-label text-md-right">Curso</label>
+              <div class="col-md-8">
+               <select2 id="default-select1"(valueChanged)="selectCurso($event)"[data]="cursos" [options]="select2OptionsCurso" width="100%"> </select2>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="normal-field" class="col-md-4 col-form-label text-md-right">Materias</label>
+              <div class="col-md-8 container-fluid">
+                <div class= "btn btn-success" *ngFor = "let asignatura of asignaturas">
+                  {{asignatura.descripcion}}
+                  <span>x</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-gray" (click)="modalWindow.hide()">Close</button>
+        <button type="button" class="btn btn-success" (click)="agregarClaseEstudiante()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

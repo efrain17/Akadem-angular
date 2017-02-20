@@ -1,0 +1,17 @@
+{
+    "clases_curso":[
+		{ "descripcion": "lengua", "id_asignatura": "1", "profesor": "Carlos Efrain Coello Delgado"},
+		{ "descripcion": "Ingles", "id_asignatura": "2", "profesor": "Carlos Efrain Coello Delgado"},
+		{ "descripcion": "Calculo de variables", "id_asignatura": "3", "profesor": "Carlos Efrain Coello Delgado"},
+        { "descripcion": "Frances", "id_asignatura": "4", "profesor": "Carlos Efrain Coello Delgado"},
+		{ "descripcion": "Estudios Sociales", "id_asignatura": "5", "profesor": "Carlos Efrain Coello Delgado"},
+		{ "descripcion": "Deporte", "id_asignatura": "6", "profesor": "Carlos Efrain Coello Delgado"},
+        { "descripcion": "Aleman", "id_asignatura": "7", "profesor": "Carlos Efrain Coello Delgado"},
+		{ "descripcion": "Programacion", "id_asignatura": "8", "profesor": "Carlos Efrain Coello Delgado"},
+		{ "descripcion": "Base de datos", "id_asignatura": "9", "profesor": "Carlos Efrain Coello Delgado"},
+        { "descripcion": "Electronica", "id_asignatura": "10", "profesor": "Carlos Efrain Coello Delgado"},
+		{ "descripcion": "Propedeutico", "id_asignatura": "11", "profesor": "Carlos Efrain Coello Delgado"},
+		{ "descripcion": "Valores", "id_asignatura": "12", "profesor": "Carlos Efrain Coello Delgado"}
+	]
+        
+}

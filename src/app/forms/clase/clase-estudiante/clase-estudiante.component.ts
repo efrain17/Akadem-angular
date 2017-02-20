@@ -8,8 +8,8 @@ import { Select2TemplateFunction, Select2OptionData } from 'ng2-select2';
 declare var jQuery: any;
 
 @Component({
-  selector: '[clase-profesor]',
-  templateUrl: './clase-profesor.template.html',
+  selector: '[clase-estudiante]',
+  templateUrl: './clase-estudiante.template.html',
   encapsulation: ViewEncapsulation.None,
   styleUrls: [
     '../../scss/tables-dynamic.style.scss',
@@ -19,25 +19,17 @@ declare var jQuery: any;
   providers: [MessengerDemo]
 })
 
-export class ClaseProfesor {
+export class ClaseEstudiante {
   domSharedStylesHost: any;
   colorOptions: Object = {color: '#f0b518'};
-  select2Options: any = { theme: 'bootstrap' };
+  select2OptionsCurso: any;
   select2OptionsTemplate: any;
-  asignaturas;
-  profesores;
-  cursos;
-  clases;
-  selectedAsignatura = null;
-  selectedProfesor = null;
+  estudiantes: any;
+  estudiantesSearch: any;
+  asignaturas: any = [];
+  cursos: any;
+  selectedEstudiante = null;
   selectedCurso = null;
-  atributosClase: AtributosClase =
-  {
-    profesor: [],
-    curso: [],
-    asignatura: [],
-    clase: []
-  }  
 
   constructor(
     injector: Injector,
@@ -53,19 +45,11 @@ export class ClaseProfesor {
       }
     };
 
-    this.formService.getAtributosClase()
-      .then(data => {
-        this.atributosClase = data;
-        this.profesores = data.profesor;
-        this.cursos = this.cargarLista(this.cursos, data.curso);
-        this.asignaturas = this.cargarLista(this.asignaturas, data.asignatura);
-        this.clases = this.cargarLista(this.clases, data.clase);
-        this.selectedProfesor = this.profesores[0];
-        this.selectedCurso = this.cursos[0];
-        this.selectedAsignatura = this.asignaturas[0];
-      })
-      .catch(err => this.messengerDemo.mensajeError());
-  }
+    this.getCursosEstudiantes();
+    this.getEstudiantesSearch();
+    this.getCursos();
+  
+}
 
   ngOnInit(): void {
     let searchInput = jQuery('#table-search-input, #search-countries');
@@ -86,6 +70,10 @@ export class ClaseProfesor {
       theme: 'bootstrap',
       templateResult: this.templateResult
     }
+    this.select2OptionsCurso = {
+      theme: 'bootstrap',
+      templateResult: this.templateCursos
+    }
   }
 
   ngOnDestroy(): void {
@@ -93,16 +81,14 @@ export class ClaseProfesor {
     this.domSharedStylesHost.onStylesAdded = this.domSharedStylesHost.__onStylesAdded__;
   }
 
-  public templateSelection: Select2TemplateFunction = (state: Select2OptionData): JQuery | string => {
-    if (!state.id) return state.text;
-
-    return jQuery('<span><b>' + state.additional.winner + '.</b> ' + state.text + '</span>');
-  }
-
   public templateResult: Select2TemplateFunction = (state: Select2OptionData): JQuery | string => {
     if (!state.id) return state.text;
+    return jQuery('<span><b>' + state.id + '</b> <br>' + state.text + ' <br>' + state.additional + '</span>');
+  }
 
-    return jQuery('<span><b>' + state.id + '</b> <br>' + state.text + '</span>');
+  public templateCursos: Select2TemplateFunction = (state: Select2OptionData): JQuery | string => {
+    if (!state.id) return state.text;
+    return jQuery('<span><b>'+ state.text +'</b> <br>' + state.additional + '</span>');
   }
 
   cargarLista(lista, data): void {
@@ -111,17 +97,14 @@ export class ClaseProfesor {
     return lista;
   }  
 
-  selectAsignatura(e: any): void {
-    this.selectedAsignatura = e.value;
-  }
-
-  selectProfesor(e: any): void {
-    this.selectedProfesor = e.value;
-    console.log(this.selectedProfesor);
-  }
 
   selectCurso(e: any): void {
     this.selectedCurso = e.value;
+    this.getAsignaturas(this.selectedCurso);
+  }
+
+  selectEstudiante(e: any): void {
+    this.selectedEstudiante = e.value;
   }
 
   getIdLista(data, datefien) {
@@ -132,19 +115,22 @@ export class ClaseProfesor {
     return data = data.find(date => date.id == datefien);
   }
 
-  agregarClase(): void {
-      let date = { profesor: '', asignatura: '', curso: '', estado: false }
-      date.profesor = this.getIdListaText(this.atributosClase.profesor, this.selectedProfesor).text;
-      date.asignatura = this.selectedAsignatura;
-      date.curso = this.selectedCurso;
-      let dateId = { id_profesor: '', id_asignatura: '', id_curso: ''}
-      dateId.id_profesor = this.selectedProfesor;
-      dateId.id_asignatura = this.getIdLista(this.atributosClase.asignatura, this.selectedAsignatura).id_asignatura;
-      dateId.id_curso = this.getIdLista(this.atributosClase.curso, this.selectedCurso).id_curso;
-      // this.agregarParametro('/educacion/agregar-clase', dateId, () => {
-      //   this.atributosClase.clase.push(date); 
-      // });
-      this.atributosClase.clase.push(date); 
+  // agregarClase(): void {
+  //     let date = { profesor: '', asignatura: '', curso: '', estado: false }
+  //     date.profesor = this.getIdListaText(this.atributosClase.profesor, this.selectedProfesor).text;
+  //     date.asignatura = this.selectedAsignatura;
+  //     date.curso = this.selectedCurso;
+  //     let dateId = { id_profesor: '', id_asignatura: '', id_curso: ''}
+  //     dateId.id_profesor = this.selectedProfesor;
+  //     dateId.id_asignatura = this.getIdLista(this.atributosClase.asignatura, this.selectedAsignatura).id_asignatura;
+  //     dateId.id_curso = this.getIdLista(this.atributosClase.curso, this.selectedCurso).id_curso;
+  //     // this.agregarParametro('/educacion/agregar-clase', dateId, () => {
+  //     //   this.atributosClase.clase.push(date); 
+  //     // });
+  //     this.atributosClase.clase.push(date); 
+  // }
+  agregarClaseEstudiante(): void {
+
   }
 
   agregarParametro(url, parametro, callback): void {
@@ -167,6 +153,28 @@ export class ClaseProfesor {
 
   eliminarParametro(url, parametro, callback) {
     deleteParametro(url, parametro, callback, this.formService, this.messengerDemo);
+  }
+
+  getCursos(): void {
+    this.promiseMessage(this.formService.getCursos(), data => this.cursos = data.cursos)
+  }
+
+  getEstudiantesSearch(): void {
+    this.promiseMessage(this.formService.getEstudiantes(), data => this.estudiantesSearch = data.estudiantes);
+  }
+
+  getCursosEstudiantes(): void {
+    this.promiseMessage(this.formService.getCursosEstudiantes(), data => this.estudiantes = data.clase_estudiante);
+  }
+
+  getAsignaturas(idCurso): void {
+    this.promiseMessage(this.formService.getAsignaturasCurso(idCurso), data => this.asignaturas = data.clases_curso);
+  }
+
+  promiseMessage(promise, callback): void {
+    promise
+    .then(data => callback(data))
+    .catch(err => this.messengerDemo.mensajeError())
   }
 
 }

@@ -58,6 +58,7 @@ import { MessengerDemo } from './messenger/messenger.directive';
 import { EstructuraEducativa } from './estructura-educativa/estructura-educativa.component';
 import { Clase } from './clase/clase.component';
 import { ClaseProfesor } from './clase/clase-profesor/clase-profesor.component';
+import { ClaseEstudiante } from './clase/clase-estudiante/clase-estudiante.component';
 
 import { FormsService } from './forms.service';
 
@@ -70,7 +71,8 @@ export const routes = [
   {path: 'administrar-usuarios', component: TablesDynamic},
   {path: 'estructura-educativa', component: EstructuraEducativa},
   {path: 'clase', component: Clase},
-  {path: 'clase-profesor', component: ClaseProfesor}
+  {path: 'clase-profesor', component: ClaseProfesor},
+  {path: 'clase-estudiante', component: ClaseEstudiante}
 ];
 
 @NgModule({
@@ -87,7 +89,8 @@ export const routes = [
     MessengerDemo,
     EstructuraEducativa,
     Clase,
-    ClaseProfesor
+    ClaseProfesor,
+    ClaseEstudiante
   ],
   imports: [
     CommonModule,
