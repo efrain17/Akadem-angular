@@ -130,7 +130,18 @@ export class ClaseEstudiante {
   //     this.atributosClase.clase.push(date); 
   // }
   agregarClaseEstudiante(): void {
-
+    let date = { nombre: '',id_estudiante: '', curso: '', clases: [], estado: false }
+    date.id_estudiante = this.selectedEstudiante
+    date.nombre = this.getIdListaText(this.estudiantesSearch, this.selectedEstudiante).text;
+    date.curso =  this.getIdListaText(this.cursos, this.selectedCurso).text;
+    date.clases = this.asignaturas;
+    // this.agregarParametro('/educacion/agregar-clase-estudiante', date, () => {
+    // date.clases = this.asignaturas.map(data => data.descripcion);
+    // this.estudiantes.push(date); 
+    // });
+    console.log(date)
+    date.clases = this.asignaturas.map(data => data.descripcion);
+    this.estudiantes.push(date); 
   }
 
   agregarParametro(url, parametro, callback): void {
@@ -155,6 +166,10 @@ export class ClaseEstudiante {
     deleteParametro(url, parametro, callback, this.formService, this.messengerDemo);
   }
 
+  eliminarAsignatura(asignatura){
+    this.asignaturas = eliminarParametroObj(asignatura, this.asignaturas);
+  }
+
   getCursos(): void {
     this.promiseMessage(this.formService.getCursos(), data => this.cursos = data.cursos)
   }
@@ -168,6 +183,7 @@ export class ClaseEstudiante {
   }
 
   getAsignaturas(idCurso): void {
+    console.log("consultando asignaturas");
     this.promiseMessage(this.formService.getAsignaturasCurso(idCurso), data => this.asignaturas = data.clases_curso);
   }
 

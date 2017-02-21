@@ -195,3 +195,12 @@ mfDefaultSorter > a {
     }
   }
 }
+.much-item {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+ .group-asignatura {
+   margin-right: 1px;
+   margin-bottom: 1px;
+ }

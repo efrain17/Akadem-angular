@@ -96,27 +96,30 @@
         <section class="widget" widget>
           <div class="widget-body">
             <!--form add -->
-            <div class="form-group row">
-              <label for="normal-field" class="col-md-4 col-form-label text-md-right">Estudiante</label>
-              <div class="col-md-8">
+            <div class="form-group mb-0">
+              <label for="normal-field" class="col-form-label text-md-right">Estudiante</label>
+              <div >
                <select2 id="default-select"(valueChanged)="selectEstudiante($event)"[data]="estudiantesSearch" [options]="select2OptionsTemplate" width="100%"> </select2>
               </div>
             </div>
-            <div class="form-group row">
-              <label for="normal-field" class="col-md-4 col-form-label text-md-right">Curso</label>
-              <div class="col-md-8">
+            <div class="form-group">
+              <label for="normal-field" class="col-form-label text-md-right">Curso</label>
+              <div >
                <select2 id="default-select1"(valueChanged)="selectCurso($event)"[data]="cursos" [options]="select2OptionsCurso" width="100%"> </select2>
               </div>
             </div>
-            <div class="form-group row">
-              <label for="normal-field" class="col-md-4 col-form-label text-md-right">Materias</label>
-              <div class="col-md-8 container-fluid">
-                <div class= "btn btn-success" *ngFor = "let asignatura of asignaturas">
-                  {{asignatura.descripcion}}
-                  <span>x</span>
+            <accordion [closeOthers]="true" >
+              <accordion-group >
+                <div accordion-heading > 
+                    Materias 
+                    <i class="fa fa-angle-down float-xs-right "></i>
                 </div>
-              </div>
-            </div>
+                <div class= "btn btn-info group-asignatura" *ngFor = "let asignatura of asignaturas">
+                  {{asignatura.descripcion}}
+                  <span (click)= "eliminarAsignatura(asignatura)">x</span>
+                </div>
+              </accordion-group>
+            </accordion>
           </div>
         </section>
       </div>
