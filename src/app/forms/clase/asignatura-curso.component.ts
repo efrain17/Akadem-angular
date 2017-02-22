@@ -78,6 +78,9 @@ export class AsignaturaCurso {
       .focusout((e) => {
       jQuery(e.target).closest('.input-group').removeClass('focus');
     });
+    jQuery('.nav-tabs').on('shown.bs.tab', 'a', (e) => {
+      if (e.relatedTarget) jQuery(e.relatedTarget).removeClass('active');
+    });
     jQuery('#popover1, #popover2').popover();
     jQuery('#markdown-editor').markdown();
     jQuery('.js-slider').slider();
