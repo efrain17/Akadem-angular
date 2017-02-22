@@ -52,11 +52,11 @@ import { Elements } from './elements/elements.component';
 import { Validation } from './validation/validation.component';
 import { Wizard } from './wizard/wizard.component';
 import { Elements as ingresoUser } from './ingresoUsuario/elements.component';
-import { TablesDynamic } from './dynamic/tables-dynamic.component';
-import { SearchPipe } from './dynamic/pipes/search-pipe';
+import { AdminPersonas } from './personas/admin-personas.component';
+import { SearchPipe } from './personas/pipes/search-pipe';
 import { MessengerDemo } from './messenger/messenger.directive';
 import { EstructuraEducativa } from './estructura-educativa/estructura-educativa.component';
-import { Clase } from './clase/clase.component';
+import { AsignaturaCurso } from './clase/asignatura-curso.component';
 import { ClaseProfesor } from './clase/clase-profesor/clase-profesor.component';
 import { ClaseEstudiante } from './clase/clase-estudiante/clase-estudiante.component';
 
@@ -68,9 +68,9 @@ export const routes = [
   {path: 'validation', component: Validation},
   {path: 'wizard', component: Wizard},
   {path: 'usuarios', component: ingresoUser},
-  {path: 'administrar-usuarios', component: TablesDynamic},
+  {path: 'administrar-usuarios', component: AdminPersonas},
   {path: 'estructura-educativa', component: EstructuraEducativa},
-  {path: 'clase', component: Clase},
+  {path: 'clase', component: AsignaturaCurso},
   {path: 'clase-profesor', component: ClaseProfesor},
   {path: 'clase-estudiante', component: ClaseEstudiante}
 ];
@@ -84,11 +84,11 @@ export const routes = [
     Wizard,
     DropzoneDemo,
     ingresoUser,
-    TablesDynamic,
+    AdminPersonas,
     SearchPipe,
     MessengerDemo,
     EstructuraEducativa,
-    Clase,
+    AsignaturaCurso,
     ClaseProfesor,
     ClaseEstudiante
   ],

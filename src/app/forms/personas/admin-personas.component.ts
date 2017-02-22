@@ -3,12 +3,13 @@ import { FormsService } from '../forms.service';
 import { tableData } from './tables-dynamic.data';
 import { Persona, AtributosPersonas } from '../../common/interfaces';
 import { MessengerDemo } from '../messenger/messenger.directive';
+import { promiseMessage } from '../../common/funtions';
 import { __platform_browser_private__ } from '@angular/platform-browser';
 declare var jQuery: any;
 
 @Component({
-  selector: '[tables-dynamic]',
-  templateUrl: './tables-dynamic.template.html',
+  selector: '[admin-personas]',
+  templateUrl: './admin-personas.template.html',
   encapsulation: ViewEncapsulation.None,
   styleUrls: [
     '../scss/tables-dynamic.style.scss',
@@ -17,7 +18,7 @@ declare var jQuery: any;
   ],
   providers: [MessengerDemo]
 })
-export class TablesDynamic {
+export class AdminPersonas {
   data: any[];
   selectedTlf;
   selectedRolUser;
@@ -31,7 +32,7 @@ export class TablesDynamic {
   propietarioTlf: string = '';
   operadorTlf: any = [];
   rolesUsuarios: any = [];
-  discapacidades: any = []
+  discapacidades: any = [];
   rolesUsuariosOld: any = [];
   discapacidadesOld: any = [];
   dataAtributos: AtributosPersonas;
@@ -74,9 +75,7 @@ export class TablesDynamic {
         this.domSharedStylesHost.__onStylesAdded__(additions);
       }
     };
-    this.formService.getPersonas()
-      .then(data => this.data = data)
-      .catch(err => this.messengerDemo.mensajeError());
+    this.getPersonas();
   }
 
   cargarDatos(datos: any): void {
@@ -108,10 +107,10 @@ export class TablesDynamic {
   }
 
   updatePersona(): void {
-    console.log(this.persona)
-    /* this.formService.updatePersona(this.personaId, this.persona)
-      .then(data =>  this.messengerDemo.mensajeSucessFull())
-      .catch(err => this.messengerDemo.mensajeError()); */
+    console.log(this.persona);
+    // promiseMessage(this.formService.updatePersona(this.personaId, this.persona), data =>{
+    //   this.messengerDemo.mensajeSucessFull()
+    // })
   }
 
   mensaje(): void {
@@ -148,21 +147,19 @@ export class TablesDynamic {
   }
 
   getAtributosPersonas(): void {
-    this.formService.getAtributoPersonas()
-      .then(data => {
-        this.dataAtributos = data;
-        this.selectedTlf = data.operadores_telefonicos[0].descripcion;
-        console.log(this.selectedTlf);
-        this.operadorTlf = [];
-        this.rolesUsuarios =  [];
-        data.operadores_telefonicos.map(date => this.operadorTlf.push(date.descripcion));
-        data.tipos_usuarios.map(date => this.rolesUsuarios.push(date.descripcion));
-        data.discapacidades.map(date => this.discapacidades.push(date.descripcion));
-        this.rolesUsuariosOld = this.rolesUsuarios;
-        this.discapacidadesOld = this.discapacidades;
-        this.filtrarRolesRepetidos();
-        this.filtrarDiscapacidadesRepetidos();
-      });
+    promiseMessage(this.formService.getAtributoPersonas(), data => {
+      this.dataAtributos = data;
+      this.selectedTlf = data.operadores_telefonicos[0].descripcion;
+      this.operadorTlf = [];
+      this.rolesUsuarios =  [];
+      data.operadores_telefonicos.map(date => this.operadorTlf.push(date.descripcion));
+      data.tipos_usuarios.map(date => this.rolesUsuarios.push(date.descripcion));
+      data.discapacidades.map(date => this.discapacidades.push(date.descripcion));
+      this.rolesUsuariosOld = this.rolesUsuarios;
+      this.discapacidadesOld = this.discapacidades;
+      this.filtrarRolesRepetidos();
+      this.filtrarDiscapacidadesRepetidos();
+    });
   }
 
   agregarTelefono(): void {
@@ -240,7 +237,7 @@ export class TablesDynamic {
 
   filtrarParametros(parametrosArray, parametrosArrayFilter): void {
     return parametrosArray.filter(dataFilter => {
-      let dataReturn =parametrosArrayFilter.find(data => data.descripcion === dataFilter);
+      let dataReturn = parametrosArrayFilter.find(data => data.descripcion === dataFilter);
       if (!dataReturn) return dataFilter;
     });
   }
@@ -260,6 +257,10 @@ export class TablesDynamic {
     this.addTelefono = false;
     this.propietarioTlf = '';
     this.numberTlf = '';
+  }
+
+  getPersonas(): void {
+    promiseMessage(this.formService.getPersonas(), data => this.data = data);
   }
 
 }

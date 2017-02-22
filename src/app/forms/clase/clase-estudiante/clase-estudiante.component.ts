@@ -4,6 +4,7 @@ import { AtributosClase } from '../../../common/interfaces';
 import { MessengerDemo } from '../../messenger/messenger.directive';
 import { __platform_browser_private__ } from '@angular/platform-browser';
 import { deleteParametro, eliminarParametroObj, addParametro } from '../../../common/funtions';
+import { promiseMessage } from '../../../common/funtions';
 import { Select2TemplateFunction, Select2OptionData } from 'ng2-select2';
 declare var jQuery: any;
 
@@ -48,7 +49,6 @@ export class ClaseEstudiante {
     this.getCursosEstudiantes();
     this.getEstudiantesSearch();
     this.getCursos();
-  
 }
 
   ngOnInit(): void {
@@ -69,11 +69,11 @@ export class ClaseEstudiante {
     this.select2OptionsTemplate = {
       theme: 'bootstrap',
       templateResult: this.templateResult
-    }
+    };
     this.select2OptionsCurso = {
       theme: 'bootstrap',
       templateResult: this.templateCursos
-    }
+    };
   }
 
   ngOnDestroy(): void {
@@ -83,20 +83,20 @@ export class ClaseEstudiante {
 
   public templateResult: Select2TemplateFunction = (state: Select2OptionData): JQuery | string => {
     if (!state.id) return state.text;
-    return jQuery('<span><b>' + state.id + '</b> <br>' + state.text + ' <br>' + state.additional + '</span>');
+    return jQuery(
+      '<span><b>' + state.id + '</b><br>' + state.text + ' <br>' + state.additional + '</span>');
   }
 
   public templateCursos: Select2TemplateFunction = (state: Select2OptionData): JQuery | string => {
     if (!state.id) return state.text;
-    return jQuery('<span><b>'+ state.text +'</b> <br>' + state.additional + '</span>');
+    return jQuery('<span><b>' + state.text + '</b> <br>' + state.additional + '</span>');
   }
 
   cargarLista(lista, data): void {
     lista = [];
     data.map(date => lista.push(date.descripcion));
     return lista;
-  }  
-
+  }
 
   selectCurso(e: any): void {
     this.selectedCurso = e.value;
@@ -108,30 +108,16 @@ export class ClaseEstudiante {
   }
 
   getIdLista(data, datefien) {
-    return data = data.find(date => date.descripcion == datefien);
+    return data = data.find(date => date.descripcion === datefien);
   }
 
   getIdListaText(data, datefien) {
-    return data = data.find(date => date.id == datefien);
+    return data = data.find(date => date.id === datefien);
   }
 
-  // agregarClase(): void {
-  //     let date = { profesor: '', asignatura: '', curso: '', estado: false }
-  //     date.profesor = this.getIdListaText(this.atributosClase.profesor, this.selectedProfesor).text;
-  //     date.asignatura = this.selectedAsignatura;
-  //     date.curso = this.selectedCurso;
-  //     let dateId = { id_profesor: '', id_asignatura: '', id_curso: ''}
-  //     dateId.id_profesor = this.selectedProfesor;
-  //     dateId.id_asignatura = this.getIdLista(this.atributosClase.asignatura, this.selectedAsignatura).id_asignatura;
-  //     dateId.id_curso = this.getIdLista(this.atributosClase.curso, this.selectedCurso).id_curso;
-  //     // this.agregarParametro('/educacion/agregar-clase', dateId, () => {
-  //     //   this.atributosClase.clase.push(date); 
-  //     // });
-  //     this.atributosClase.clase.push(date); 
-  // }
   agregarClaseEstudiante(): void {
-    let date = { nombre: '',id_estudiante: '', curso: '', clases: [], estado: false }
-    date.id_estudiante = this.selectedEstudiante
+    let date = { nombre: '', id_estudiante: '', curso: '', clases: [], estado: false };
+    date.id_estudiante = this.selectedEstudiante;
     date.nombre = this.getIdListaText(this.estudiantesSearch, this.selectedEstudiante).text;
     date.curso =  this.getIdListaText(this.cursos, this.selectedCurso).text;
     date.clases = this.asignaturas;
@@ -139,9 +125,8 @@ export class ClaseEstudiante {
     // date.clases = this.asignaturas.map(data => data.descripcion);
     // this.estudiantes.push(date); 
     // });
-    console.log(date)
     date.clases = this.asignaturas.map(data => data.descripcion);
-    this.estudiantes.push(date); 
+    this.estudiantes.push(date);
   }
 
   agregarParametro(url, parametro, callback): void {
@@ -171,26 +156,22 @@ export class ClaseEstudiante {
   }
 
   getCursos(): void {
-    this.promiseMessage(this.formService.getCursos(), data => this.cursos = data.cursos)
+    promiseMessage(this.formService.getCursos(), data => this.cursos = data.cursos);
   }
 
   getEstudiantesSearch(): void {
-    this.promiseMessage(this.formService.getEstudiantes(), data => this.estudiantesSearch = data.estudiantes);
+    promiseMessage(this.formService.getEstudiantes(), data =>
+      this.estudiantesSearch = data.estudiantes);
   }
 
   getCursosEstudiantes(): void {
-    this.promiseMessage(this.formService.getCursosEstudiantes(), data => this.estudiantes = data.clase_estudiante);
+    promiseMessage(this.formService.getCursosEstudiantes(), data =>
+      this.estudiantes = data.clase_estudiante);
   }
 
   getAsignaturas(idCurso): void {
-    console.log("consultando asignaturas");
-    this.promiseMessage(this.formService.getAsignaturasCurso(idCurso), data => this.asignaturas = data.clases_curso);
-  }
-
-  promiseMessage(promise, callback): void {
-    promise
-    .then(data => callback(data))
-    .catch(err => this.messengerDemo.mensajeError())
+    promiseMessage(this.formService.getAsignaturasCurso(idCurso), data =>
+      this.asignaturas = data.clases_curso);
   }
 
 }

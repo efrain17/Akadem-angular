@@ -8,7 +8,7 @@ export interface Persona {
   fecha_nacimiento: string;
   telefono: any;
   tipo_usuario: any;
-  discapacidad: any; 
+  discapacidad: any;
   operacion: string;
 }
 
@@ -37,7 +37,7 @@ export interface AtributosEstructuraClase {
   grado: any;
   paralelo: any;
   tipo_curso: any;
-  periodo: any; 
+  periodo: any;
 }
 
 export interface AtributosAsignatura {
@@ -46,7 +46,7 @@ export interface AtributosAsignatura {
 }
 
 export interface AtributosCurso {
-  grado: any; 
+  grado: any;
   paralelo: any;
   periodo: any;
   tipo_curso: any;

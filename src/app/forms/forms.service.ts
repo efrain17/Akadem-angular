@@ -32,8 +32,8 @@ export class FormsService {
       method: RequestMethod.Post
     });
     return this.http.post(this.BASE_URL + url, body, options)
-      .toPromise()
-      .catch(this.error);
+    .toPromise()
+    .catch(this.error);
   }
 
   getPersonas() {
@@ -51,8 +51,13 @@ export class FormsService {
     return this.getServer(url);
   }
 
-  getAtributosAsignatura() {
-    let url = '/assets/data/dataAsignatura.json';
+  getAreasAcademica() {
+    let url = '/assets/data/data-asignatura/dataAreaAcademica.json';
+    return this.getServer(url);
+  }
+
+  getAsignaturas() {
+    let url = '/assets/data/data-asignatura/dataAsignatura.json';
     return this.getServer(url);
   }
 
@@ -62,7 +67,12 @@ export class FormsService {
   }
 
   getAtributosClase() {
-    let url = '/assets/data/dataClase.json';
+    let url = '/assets/data/clase-profesor/dataAtributosClase.json';
+    return this.getServer(url);
+  }
+
+  getClases() {
+    let url = '/assets/data/clase-profesor/dataClases.json';
     return this.getServer(url);
   }
 
@@ -82,18 +92,23 @@ export class FormsService {
   }
 
   getAtributosCurso() {
-    let url = '/assets/data/dataCurso.json';
+    let url = '/assets/data/data-asignatura/dataAtributosCurso.json';
     return this.getServer(url);
   }
-  
+
+  getDataCursos() {
+    let url = '/assets/data/data-asignatura/dataCurso.json';
+    return this.getServer(url);
+  }
+
   getAsignaturasCurso(idCurso) {
-    //consultar por idCurso
+    // consultar por idCurso
     let url = '/assets/data/dataClase/dataClasesCurso.json';
     return this.getServer(url);
   }
 
   deleteAtributosEstrClase(url, id) {
-    url = url +'?id='+ id;
+    url = url + '?id=' + id;
     return this.getServer(url);
   }
 

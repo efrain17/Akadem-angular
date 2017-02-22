@@ -18,17 +18,5 @@
     "tipo_curso": [
 		{ "descripcion": "Matutino", "id_tipo_curso": "1" }, 
 		{ "descripcion": "Vespertino", "id_tipo_curso": "2" }
-	],
-    "curso": [
-        { "descripcion": "Primero A-BACH.","grado": "Primero", "paralelo": "A", 
-          "periodo": "2016-2017","tipo_curso": "matutino", "estado": true},
-        { "descripcion": "Segundo A-BACH.","grado": "Segundo", "paralelo": "A", 
-          "periodo": "2016-2017","tipo_curso": "matutino", "estado": true},
-        { "descripcion": "Tercero A-BACH.","grado": "Tercero", "paralelo": "A", 
-          "periodo": "2016-2017","tipo_curso": "matutino", "estado": true},
-        { "descripcion": "Octavo A-BASC.","grado": "Octavo", "paralelo": "A", 
-          "periodo": "2016-2017","tipo_curso": "matutino", "estado": true},
-        { "descripcion": "Octavo B-BASC.","grado": "Octavo", "paralelo": "B", 
-          "periodo": "2016-2017","tipo_curso": "matutino", "estado": true}
-    ]
+	]
 }

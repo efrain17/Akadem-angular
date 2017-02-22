@@ -3,12 +3,13 @@ import { FormsService } from '../forms.service';
 import { AtributosAsignatura, AtributosCurso } from '../../common/interfaces';
 import { MessengerDemo } from '../messenger/messenger.directive';
 import { __platform_browser_private__ } from '@angular/platform-browser';
-import { deleteParametro, eliminarParametroObj, addParametro } from '../../common/funtions'
+import { deleteParametro, eliminarParametroObj, addParametro } from '../../common/funtions';
+import { promiseMessage } from '../../common/funtions';
 declare var jQuery: any;
 
 @Component({
-  selector: '[clase]',
-  templateUrl: './clase.template.html',
+  selector: '[asignatura-curso]',
+  templateUrl: './asignatura-curso.template.html',
   encapsulation: ViewEncapsulation.None,
   styleUrls: [
     '../scss/tables-dynamic.style.scss',
@@ -17,7 +18,7 @@ declare var jQuery: any;
   ],
   providers: [MessengerDemo]
 })
-export class Clase {
+export class AsignaturaCurso {
   domSharedStylesHost: any;
   nombreAsignatura;
   nombreCurso;
@@ -27,7 +28,7 @@ export class Clase {
   selectedPeriodo;
   selectedTipoCurso;
   addAsignatura: boolean = false;
-  addCurso: boolean = false;  
+  addCurso: boolean = false;
   areasAcademicas: any = [];
   grados: any = [];
   paralelos: any = [];
@@ -35,9 +36,9 @@ export class Clase {
   tipoCursos: any = [];
   colorOptions: Object = {color: '#f0b518'};
   select2Options: any = {theme: 'bootstrap'};
-  dataAsignatura: AtributosAsignatura = 
+  dataAsignatura: AtributosAsignatura =
   {
-    area_academica: [], 
+    area_academica: [],
     asignatura: [],
   };
   atributosCurso: AtributosCurso = {
@@ -46,11 +47,6 @@ export class Clase {
     paralelo: [],
     periodo: [],
     tipo_curso: []
-  };
-  periodo: any = {
-    fechaInicio: '',
-    fechaFin: '',
-    descripcion: ''
   };
 
   constructor(
@@ -66,29 +62,10 @@ export class Clase {
         this.domSharedStylesHost.__onStylesAdded__(additions);
       }
     };
-
-    this.formService.getAtributosAsignatura()
-      .then(data => {
-        this.dataAsignatura = data;
-        this.areasAcademicas = this.cargarLista(this.areasAcademicas, data.area_academica);
-        this.selectedAreaAcademica = this.areasAcademicas[0];
-    })
-      .catch(err => this.messengerDemo.mensajeError());
-
-    this.formService.getAtributosCurso()
-      .then(data => {
-        this.atributosCurso = data;
-        this.grados = this.cargarLista(this.grados, data.grado);
-        this.paralelos = this.cargarLista(this.paralelos, data.paralelo);
-        this.periodos = this.cargarLista(this.periodos, data.periodo);
-        this.tipoCursos = this.cargarLista(this.tipoCursos, data.tipo_curso);
-        this.selectedGrado = this.grados[0];
-        this.selectedParalelo = this.paralelos[0];
-        this.selectedPeriodo = this.periodos[0];
-        this.selectedTipoCurso = this.tipoCursos[0];
-
-      })
-      .catch(err => this.messengerDemo.mensajeError());
+    this.getAreasAcademica();
+    this.getAsignaturas();
+    this.getAtributosCurso();
+    this.getDataCursos();
   }
 
   ngOnInit(): void {
@@ -117,7 +94,7 @@ export class Clase {
     lista = [];
     data.map(date => lista.push(date.descripcion));
     return lista;
-  }  
+  }
 
   selectAreaAcademica(e: any): void {
     this.selectedAreaAcademica = e.value;
@@ -140,15 +117,16 @@ export class Clase {
   }
 
   getIdLista(data, datefien) {
-    return data = data.find(date => date.descripcion == datefien);
+    return data = data.find(date => date.descripcion === datefien);
   }
 
   agregarAsignatura(): void {
     if (this.nombreAsignatura) {
-      let date = { descripcion: '', area_academica: '', id_area_academica: '', estado: false }
+      let date = { descripcion: '', area_academica: '', id_area_academica: '', estado: false };
       date.descripcion = this.nombreAsignatura;
       date.area_academica = this.selectedAreaAcademica;
-      date.id_area_academica = this.getIdLista(this.dataAsignatura.area_academica, this.selectedAreaAcademica).id_area_academica;
+      date.id_area_academica = this.getIdLista(
+        this.dataAsignatura.area_academica, this.selectedAreaAcademica).id_area_academica;
       // this.agregarParametro('/educacion/agregar-asignatura', date, () => {
       //   this.dataAsignatura.asignatura.push(date);
       //   this.nombreAsignatura = '';
@@ -162,18 +140,26 @@ export class Clase {
 
   agregarCurso(): void {
     if (this.nombreCurso) {
-      let date = { descripcion: '', grado: '', paralelo: '', periodo: '', tipo_curso: '', estado: false}
-      let dateId = { descripcion: '', id_grado: '', id_paralelo: '',id_periodo: '', id_tipo_curso: '' }
+      let date = {
+        descripcion: '', grado: '', paralelo: '', periodo: '', tipo_curso: '', estado: false
+      };
+      let dateId = {
+        descripcion: '', id_grado: '', id_paralelo: '', id_periodo: '', id_tipo_curso: ''
+      };
       date.descripcion = this.nombreCurso;
       date.grado = this.selectedGrado;
       date.paralelo = this.selectedParalelo;
       date.periodo = this.selectedPeriodo;
       date.tipo_curso = this.selectedTipoCurso;
       dateId.descripcion = this.nombreCurso;
-      dateId.id_grado = this.getIdLista(this.atributosCurso.grado, this.selectedGrado).id_grado;
-      dateId.id_paralelo = this.getIdLista(this.atributosCurso.paralelo, this.selectedParalelo).id_paralelo;
-      dateId.id_periodo = this.getIdLista(this.atributosCurso.periodo, this.selectedPeriodo).id_periodo;
-      dateId.id_tipo_curso = this.getIdLista(this.atributosCurso.tipo_curso, this.selectedTipoCurso).id_tipo_curso;
+      dateId.id_grado = this.getIdLista(
+        this.atributosCurso.grado, this.selectedGrado).id_grado;
+      dateId.id_paralelo = this.getIdLista(
+        this.atributosCurso.paralelo, this.selectedParalelo).id_paralelo;
+      dateId.id_periodo = this.getIdLista(
+        this.atributosCurso.periodo, this.selectedPeriodo).id_periodo;
+      dateId.id_tipo_curso = this.getIdLista(
+        this.atributosCurso.tipo_curso, this.selectedTipoCurso).id_tipo_curso;
       // this.agregarParametro('/educacion/agregar-curso', dateId, () => {
       //   this.dataAsignatura.asignatura.push(date);
       //   this.nombreAsignatura = '';
@@ -188,13 +174,6 @@ export class Clase {
 
   agregarParametro(url, parametro, callback): void {
     addParametro(url, parametro, callback, this.formService, this.messengerDemo);
-  }
-
-  eliminarAreaAcademica(area): void {
-    // this.eliminarParametro('/educacion/eliminar-area', area.id, ()=> {
-    //   let newEstructura = this.eliminarParametroObj(area, this.estructuraAcademica.area_academica);
-    //   this.estructuraAcademica.area_academica = newEstructura;
-    // });
   }
 
   desactivarAsignatura(asignatura): void {
@@ -213,6 +192,40 @@ export class Clase {
 
   eliminarParametro(url, parametro, callback) {
     deleteParametro(url, parametro, callback, this.formService, this.messengerDemo);
+  }
+
+  getAreasAcademica(): void {
+    promiseMessage(this.formService.getAreasAcademica(), data => {
+      this.dataAsignatura.area_academica = data.area_academica;
+      this.areasAcademicas = this.cargarLista(this.areasAcademicas, data.area_academica);
+      this.selectedAreaAcademica = this.areasAcademicas[0];
+    });
+  }
+
+  getAsignaturas(): void {
+    promiseMessage(this.formService.getAsignaturas(), data => {
+      this.dataAsignatura.asignatura = data.asignatura;
+    });
+  }
+
+  getAtributosCurso(): void {
+    promiseMessage(this.formService.getAtributosCurso(), data => {
+      this.atributosCurso = data;
+      this.grados = this.cargarLista(this.grados, data.grado);
+      this.paralelos = this.cargarLista(this.paralelos, data.paralelo);
+      this.periodos = this.cargarLista(this.periodos, data.periodo);
+      this.tipoCursos = this.cargarLista(this.tipoCursos, data.tipo_curso);
+      this.selectedGrado = this.grados[0];
+      this.selectedParalelo = this.paralelos[0];
+      this.selectedPeriodo = this.periodos[0];
+      this.selectedTipoCurso = this.tipoCursos[0];
+    });
+  }
+
+  getDataCursos(): void {
+    promiseMessage(this.formService.getDataCursos(), data => {
+      this.atributosCurso.curso = data.curso;
+    });
   }
 
 }
