@@ -1,247 +1,263 @@
-<div class="row ">
-  <div class="col-lg-6 offset-lg-3">
-    <section class="widget" widget>
-      <header>
-        <h6>
-          Ingreso de Estructura Academica
-        </h6>
+<h1 class="page-title">Estructura <span class="fw-semi-bold">Academica</span></h1>
+<div class="col-lg-8 offset-lg-2">
+    <div class="clearfix">
+      <ul class="nav nav-tabs float-xs-left" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#areaAcademica" role="tab" aria-controls="basic" aria-expanded="true">Área Academica</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="tipoGrados" data-toggle="tab" href="#tipoGrado" role="tab" aria-controls="tipoGrado" aria-expanded="false">Tipo Grado</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="grados" data-toggle="tab" href="#grado" role="tab" aria-controls="grado" aria-expanded="false">Grado</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="tipoCursos" data-toggle="tab" href="#tipoCurso" role="tab" aria-controls="tipoCurso" aria-expanded="false">Tipo Cursos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="paralelos" data-toggle="tab" href="#paralelo" role="tab" aria-controls="paralelo" aria-expanded="false">Paralelos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="periodos" data-toggle="tab" href="#periodo" role="tab" aria-controls="periodo" aria-expanded="false">Periodos</a>
+        </li>
+      </ul>
+    </div>
+    <div class="tab-content mb-lg" id="myTabContent">
+      <!--tab 1 -->
+      <div role="tabpanel" class="tab-pane active in clearfix" id="areaAcademica" aria-labelledby="basic-tab" aria-expanded="true">
+        <h3>Área Academica</h3>
         <div class="widget-controls">
           <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
           <a href="#"><i class="fa fa-refresh"></i></a>
-          <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
         </div>
-      </header>
-      <div class="widget-body">
-       <form class="form-horizontal" role="form">
-        <fieldset>  
-          <accordion [closeOthers]="true" class="mb-lg show" id="accordion2">
-            <accordion-group >
-              <div accordion-heading>
-                    Área Academica
-                    <i class="fa fa-angle-down float-xs-right"></i>
-              </div>
-              <div>
-                <span *ngFor="let area of estructuraAcademica.area_academica">
-                  <div *ngIf="area.operacion != 'delete'">
-                    <span class="fw-semi-bold">{{area.descripcion}}</span>
-                    <a class="text-primary" (click)="eliminarAreaAcademica(area)">Eliminar</a>
-                    <br>
-                  </div>
-                </span>
-                <a class="text-primary" (click)="addAreaAcademica=!addAreaAcademica">
-                  +Agregar otra área academica
-                </a>
-              </div>
-              <!--form add -->
-              <div *ngIf="addAreaAcademica">
-                <div class="form-group">
-                  <label for="normal-field" class="col-form-label text-md-right">Nombre del área</label>
-                  <div>
-                    <input type="text" name="nombreAreaAcademica" [(ngModel)]="nombreAreaAcademica" class="form-control" placeholder="Nombre del área">
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" (click)="addAreaAcademica=false" class="btn btn-gray" >Close</button>
-                  <button type="button" (click)="agregarAreaAcademica()" class="btn btn-success">Save</button>
-                </div> 
-              </div>       
-            </accordion-group>
-            <accordion-group >
-              <div accordion-heading>
-                    Tipo de grado Academico
-                    <i class="fa fa-angle-down float-xs-right"></i>
-              </div>
-              <div>
-                <span *ngFor="let tipogrado of estructuraAcademica.tipo_grado">
-                  <div *ngIf="tipogrado.operacion != 'delete'">
-                    <span class="fw-semi-bold">{{tipogrado.descripcion}}</span>
-                    <a class="text-primary" (click)="eliminarTipoGrado(tipogrado)">Eliminar</a>
-                    <br>
-                  </div>
-                </span>
-                <a class="text-primary" (click)="addTipoGrado=!addTipoGrado">
-                  +Agregar tipo de grado academico
-                </a>
-              </div>
-              <!--form add -->
-              <div *ngIf="addTipoGrado">
-                <div class="form-group">
-                  <label for="normal-field" class="col-form-label text-md-right">Nombre del tipo de grado</label>
-                  <div>
-                    <input type="text" name="nombreTipoGrado" [(ngModel)]="nombreTipoGrado" class="form-control" placeholder="Nombre del tipo de grado">
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" (click)="addTipoGrado=false" class="btn btn-gray" >Close</button>
-                  <button type="button" (click)="agregarTipoGrado()" class="btn btn-success">Save</button>
-                </div>
-              </div>
-            </accordion-group>
-            <accordion-group >
-              <div accordion-heading>
-                    Grado Academico
-                    <i class="fa fa-angle-down float-xs-right"></i>
-              </div>
-              <div>
-                <span *ngFor="let grado of estructuraAcademica.grado">
-                  <div *ngIf="grado.operacion != 'delete'">
-                    <span class="fw-semi-bold">{{grado.descripcion}}</span>
-                    <a class="text-primary" (click)="eliminarGrado(grado)">Eliminar</a>
-                    <br>
-                  </div>
-                </span>
-                <a class="text-primary" (click)="addGrado=!addGrado">
-                  +Agregar grado academico
-                </a>
-              </div>
-              <!--form add -->
-              <div *ngIf="addGrado">
-                <div class="form-group">
-                  <label for="normal-field" class="col-form-label text-md-right">Nombre del grado</label>
-                  <div>
-                    <input type="text" name="nombreGrado" [(ngModel)]="nombreGrado" class="form-control" placeholder="Nombre del grado">
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" (click)="addGrado=false" class="btn btn-gray" >Close</button>
-                  <button type="button" (click)="agregarGrado()" class="btn btn-success">Save</button>
-                </div>
-              </div>
-            </accordion-group>
-            <accordion-group >
-              <div accordion-heading>
-                    Tipo de curso
-                    <i class="fa fa-angle-down float-xs-right"></i>
-              </div>
-              <div>
-                <span *ngFor="let tipoCurso of estructuraAcademica.tipo_curso">
-                  <div *ngIf="tipoCurso.operacion != 'delete'">
-                    <span class="fw-semi-bold">{{tipoCurso.descripcion}}</span>
-                    <a class="text-primary" (click)="eliminarTipoCurso(tipoCurso)">Eliminar</a>
-                    <br>
-                  </div>
-                </span>
-                <a class="text-primary" (click)="addTipoCurso=!addTipoCurso">
-                  +Agregar tipo curso
-                </a>
-              </div>
-              <!--form add -->
-              <div *ngIf="addTipoCurso">
-                <div class="form-group">
-                  <label for="normal-field" class="col-form-label text-md-right">Nombre del curso</label>
-                  <div>
-                    <input type="text" name="nombreTipoCurso" [(ngModel)]="nombreTipoCurso" class="form-control" placeholder="Nombre del tipo de curso">
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" (click)="addTipoCurso=false" class="btn btn-gray" >Close</button>
-                  <button type="button" (click)="agregarTipoCurso()" class="btn btn-success">Save</button>
-                </div>
-              </div>
-            </accordion-group>
-            <accordion-group >
-              <div accordion-heading>
-                    Paralelo Academico
-                    <i class="fa fa-angle-down float-xs-right"></i>
-              </div>
-              <div>
-                <span *ngFor="let paralelo of estructuraAcademica.paralelo">
-                  <div *ngIf="paralelo.operacion != 'delete'">
-                    <span class="fw-semi-bold">{{paralelo.descripcion}}</span>
-                    <a class="text-primary"  (click)="eliminarParalelo(paralelo)">Eliminar</a>
-                    <br>
-                  </div>
-                </span>
-                <a class="text-primary" (click)="addParalelo=!addParalelo">
-                  +Agregar paralelo academico
-                </a>
-              </div>
-              <!--form add -->
-              <div *ngIf="addParalelo">
-                <div class="form-group">
-                  <label for="normal-field" class="col-form-label text-md-right">Nombre del paralelo</label>
-                  <div >
-                    <input type="text" name="nombreParalelo" [(ngModel)]="nombreParalelo" class="form-control" placeholder="Nombre del paralelo">
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" (click)="addParalelo=false" class="btn btn-gray" >Close</button>
-                  <button type="button" (click)="agregarParalelo()" class="btn btn-success">Save</button>
-                </div>
-              </div>
-            </accordion-group>
-            <accordion-group >
-              <div accordion-heading>
-                    Periodo Academico
-                    <i class="fa fa-angle-down float-xs-right"></i>
-              </div>
-              <div>
-                <a class="text-primary" (click)="addPeriodo=!addPeriodo">
-                  +Agregar periodo academico
-                </a>
-              </div>
-              <!--form add -->
-              <div *ngIf="addPeriodo">
-                <div class="form-group">
-                  <label for="normal-field" class="col-form-label text-md-right">Nombre del periodo</label>
-                  <input type="text" name="nombrePeriodo" [(ngModel)]="periodo.descripcion" class="form-control" placeholder="Nombre del periodo">
-                  <label for="normal-field" class="col-form-label text-md-right">Fecha de inicio</label>
-                  <input type="text" name="periodoFechaInicio" [(ngModel)]="periodo.fechaInicio" class="form-control" placeholder="Fecha de inicio">
-                  <label for="normal-field" class="col-form-label text-md-right">Fecha de Finalización</label>
-                  <input type="text" name="periodoFechaFin" [(ngModel)]="periodo.fechaFin" class="form-control" placeholder="Fecha de Finalización">
-                </div>
-                <div class="modal-footer">
-                  <button type="button" (click)="addPeriodo=false" class="btn btn-gray" >Close</button>
-                  <button type="button" (click)="agregarPeriodo()" class="btn btn-success">Save</button>
-                </div>
-              </div>
-              <!--tabla-->
-              <table class="table table-striped table-hover" [mfData]="estructuraAcademica.periodo" #mf="mfDataTable" [mfRowsOnPage]="5">
-                <thead>
-                <tr>
-                  <th>
-                    <mfDefaultSorter by="descripcion">Descripcion</mfDefaultSorter>
-                  </th>
-                  <th>
-                    <mfDefaultSorter by="fecha_inicio">Fech. Inicio</mfDefaultSorter>
-                  </th>
-                  <th class="no-sort hidden-sm-down">
-                    <mfDefaultSorter by="fecha_fin">Fech. Fin</mfDefaultSorter>
-                  </th>
-                  <th class="hidden-sm-down">
-                    <mfDefaultSorter by="estado">Opcion</mfDefaultSorter>
-                  </th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let periodo of mf.data ">
-                  <td>{{periodo.descripcion}}</td>
-                  <td ><span class="fw-semi-bold">{{periodo.fecha_inicio}}</span></td>
-                  <td>{{periodo.fecha_fin}}</td>
-                  <td>
-                    <a *ngIf="periodo.estado" class="text-primary" (click)="desactivarPeriodo(periodo)">Desactivar</a>
-                    <a *ngIf="!periodo.estado" class="text-success" (click)="ActivarPeriodo(periodo)">Activar</a>
-                  </td>    
-                </tr>
-                <tr *ngIf="(mf.data).length === 0">
-                  <td colspan="100">
-                    No matches
-                  </td>
-                </tr>
-                </tbody>
-                <tfoot>
-                <tr>
-                  <td colspan="12">
-                    <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
-                  </td>
-                </tr>
-                </tfoot>
-              </table>
-            </accordion-group>                
-          </accordion>
-        </fieldset>
-       </form>
+        <div>
+          <span *ngFor="let area of estructuraAcademica.area_academica">
+            <div *ngIf="area.operacion != 'delete'">
+              <span class="fw-semi-bold">{{area.descripcion}}</span>
+              <a class="text-primary" (click)="eliminarAreaAcademica(area)">Eliminar</a>
+              <br>
+            </div>
+          </span>
+          <a class="text-primary" (click)="addAreaAcademica=!addAreaAcademica">
+            +Agregar otra área academica
+          </a>
+        </div>
+        <!--form add -->
+        <div *ngIf="addAreaAcademica">
+          <div class="form-group">
+            <label for="normal-field" class="col-form-label text-md-right">Nombre del área</label>
+            <div>
+              <input type="text" name="nombreAreaAcademica" [(ngModel)]="nombreAreaAcademica" class="form-control" placeholder="Nombre del área">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" (click)="addAreaAcademica=false" class="btn btn-gray" >Close</button>
+            <button type="button" (click)="agregarAreaAcademica()" class="btn btn-success">Save</button>
+          </div> 
+        </div>
       </div>
-    </section>
+      <!--tab 2 -->
+      <div role="tabpanel" class="tab-pane" id="tipoGrado" aria-labelledby="tipoGrado-tab" aria-expanded="false">
+        <h3>Tipo de grado</h3>
+        <div class="widget-controls">
+          <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+          <a href="#"><i class="fa fa-refresh"></i></a>
+        </div>
+        <div>
+          <span *ngFor="let tipogrado of estructuraAcademica.tipo_grado">
+            <div *ngIf="tipogrado.operacion != 'delete'">
+              <span class="fw-semi-bold">{{tipogrado.descripcion}}</span>
+              <a class="text-primary" (click)="eliminarTipoGrado(tipogrado)">Eliminar</a>
+              <br>
+            </div>
+          </span>
+          <a class="text-primary" (click)="addTipoGrado=!addTipoGrado">
+            +Agregar tipo de grado academico
+          </a>
+        </div>
+        <!--form add -->
+        <div *ngIf="addTipoGrado">
+          <div class="form-group">
+            <label for="normal-field" class="col-form-label text-md-right">Nombre del tipo de grado</label>
+            <div>
+              <input type="text" name="nombreTipoGrado" [(ngModel)]="nombreTipoGrado" class="form-control" placeholder="Nombre del tipo de grado">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" (click)="addTipoGrado=false" class="btn btn-gray" >Close</button>
+            <button type="button" (click)="agregarTipoGrado()" class="btn btn-success">Save</button>
+          </div>
+        </div>
+      </div>
+      <!--tab 3 -->
+      <div role="tabpanel" class="tab-pane" id="grado" aria-labelledby="grado-tab" aria-expanded="false">
+        <h3>Grado Academico</h3>
+        <div class="widget-controls">
+          <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+          <a href="#"><i class="fa fa-refresh"></i></a>
+        </div>
+        <div>
+          <span *ngFor="let grado of estructuraAcademica.grado">
+            <div *ngIf="grado.operacion != 'delete'">
+              <span class="fw-semi-bold">{{grado.descripcion}}</span>
+              <a class="text-primary" (click)="eliminarGrado(grado)">Eliminar</a>
+              <br>
+            </div>
+          </span>
+          <a class="text-primary" (click)="addGrado=!addGrado">
+            +Agregar grado academico
+          </a>
+        </div>
+        <!--form add -->
+        <div *ngIf="addGrado">
+          <div class="form-group">
+            <label for="normal-field" class="col-form-label text-md-right">Nombre del grado</label>
+            <div>
+              <input type="text" name="nombreGrado" [(ngModel)]="nombreGrado" class="form-control" placeholder="Nombre del grado">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" (click)="addGrado=false" class="btn btn-gray" >Close</button>
+            <button type="button" (click)="agregarGrado()" class="btn btn-success">Save</button>
+          </div>
+        </div>
+      </div>
+      <!--tab 4 -->
+      <div role="tabpanel" class="tab-pane" id="tipoCurso" aria-labelledby="tipoCurso-tab" aria-expanded="false">
+        <h3>Tipo curso</h3>
+        <div class="widget-controls">
+          <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+          <a href="#"><i class="fa fa-refresh"></i></a>
+        </div>
+        <div>
+          <span *ngFor="let tipoCurso of estructuraAcademica.tipo_curso">
+            <div *ngIf="tipoCurso.operacion != 'delete'">
+              <span class="fw-semi-bold">{{tipoCurso.descripcion}}</span>
+              <a class="text-primary" (click)="eliminarTipoCurso(tipoCurso)">Eliminar</a>
+              <br>
+            </div>
+          </span>
+          <a class="text-primary" (click)="addTipoCurso=!addTipoCurso">
+            +Agregar tipo curso
+          </a>
+        </div>
+        <!--form add -->
+        <div *ngIf="addTipoCurso">
+          <div class="form-group">
+            <label for="normal-field" class="col-form-label text-md-right">Nombre del curso</label>
+            <div>
+              <input type="text" name="nombreTipoCurso" [(ngModel)]="nombreTipoCurso" class="form-control" placeholder="Nombre del tipo de curso">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" (click)="addTipoCurso=false" class="btn btn-gray" >Close</button>
+            <button type="button" (click)="agregarTipoCurso()" class="btn btn-success">Save</button>
+          </div>
+        </div>
+      </div>
+      <!--tab 5 -->
+      <div role="tabpanel" class="tab-pane" id="paralelo" aria-labelledby="paralelo-tab" aria-expanded="false">
+        <h3>Paralelo</h3>
+        <div class="widget-controls">
+          <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+          <a href="#"><i class="fa fa-refresh"></i></a>
+        </div>
+        <div>
+          <span *ngFor="let paralelo of estructuraAcademica.paralelo">
+            <div *ngIf="paralelo.operacion != 'delete'">
+              <span class="fw-semi-bold">{{paralelo.descripcion}}</span>
+              <a class="text-primary"  (click)="eliminarParalelo(paralelo)">Eliminar</a>
+              <br>
+            </div>
+          </span>
+          <a class="text-primary" (click)="addParalelo=!addParalelo">
+            +Agregar paralelo academico
+          </a>
+        </div>
+        <!--form add -->
+        <div *ngIf="addParalelo">
+          <div class="form-group">
+            <label for="normal-field" class="col-form-label text-md-right">Nombre del paralelo</label>
+            <div >
+              <input type="text" name="nombreParalelo" [(ngModel)]="nombreParalelo" class="form-control" placeholder="Nombre del paralelo">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" (click)="addParalelo=false" class="btn btn-gray" >Close</button>
+            <button type="button" (click)="agregarParalelo()" class="btn btn-success">Save</button>
+          </div>
+        </div>
+      </div>
+      <!--tab 6 -->
+      <div role="tabpanel" class="tab-pane" id="periodo" aria-labelledby="periodo-tab" aria-expanded="false">
+        <h3>Periodo</h3>
+        <div class="widget-controls">
+          <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+          <a href="#"><i class="fa fa-refresh"></i></a>
+        </div>
+        <div>
+          <a class="text-primary" (click)="addPeriodo=!addPeriodo">
+            +Agregar periodo academico
+          </a>
+        </div>
+        <!--form add -->
+        <div *ngIf="addPeriodo">
+          <div class="form-group">
+            <label for="normal-field" class="col-form-label text-md-right">Nombre del periodo</label>
+            <input type="text" name="nombrePeriodo" [(ngModel)]="periodo.descripcion" class="form-control" placeholder="Nombre del periodo">
+            <label for="normal-field" class="col-form-label text-md-right">Fecha de inicio</label>
+            <input type="text" name="periodoFechaInicio" [(ngModel)]="periodo.fechaInicio" class="form-control" placeholder="Fecha de inicio">
+            <label for="normal-field" class="col-form-label text-md-right">Fecha de Finalización</label>
+            <input type="text" name="periodoFechaFin" [(ngModel)]="periodo.fechaFin" class="form-control" placeholder="Fecha de Finalización">
+          </div>
+          <div class="modal-footer">
+            <button type="button" (click)="addPeriodo=false" class="btn btn-gray" >Close</button>
+            <button type="button" (click)="agregarPeriodo()" class="btn btn-success">Save</button>
+          </div>
+        </div>
+        <!--tabla-->
+        <table class="table table-striped table-hover" [mfData]="estructuraAcademica.periodo" #mf="mfDataTable" [mfRowsOnPage]="5">
+          <thead>
+          <tr>
+            <th>
+              <mfDefaultSorter by="descripcion">Descripcion</mfDefaultSorter>
+            </th>
+            <th>
+              <mfDefaultSorter by="fecha_inicio">Fech. Inicio</mfDefaultSorter>
+            </th>
+            <th class="no-sort hidden-sm-down">
+              <mfDefaultSorter by="fecha_fin">Fech. Fin</mfDefaultSorter>
+            </th>
+            <th class="hidden-sm-down">
+              <mfDefaultSorter by="estado">Opcion</mfDefaultSorter>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let periodo of mf.data ">
+            <td>{{periodo.descripcion}}</td>
+            <td ><span class="fw-semi-bold">{{periodo.fecha_inicio}}</span></td>
+            <td>{{periodo.fecha_fin}}</td>
+            <td>
+              <a *ngIf="periodo.estado" class="text-primary" (click)="desactivarPeriodo(periodo)">Desactivar</a>
+              <a *ngIf="!periodo.estado" class="text-success" (click)="ActivarPeriodo(periodo)">Activar</a>
+            </td>    
+          </tr>
+          <tr *ngIf="(mf.data).length === 0">
+            <td colspan="100">
+              No matches
+            </td>
+          </tr>
+          </tbody>
+          <tfoot>
+          <tr>
+            <td colspan="12">
+              <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+            </td>
+          </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+    
   </div>
-</div>
