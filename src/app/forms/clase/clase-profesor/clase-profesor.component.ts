@@ -164,7 +164,7 @@ export class ClaseProfesor {
   }
 
   getAtributosClase() {
-    promiseMessage(this.formService.getAtributosClase(), data => {
+    promiseMessage(this.formService.getAtributosClase(), this.messengerDemo, data => {
       this.atributosClase = data;
       this.profesores = data.profesor;
       this.cursos = this.cargarLista(this.cursos, data.curso);
@@ -177,7 +177,7 @@ export class ClaseProfesor {
   }
 
   getClases() {
-    promiseMessage(this.formService.getClases(), data => {
+    promiseMessage(this.formService.getClases(), this.messengerDemo, data => {
       this.atributosClase.clase = data.clase;
     });
   }

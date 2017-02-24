@@ -147,7 +147,7 @@ export class AdminPersonas {
   }
 
   getAtributosPersonas(): void {
-    promiseMessage(this.formService.getAtributoPersonas(), data => {
+    promiseMessage(this.formService.getAtributoPersonas(), this.messengerDemo, data => {
       this.dataAtributos = data;
       this.selectedTlf = data.operadores_telefonicos[0].descripcion;
       this.operadorTlf = [];
@@ -260,7 +260,7 @@ export class AdminPersonas {
   }
 
   getPersonas(): void {
-    promiseMessage(this.formService.getPersonas(), data => this.data = data);
+    promiseMessage(this.formService.getPersonas(), this.messengerDemo, data => this.data = data);
   }
 
 }

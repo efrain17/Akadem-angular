@@ -14,9 +14,9 @@ export function addParametro(url, parametro, callback, formService, messengerDem
     .catch(err => messengerDemo.mensajeError());
 }
 
-export function promiseMessage(promise, callback): void {
+export function promiseMessage(promise, messengerDemo, callback): void {
     promise
     .then(data => callback(data))
-    .catch(err => this.messengerDemo.mensajeError());
+    .catch(err => messengerDemo.mensajeError());
   }
 

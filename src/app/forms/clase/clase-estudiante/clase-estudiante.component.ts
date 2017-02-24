@@ -156,21 +156,21 @@ export class ClaseEstudiante {
   }
 
   getCursos(): void {
-    promiseMessage(this.formService.getCursos(), data => this.cursos = data.cursos);
+    promiseMessage(this.formService.getCursos(), this.messengerDemo, data => this.cursos = data.cursos);
   }
 
   getEstudiantesSearch(): void {
-    promiseMessage(this.formService.getEstudiantes(), data =>
+    promiseMessage(this.formService.getEstudiantes(), this.messengerDemo, data =>
       this.estudiantesSearch = data.estudiantes);
   }
 
   getCursosEstudiantes(): void {
-    promiseMessage(this.formService.getCursosEstudiantes(), data =>
+    promiseMessage(this.formService.getCursosEstudiantes(), this.messengerDemo, data =>
       this.estudiantes = data.clase_estudiante);
   }
 
   getAsignaturas(idCurso): void {
-    promiseMessage(this.formService.getAsignaturasCurso(idCurso), data =>
+    promiseMessage(this.formService.getAsignaturasCurso(idCurso), this.messengerDemo, data =>
       this.asignaturas = data.clases_curso);
   }
 

@@ -198,7 +198,7 @@ export class AsignaturaCurso {
   }
 
   getAreasAcademica(): void {
-    promiseMessage(this.formService.getAreasAcademica(), data => {
+    promiseMessage(this.formService.getAreasAcademica(), this.messengerDemo, data => {
       this.dataAsignatura.area_academica = data.area_academica;
       this.areasAcademicas = this.cargarLista(this.areasAcademicas, data.area_academica);
       this.selectedAreaAcademica = this.areasAcademicas[0];
@@ -206,13 +206,13 @@ export class AsignaturaCurso {
   }
 
   getAsignaturas(): void {
-    promiseMessage(this.formService.getAsignaturas(), data => {
+    promiseMessage(this.formService.getAsignaturas(), this.messengerDemo, data => {
       this.dataAsignatura.asignatura = data.asignatura;
     });
   }
 
   getAtributosCurso(): void {
-    promiseMessage(this.formService.getAtributosCurso(), data => {
+    promiseMessage(this.formService.getAtributosCurso(), this.messengerDemo, data => {
       this.atributosCurso = data;
       this.grados = this.cargarLista(this.grados, data.grado);
       this.paralelos = this.cargarLista(this.paralelos, data.paralelo);
@@ -226,7 +226,7 @@ export class AsignaturaCurso {
   }
 
   getDataCursos(): void {
-    promiseMessage(this.formService.getDataCursos(), data => {
+    promiseMessage(this.formService.getDataCursos(), this.messengerDemo, data => {
       this.atributosCurso.curso = data.curso;
     });
   }

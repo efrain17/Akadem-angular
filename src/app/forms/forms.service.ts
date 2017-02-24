@@ -37,17 +37,17 @@ export class FormsService {
   }
 
   getPersonas() {
-    let url = '/assets/data/dataPersonas.json';
+    let url = this.BASE_URL + '/personas/personas';
     return this.getServer(url);
   }
 
   getAtributoPersonas() {
-    let url = '/assets/data/dataAtributosPersona.json';
+    let url =  this.BASE_URL + '/personas/atributos-personas';
     return this.getServer(url);
   }
 
   getAtributosEstructuraClase() {
-    let url = '/assets/data/dataAtributosEstructuraAcademica.json';
+    let url = this.BASE_URL + '/academica/estructura-academica';
     return this.getServer(url);
   }
 
