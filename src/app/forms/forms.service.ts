@@ -6,7 +6,7 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class FormsService {
-  BASE_URL = 'http://localhost:9000/api';
+  BASE_URL = 'http://192.168.1.10:9000/api';
 
   constructor(private http: Http ) { }
 
@@ -52,12 +52,12 @@ export class FormsService {
   }
 
   getAreasAcademica() {
-    let url = '/assets/data/data-asignatura/dataAreaAcademica.json';
+    let url = this.BASE_URL + '/academica/area-academica';
     return this.getServer(url);
   }
 
   getAsignaturas() {
-    let url = '/assets/data/data-asignatura/dataAsignatura.json';
+    let url = this.BASE_URL + '/academica/asignatura';
     return this.getServer(url);
   }
 
@@ -67,43 +67,48 @@ export class FormsService {
   }
 
   getAtributosClase() {
-    let url = '/assets/data/clase-profesor/dataAtributosClase.json';
+    let url = this.BASE_URL + '/academica/atributos-clase';
     return this.getServer(url);
   }
 
   getClases() {
-    let url = '/assets/data/clase-profesor/dataClases.json';
+    let url = this.BASE_URL + '/academica/clase';
     return this.getServer(url);
   }
 
   getCursosEstudiantes() {
-    let url = '/assets/data/dataClase/dataClaseEstudiante.json';
+    let url = this.BASE_URL + '/academica/cursos-estudiantes';
+    return this.getServer(url);
+  }
+
+  getClaseEstudiante(id) {
+    console.log(id);
+    let url = this.BASE_URL + '/academica/clase-estudiante?id=' + id;
     return this.getServer(url);
   }
 
   getCursos() {
-    let url = '/assets/data/dataClase/dataClaseCurso.json';
+    let url = this.BASE_URL + '/academica/curso-inscrito';
     return this.getServer(url);
   }
 
   getEstudiantes() {
-    let url = '/assets/data/dataClase/dataEstudiantes.json';
+    let url = this.BASE_URL + '/academica/estudiante-clase';
     return this.getServer(url);
   }
 
   getAtributosCurso() {
-    let url = '/assets/data/data-asignatura/dataAtributosCurso.json';
+    let url = this.BASE_URL + '/academica/atributos-curso';
     return this.getServer(url);
   }
 
   getDataCursos() {
-    let url = '/assets/data/data-asignatura/dataCurso.json';
+    let url = this.BASE_URL + '/academica/data-curso';
     return this.getServer(url);
   }
 
-  getAsignaturasCurso(idCurso) {
-    // consultar por idCurso
-    let url = '/assets/data/dataClase/dataClasesCurso.json';
+  getClasesCurso(idCurso) {
+    let url = this.BASE_URL + '/academica/clases-curso?id=' + idCurso;
     return this.getServer(url);
   }
 

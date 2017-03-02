@@ -30,7 +30,7 @@ export class ClaseEstudiante {
   asignaturas: any = [];
   cursos: any;
   selectedEstudiante = null;
-  selectedCurso = null;
+  selectedCurso;
 
   constructor(
     injector: Injector,
@@ -156,22 +156,30 @@ export class ClaseEstudiante {
   }
 
   getCursos(): void {
-    promiseMessage(this.formService.getCursos(), this.messengerDemo, data => this.cursos = data.cursos);
+    promiseMessage(this.formService.getCursos(), this.messengerDemo, data => {
+      this.cursos = data
+
+    });
   }
 
   getEstudiantesSearch(): void {
     promiseMessage(this.formService.getEstudiantes(), this.messengerDemo, data =>
-      this.estudiantesSearch = data.estudiantes);
+      this.estudiantesSearch = data);
   }
 
   getCursosEstudiantes(): void {
     promiseMessage(this.formService.getCursosEstudiantes(), this.messengerDemo, data =>
-      this.estudiantes = data.clase_estudiante);
+      this.estudiantes = data);
+  }
+
+  getClaseEstudiante(estudiante): void {
+    promiseMessage(this.formService.getClaseEstudiante(estudiante.id_estudiante), this.messengerDemo, data =>
+     estudiante.clases = data);
   }
 
   getAsignaturas(idCurso): void {
-    promiseMessage(this.formService.getAsignaturasCurso(idCurso), this.messengerDemo, data =>
-      this.asignaturas = data.clases_curso);
+    promiseMessage(this.formService.getClasesCurso(idCurso), this.messengerDemo, data =>
+      this.asignaturas = data);
   }
 
 }

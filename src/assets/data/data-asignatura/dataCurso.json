@@ -1,5 +1,4 @@
-{
-    "curso": [
+[
         { "descripcion": "Primero A-BACH.","grado": "Primero", "paralelo": "A", 
           "periodo": "2016-2017","tipo_curso": "matutino", "estado": true},
         { "descripcion": "Segundo A-BACH.","grado": "Segundo", "paralelo": "A", 
@@ -10,5 +9,4 @@
           "periodo": "2016-2017","tipo_curso": "matutino", "estado": true},
         { "descripcion": "Octavo B-BASC.","grado": "Octavo", "paralelo": "B", 
           "periodo": "2016-2017","tipo_curso": "matutino", "estado": true}
-    ]
-}
+]

@@ -1,9 +1,7 @@
-{
-  "cursos": [
+[
         { "text": "Primero A-BACH. 2016-2017", "id": "1","additional": "Estudiantes inscritos 1"},
         { "text": "Segundo A-BACH. 2016-2017", "id": "2","additional": "Estudiantes inscritos 29"},
         { "text": "Tercero A-BACH. 2016-2017", "id": "3","additional": "Estudiantes inscritos 5"},
         { "text": "Octavo A-BASC. 2016-2017", "id": "4","additional": "Estudiantes inscritos 18"},
         { "text": "Octavo B-BASC. 2016-2017", "id": "5","additional": "Estudiantes inscritos 20"}
-  ]
-}
+]

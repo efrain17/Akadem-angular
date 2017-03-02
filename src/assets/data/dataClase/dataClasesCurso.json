@@ -1,5 +1,4 @@
-{
-    "clases_curso":[
+[
 		{ "descripcion": "lengua", "id_asignatura": "1", "profesor": "Carlos Efrain Coello Delgado"},
 		{ "descripcion": "Ingles", "id_asignatura": "2", "profesor": "Carlos Efrain Coello Delgado"},
 		{ "descripcion": "Calculo de variables", "id_asignatura": "3", "profesor": "Carlos Efrain Coello Delgado"},
@@ -14,4 +13,3 @@
 		{ "descripcion": "Valores", "id_asignatura": "12", "profesor": "Carlos Efrain Coello Delgado"}
 	]
         
-}

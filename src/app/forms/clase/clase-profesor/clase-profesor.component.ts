@@ -53,7 +53,6 @@ export class ClaseProfesor {
         this.domSharedStylesHost.__onStylesAdded__(additions);
       }
     };
-    this.getClases();
     this.getAtributosClase();
   }
 
@@ -166,10 +165,10 @@ export class ClaseProfesor {
   getAtributosClase() {
     promiseMessage(this.formService.getAtributosClase(), this.messengerDemo, data => {
       this.atributosClase = data;
+      this.getClases();
       this.profesores = data.profesor;
       this.cursos = this.cargarLista(this.cursos, data.curso);
       this.asignaturas = this.cargarLista(this.asignaturas, data.asignatura);
-      this.clases = this.cargarLista(this.clases, data.clase);
       this.selectedProfesor = this.profesores[0];
       this.selectedCurso = this.cursos[0];
       this.selectedAsignatura = this.asignaturas[0];
@@ -178,7 +177,7 @@ export class ClaseProfesor {
 
   getClases() {
     promiseMessage(this.formService.getClases(), this.messengerDemo, data => {
-      this.atributosClase.clase = data.clase;
+      this.atributosClase.clase = data;
     });
   }
 

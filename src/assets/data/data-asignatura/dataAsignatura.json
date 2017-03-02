@@ -1,7 +1,5 @@
-{
-    "asignatura":[
+[
 		{ "descripcion": "lengua", "id_asignatura": "1", "id_area_academica": "1", "area_academica": "Estudios de Lengua y Literatura", "estado": true},
 		{ "descripcion": "Ingles", "id_asignatura": "2", "id_area_academica": "2", "area_academica": "Adquisición de Lenguas", "estado": true},
 		{ "descripcion": "Calculo de variables", "id_asignatura": "3", "id_area_academica": "5", "area_academica": "Matemáticas", "estado": true}
-	]
-}
+]

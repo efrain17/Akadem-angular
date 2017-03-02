@@ -14,11 +14,7 @@
 		{ "descripcion": "lengua", "id_asignatura": "1"},
 		{ "descripcion": "Ingles", "id_asignatura": "2"},
 		{ "descripcion": "Calculo de variables", "id_asignatura": "3"}
-	], 
-    "clase":[
-        { "id_clase": "1","profesor": "juan pedro", "asignatura": "Calculo de variables",
-          "curso": "Primero A-BACH.  2016-2017","estado": true }
-    ]
+	]
     
 }
 

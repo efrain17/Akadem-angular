@@ -66,6 +66,7 @@ export class AsignaturaCurso {
     this.getAsignaturas();
     this.getAtributosCurso();
     this.getDataCursos();
+    console.log('asignatura')
   }
 
   ngOnInit(): void {
@@ -199,15 +200,15 @@ export class AsignaturaCurso {
 
   getAreasAcademica(): void {
     promiseMessage(this.formService.getAreasAcademica(), this.messengerDemo, data => {
-      this.dataAsignatura.area_academica = data.area_academica;
-      this.areasAcademicas = this.cargarLista(this.areasAcademicas, data.area_academica);
+      this.dataAsignatura.area_academica = data;
+      this.areasAcademicas = this.cargarLista(this.areasAcademicas, data);
       this.selectedAreaAcademica = this.areasAcademicas[0];
     });
   }
 
   getAsignaturas(): void {
     promiseMessage(this.formService.getAsignaturas(), this.messengerDemo, data => {
-      this.dataAsignatura.asignatura = data.asignatura;
+      this.dataAsignatura.asignatura = data;
     });
   }
 
@@ -227,7 +228,8 @@ export class AsignaturaCurso {
 
   getDataCursos(): void {
     promiseMessage(this.formService.getDataCursos(), this.messengerDemo, data => {
-      this.atributosCurso.curso = data.curso;
+      this.atributosCurso.curso = data;
+      console.log('promesa')
     });
   }
 

@@ -108,9 +108,9 @@ export class AdminPersonas {
 
   updatePersona(): void {
     console.log(this.persona);
-    // promiseMessage(this.formService.updatePersona(this.personaId, this.persona), data =>{
-    //   this.messengerDemo.mensajeSucessFull()
-    // })
+    promiseMessage(this.formService.updatePersona(this.personaId, this.persona), this.messengerDemo, data =>{
+      this.messengerDemo.mensajeSucessFull()
+    })
   }
 
   mensaje(): void {
@@ -152,6 +152,7 @@ export class AdminPersonas {
       this.selectedTlf = data.operadores_telefonicos[0].descripcion;
       this.operadorTlf = [];
       this.rolesUsuarios =  [];
+      this.discapacidades = [];
       data.operadores_telefonicos.map(date => this.operadorTlf.push(date.descripcion));
       data.tipos_usuarios.map(date => this.rolesUsuarios.push(date.descripcion));
       data.discapacidades.map(date => this.discapacidades.push(date.descripcion));
@@ -200,7 +201,7 @@ export class AdminPersonas {
       idDiscapacidad = idDiscapacidad.find(date => date.descripcion === this.selectedDiscapacidad);
       let objDiscapacidad = {
         'descripcion': idDiscapacidad.descripcion,
-        'id_discapacidad': idDiscapacidad.id_discapacidad,
+        'id_discapacidad': idDiscapacidad.id,
         'operacion': 'insert',
         'porcentaje': this.porcentajeDiscapacidad
       };
@@ -218,6 +219,10 @@ export class AdminPersonas {
     });
     parametrosArray = parametrosArray.filter(date => date.operacion !== 'deleteLocal');
     console.log(parametrosArray);
+    this.rolesUsuarios = this.rolesUsuariosOld;
+    this.discapacidades = this.discapacidadesOld;
+    this.filtrarRolesRepetidos();
+    this.filtrarDiscapacidadesRepetidos();
     return parametrosArray;
   }
 
