@@ -6,7 +6,7 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class FormsService {
-  BASE_URL = 'http://192.168.1.10:9000/api';
+  BASE_URL = 'http://192.168.1.4:9000/api';
 
   constructor(private http: Http ) { }
 
@@ -51,6 +51,11 @@ export class FormsService {
     return this.getServer(url);
   }
 
+  getTipoGradoList(){
+    let url = this.BASE_URL + '/academica/tipo-gradolist';
+    return this.getServer(url);
+  }
+
   getAreasAcademica() {
     let url = this.BASE_URL + '/academica/area-academica';
     return this.getServer(url);
@@ -87,6 +92,11 @@ export class FormsService {
     return this.getServer(url);
   }
 
+  getProfesoresLike(nombre) {
+    let url = this.BASE_URL + '/academica/profesoresLike?nombre=' + nombre;
+    return this.getServer(url);
+  }
+
   getCursos() {
     let url = this.BASE_URL + '/academica/curso-inscrito';
     return this.getServer(url);
@@ -113,8 +123,8 @@ export class FormsService {
   }
 
   deleteAtributosEstrClase(url, id) {
-    url = url + '?id=' + id;
-    return this.getServer(url);
+    let body = { id: id };
+    return this.postServerAppJson(url, body);
   }
 
   insertAtributosEstrClase(url, params) {

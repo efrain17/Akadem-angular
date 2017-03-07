@@ -4,6 +4,7 @@ import { AtributosEstructuraClase } from '../../common/interfaces';
 import { MessengerDemo } from '../messenger/messenger.directive';
 import { __platform_browser_private__ } from '@angular/platform-browser';
 import { deleteParametro, eliminarParametroObj, addParametro } from '../../common/funtions';
+import { promiseMessage, cargarLista } from '../../common/funtions';
 declare var jQuery: any;
 
 @Component({
@@ -19,10 +20,7 @@ declare var jQuery: any;
 })
 export class EstructuraEducativa {
   domSharedStylesHost: any;
-  select2Options: any =
-  {
-    theme: 'bootstrap'
-  };
+  select2Options: any = {theme: 'bootstrap'};
   colorOptions: Object = {color: '#f0b518'};
   dateMask = {
     mask: [/\d/, /\d/,
@@ -54,6 +52,8 @@ export class EstructuraEducativa {
   addTipoGrado: boolean = false;
   addParalelo: boolean = false;
   addPeriodo: boolean = false;
+  tipoGradoList: any;
+  selectedTipoGrado
 
   constructor(
     injector: Injector,
@@ -68,10 +68,7 @@ export class EstructuraEducativa {
         this.domSharedStylesHost.__onStylesAdded__(additions);
       }
     };
-
-    this.formService.getAtributosEstructuraClase()
-    .then(data => this.estructuraAcademica = data)
-    .catch(err => this.messengerDemo.mensajeError());
+    this.cargarDatos();
   }
 
   ngOnInit(): void {
@@ -94,6 +91,13 @@ export class EstructuraEducativa {
     jQuery('.selectpicker').selectpicker();
   }
 
+  cargarDatos(): void {
+    this.formService.getAtributosEstructuraClase()
+    .then(data => this.estructuraAcademica = data)
+    .catch(err => this.messengerDemo.mensajeError());
+    this.getTipoGradoList();
+  }
+
   unmask(event) {
     return event.replace(/\D+/g, '');
   }
@@ -103,102 +107,93 @@ export class EstructuraEducativa {
     this.domSharedStylesHost.onStylesAdded = this.domSharedStylesHost.__onStylesAdded__;
   }
 
+  selectTipoGradoChanged(e: any): void {
+    this.selectedTipoGrado = e.value;
+  }
+
+  getTipoGradoList(): void {
+    promiseMessage(this.formService.getTipoGradoList(), this.messengerDemo, data => {
+      this.tipoGradoList = data;
+    });
+  }
+
   agregarAreaAcademica(): void {
-    // this.agregarParametro('/educacion/agregar-area', this.nombreAreaAcademica, () => {
-    //   let date = { descripcion: '' };
-    //   date.descripcion = this.nombreAreaAcademica;
-    //   this.estructuraAcademica.area_academica.push(date);
-    //   this.nombreAreaAcademica = '';
-    //   this.addAreaAcademica = false; 
-    // });
-    let date = { descripcion: '' };
-    date.descripcion = this.nombreAreaAcademica;
-    this.estructuraAcademica.area_academica.push(date);
-    this.nombreAreaAcademica = '';
-    this.addAreaAcademica = false;
+    if (this.nombreAreaAcademica) {
+      let date = { descripcion: '' , };
+      date.descripcion = this.nombreAreaAcademica;
+      this.agregarParametro('/academica/agregar-area', date, () => {
+        this.estructuraAcademica.area_academica.push(date);
+        this.nombreAreaAcademica = '';
+        this.addAreaAcademica = false; 
+      });
+    }
   }
 
   agregarTipoGrado(): void  {
-    // this.agregarParametro('/educacion/agregar-tipogrado', this.nombreTipoGrado, ()=> {
-    //   let date = { descripcion: '' };
-    //   date.descripcion = this.nombreTipoGrado;
-    //   this.estructuraAcademica.tipo_grado.push(date);
-    //   this.nombreTipoGrado = '';
-    //   this.addTipoGrado = false; 
-    // });
-    let date = { descripcion: '' };
-    date.descripcion = this.nombreTipoGrado;
-    this.estructuraAcademica.tipo_grado.push(date);
-    this.nombreTipoGrado = '';
-    this.addTipoGrado = false;
+    if (this.nombreTipoGrado) {
+      let date = { descripcion: '' };
+      date.descripcion = this.nombreTipoGrado;
+      this.agregarParametro('/academica/agregar-tipogrado', date, ()=> {
+        this.estructuraAcademica.tipo_grado.push(date);
+        this.nombreTipoGrado = '';
+        this.addTipoGrado = false;
+        this.getTipoGradoList();
+      });
+    }    
   }
 
   agregarGrado(): void  {
-    // this.agregarParametro('/educacion/agregar-grado', this.nombreGrado, ()=> {
-    //   let date = { descripcion: '' };
-    //   date.descripcion = this.nombreGrado;
-    //   this.estructuraAcademica.grado.push(date);
-    //   this.nombreGrado = '';
-    //   this.addGrado = false; 
-    // });
-    let date = { descripcion: '' };
-    date.descripcion = this.nombreGrado;
-    this.estructuraAcademica.grado.push(date);
-    this.nombreGrado = '';
-    this.addGrado = false;
+    if (this.nombreGrado) {
+      let date = { descripcion: '', idTipoGrado: ''};
+      date.descripcion = this.nombreGrado;
+      date.idTipoGrado = this.selectedTipoGrado;
+      this.agregarParametro('/academica/agregar-grado', date, ()=> {
+        this.estructuraAcademica.grado.push(date);
+        this.nombreGrado = '';
+        this.addGrado = false; 
+      });     
+    }
   }
 
   agregarTipoCurso(): void  {
-    // this.agregarParametro('/educacion/agregar-tipocurso', this.nombreTipoCurso, ()=> {
-    //   let date = { descripcion: '' };
-    //   date.descripcion = this.nombreTipoCurso;
-    //   this.estructuraAcademica.tipo_curso.push(date);
-    //   this.nombreTipoCurso = '';
-    //   this.addTipoCurso = false; 
-    // });
-    let date = { descripcion: '' };
-    date.descripcion = this.nombreTipoCurso;
-    this.estructuraAcademica.tipo_curso.push(date);
-    this.nombreTipoCurso = '';
-    this.addTipoCurso = false;
+    if (this.nombreTipoCurso) {
+      let date = { descripcion: '' };
+      date.descripcion = this.nombreTipoCurso;
+      this.agregarParametro('/academica/agregar-tipocurso', date, ()=> {
+        this.estructuraAcademica.tipo_curso.push(date);
+        this.nombreTipoCurso = '';
+        this.addTipoCurso = false; 
+      });
+    }
   }
 
   agregarParalelo(): void  {
-    // this.agregarParametro('/educacion/agregar-paralelo', this.nombreParalelo, ()=> {
-    //   let date = { descripcion: '' };
-    //   date.descripcion = this.nombreParalelo;
-    //   this.estructuraAcademica.paralelo.push(date);
-    //   this.nombreParalelo = '';
-    //   this.addParalelo = false; 
-    // });
-    let date = { descripcion: '' };
-    date.descripcion = this.nombreParalelo;
-    this.estructuraAcademica.paralelo.push(date);
-    this.nombreParalelo = '';
-    this.addParalelo = false;
+    if (this.nombreParalelo) {
+      let date = { descripcion: '' };
+      date.descripcion = this.nombreParalelo;
+      this.agregarParametro('/academica/agregar-paralelo', date, ()=> {
+        this.estructuraAcademica.paralelo.push(date);
+        this.nombreParalelo = '';
+        this.addParalelo = false; 
+      });
+    }  
   }
 
   agregarPeriodo(): void {
-    // this.agregarParametro('/educacion/agregar-periodo', this.periodo, ()=> {
-    //   let date = { descripcion: '', fecha_inicio: '', fecha_fin: ''};
-    //   date.descripcion = this.periodo.descripcion;
-    //   date.fecha_inicio = this.periodo.fechaInicio;
-    //   date.fecha_fin = this.periodo.fechaFin;
-    //   this.estructuraAcademica.periodo.push(date);
-    //   this.periodo.descripcion = '';
-    //   this.periodo.fechaInicio = '';
-    //   this.periodo.fechaFin = ''; 
-    //   this.addPeriodo = false; 
-    // });
-    let date = { descripcion: '', fecha_inicio: '', fecha_fin: '', estado: false};
-    date.descripcion = this.periodo.descripcion;
-    date.fecha_inicio = this.periodo.fechaInicio;
-    date.fecha_fin = this.periodo.fechaFin;
-    this.estructuraAcademica.periodo.push(date);
-    this.periodo.descripcion = '';
-    this.periodo.fechaInicio = '';
-    this.periodo.fechaFin = '';
-    this.addPeriodo = false;
+    if (this.periodo.descripcion && this.periodo.fechaInicio && this.periodo.fechaFin) {
+      let date = { descripcion: '', fecha_inicio: '', fecha_fin: ''};
+      date.descripcion = this.periodo.descripcion;
+      date.fecha_inicio = this.periodo.fechaInicio;
+      date.fecha_fin = this.periodo.fechaFin;
+      this.agregarParametro('/academica/agregar-periodo', date, ()=> {
+        this.estructuraAcademica.periodo.push(date);
+        this.periodo.descripcion = '';
+        this.periodo.fechaInicio = '';
+        this.periodo.fechaFin = ''; 
+        this.addPeriodo = false; 
+      });
+    }
+    
   }
 
   agregarParametro(url, parametro, callback): void {
@@ -206,67 +201,54 @@ export class EstructuraEducativa {
   }
 
   eliminarAreaAcademica(area): void {
-    // this.eliminarParametro('/educacion/eliminar-area', area.id, ()=> {
-    //   let newEstructura = this.eliminarParametroObj(
-    //     area, this.estructuraAcademica.area_academica);
-    //   this.estructuraAcademica.area_academica = newEstructura;
-    // });
-    let newEstructura = eliminarParametroObj(area, this.estructuraAcademica.area_academica);
-    this.estructuraAcademica.area_academica = newEstructura;
+    this.eliminarParametro('/academica/desactivar-area', area.id_area_academica, ()=> {
+      let newEstructura = eliminarParametroObj(area, this.estructuraAcademica.area_academica);
+      this.estructuraAcademica.area_academica = newEstructura;
+    });
   }
 
   eliminarTipoGrado(tipogrado): void {
-    // this.eliminarParametro('/educacion/eliminar-tipogrado', tipogrado, ()=> {
-    //   let newEstructura = this.eliminarParametroObj(
-    //     tipogrado, this.estructuraAcademica.tipo_grado);
-    //   this.estructuraAcademica.tipo_grado = newEstructura;
-    // });
-    let newEstructura = eliminarParametroObj(tipogrado, this.estructuraAcademica.tipo_grado);
-    this.estructuraAcademica.tipo_grado = newEstructura;
+    this.eliminarParametro('/academica/desactivar-tipogrado', tipogrado.id_tipo_grado, ()=> {
+      let newEstructura = eliminarParametroObj(
+        tipogrado, this.estructuraAcademica.tipo_grado);
+      this.estructuraAcademica.tipo_grado = newEstructura;
+    });
   }
 
   eliminarGrado(grado): void {
-    // this.eliminarParametro('/educacion/eliminar-grado', grado, ()=> {
-    //   let newEstructura = this.eliminarParametroObj(
-    //     grado, this.estructuraAcademica.grado);
-    //   this.estructuraAcademica.grado = newEstructura;
-    // });
-    let newEstructura = eliminarParametroObj(grado, this.estructuraAcademica.grado);
-    this.estructuraAcademica.grado = newEstructura;
+    this.eliminarParametro('/academica/desactivar-grado', grado.id_grado, ()=> {
+      let newEstructura = eliminarParametroObj(
+        grado, this.estructuraAcademica.grado);
+      this.estructuraAcademica.grado = newEstructura;
+    });
   }
 
   eliminarTipoCurso(tipoCurso): void {
-    // this.eliminarParametro('/educacion/eliminar-curso', tipoCurso, ()=> {
-    //   let newEstructura = this.eliminarParametroObj(
-    //     tipoCurso, this.estructuraAcademica.tipo_curso);
-    //   this.estructuraAcademica.tipo_curso = newEstructura;
-    // });
-    let newEstructura = eliminarParametroObj(tipoCurso, this.estructuraAcademica.tipo_curso);
-    this.estructuraAcademica.tipo_curso = newEstructura;
+    this.eliminarParametro('/academica/desactivar-tipocurso', tipoCurso.id_tipo_curso, ()=> {
+      let newEstructura = eliminarParametroObj(
+        tipoCurso, this.estructuraAcademica.tipo_curso);
+      this.estructuraAcademica.tipo_curso = newEstructura;
+    });
   }
 
   eliminarParalelo(paralelo): void {
-    // this.eliminarParametro('/educacion/eliminar-paralelo', paralelo, ()=> {
-    //   let newEstructura = this.eliminarParametroObj(
-    //     paralelo, this.estructuraAcademica.paralelo);
-    //   this.estructuraAcademica.paralelo = newEstructura;
-    // });
-    let newEstructura = eliminarParametroObj(paralelo, this.estructuraAcademica.paralelo);
-    this.estructuraAcademica.paralelo = newEstructura;
+    this.eliminarParametro('/academica/desactivar-paralelo', paralelo.id_paralelo, ()=> {
+      let newEstructura = eliminarParametroObj(
+        paralelo, this.estructuraAcademica.paralelo);
+      this.estructuraAcademica.paralelo = newEstructura;
+    });
   }
 
   desactivarPeriodo(thisPeriodo): void {
-    // this.eliminarParametro('/educacion/desactivar-periodo', thisPeriodo, ()=> {
-    //    thisPeriodo.estado = false;
-    // });
-    thisPeriodo.estado = false;
+    this.eliminarParametro('/academica/desactivar-periodo', thisPeriodo.id_periodo, ()=> {
+       thisPeriodo.estado = false;
+    });
   }
 
   ActivarPeriodo(thisPeriodo): void {
-    // this.eliminarParametro('/educacion/activar-periodo', thisPeriodo, ()=> {
-    //    thisPeriodo.estado = true;
-    // });
-    thisPeriodo.estado = true;
+    this.eliminarParametro('/academica/activar-periodo', thisPeriodo.id_periodo, ()=> {
+       thisPeriodo.estado = true;
+    });
   }
 
   eliminarParametro(url, parametro, callback){

@@ -126,19 +126,16 @@ export class AsignaturaCurso {
 
   agregarAsignatura(): void {
     if (this.nombreAsignatura) {
-      let date = { descripcion: '', area_academica: '', id_area_academica: '', estado: false };
+      let date = { descripcion: '', area_academica: '', id_area_academica: '', estado: true };
       date.descripcion = this.nombreAsignatura;
       date.area_academica = this.selectedAreaAcademica;
       date.id_area_academica = this.getIdLista(
-        this.dataAsignatura.area_academica, this.selectedAreaAcademica).id_area_academica;
-      // this.agregarParametro('/educacion/agregar-asignatura', date, () => {
-      //   this.dataAsignatura.asignatura.push(date);
-      //   this.nombreAsignatura = '';
-      //   this.addAsignatura = false; 
-      // });
-      this.dataAsignatura.asignatura.push(date);
-      this.nombreAsignatura = '';
-      this.addAsignatura = false;
+      this.dataAsignatura.area_academica, this.selectedAreaAcademica).id_area_academica;
+      this.agregarParametro('/academica/agregar-asignatura', date, () => {
+        this.dataAsignatura.asignatura.push(date);
+        this.nombreAsignatura = '';
+        this.addAsignatura = false; 
+      });
     }
   }
 
@@ -164,15 +161,11 @@ export class AsignaturaCurso {
         this.atributosCurso.periodo, this.selectedPeriodo).id_periodo;
       dateId.id_tipo_curso = this.getIdLista(
         this.atributosCurso.tipo_curso, this.selectedTipoCurso).id_tipo_curso;
-      // this.agregarParametro('/educacion/agregar-curso', dateId, () => {
-      //   this.dataAsignatura.asignatura.push(date);
-      //   this.nombreAsignatura = '';
-      //   this.addAsignatura = false; 
-      // });
-      console.log(dateId);
-      this.atributosCurso.curso.push(date);
-      this.nombreAsignatura = '';
-      this.addAsignatura = false;
+      this.agregarParametro('/academica/agregar-curso', dateId, () => {
+        this.atributosCurso.curso.push(date);
+        this.nombreCurso = '';
+        this.addCurso = false; 
+      });
     }
   }
 
@@ -181,17 +174,27 @@ export class AsignaturaCurso {
   }
 
   desactivarAsignatura(asignatura): void {
-    // this.eliminarParametro('/educacion/descactivar-asignatura', asignatura, ()=> {
-    //   asignatura.estado = false;
-    // });
-    asignatura.estado = false;
+    this.eliminarParametro('/academica/desactivar-asignatura', asignatura.id_asignatura, ()=> {
+      asignatura.estado = false;
+    });
   }
 
   activarAsignatura(asignatura): void {
-    // this.eliminarParametro('/educacion/descactivar-asignatura', asignatura, ()=> {
-    //   asignatura.estado = true;
-    // });
-    asignatura.estado = true;
+    this.eliminarParametro('/academica/activar-asignatura', asignatura.id_asignatura, ()=> {
+      asignatura.estado = true;
+    });
+  }
+
+  desactivarCurso(curso): void {
+    this.eliminarParametro('/academica/desactivar-curso', curso.id_curso, ()=> {
+      curso.estado = false;
+    });
+  }
+
+  activarCurso(curso): void {
+    this.eliminarParametro('/academica/activar-curso', curso.id_curso, ()=> {
+      curso.estado = true;
+    });
   }
 
   eliminarParametro(url, parametro, callback) {
@@ -229,7 +232,6 @@ export class AsignaturaCurso {
   getDataCursos(): void {
     promiseMessage(this.formService.getDataCursos(), this.messengerDemo, data => {
       this.atributosCurso.curso = data;
-      console.log('promesa')
     });
   }
 

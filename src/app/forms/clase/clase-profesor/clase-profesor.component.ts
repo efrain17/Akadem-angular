@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, Injector } from '@angular/core';
+import { Component, ViewEncapsulation, Injector, HostListener } from '@angular/core';
 import { FormsService } from '../../forms.service';
 import { AtributosClase } from '../../../common/interfaces';
 import { MessengerDemo } from '../../messenger/messenger.directive';
@@ -32,6 +32,7 @@ export class ClaseProfesor {
   selectedAsignatura = null;
   selectedProfesor = null;
   selectedCurso = null;
+  findProfesor: boolean = false;
   atributosClase: AtributosClase =
   {
     profesor: [],
@@ -54,6 +55,13 @@ export class ClaseProfesor {
       }
     };
     this.getAtributosClase();
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: any) {
+      console.log("buscando: " + event.target.value);
+      this.getProfesoresLike(event.target.value);
+    
   }
 
   ngOnInit(): void {
@@ -134,10 +142,9 @@ export class ClaseProfesor {
         this.atributosClase.asignatura, this.selectedAsignatura).id_asignatura;
       dateId.id_curso = this.getIdLista(
         this.atributosClase.curso, this.selectedCurso).id_curso;
-      // this.agregarParametro('/educacion/agregar-clase', dateId, () => {
-      //   this.atributosClase.clase.push(date); 
-      // });
-      this.atributosClase.clase.push(date);
+      this.agregarParametro('/academica/agregar-clase', dateId, () => {
+        this.atributosClase.clase.push(date); 
+      });
   }
 
   agregarParametro(url, parametro, callback): void {
@@ -145,17 +152,15 @@ export class ClaseProfesor {
   }
 
   desactivarClase(clase): void {
-    // this.eliminarParametro('/educacion/descactivar-clase', clase, ()=> {
-    //   clase.estado = false;
-    // });
-    clase.estado = false;
+    this.eliminarParametro('/academica/desactivar-clase', clase.id_clase, ()=> {
+      clase.estado = false;
+    });
   }
 
   activarClase(clase): void {
-    // this.eliminarParametro('/educacion/descactivar-clase', clase, ()=> {
-    //   clase.estado = true;
-    // });
-    clase.estado = true;
+    this.eliminarParametro('/academica/activar-clase', clase.id_clase, ()=> {
+      clase.estado = true;
+    });
   }
 
   eliminarParametro(url, parametro, callback) {
@@ -175,10 +180,29 @@ export class ClaseProfesor {
     });
   }
 
+  getProfesoresLike(nombre){
+    promiseMessage(this.formService.getProfesoresLike(nombre), this.messengerDemo, data => {
+      this.profesores = data
+      this.selectedProfesor = this.profesores[0];
+    });
+  }
+
   getClases() {
     promiseMessage(this.formService.getClases(), this.messengerDemo, data => {
       this.atributosClase.clase = data;
     });
+  }
+
+  onKey() { // without type info
+    console.log("escribiendo: " );
+  }
+
+  focusFunction() {
+     console.log("con foco");
+  }
+
+  focusOutFunction(){
+    this.findProfesor = !this.findProfesor;
   }
 
 }

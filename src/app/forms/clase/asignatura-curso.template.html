@@ -1,5 +1,5 @@
 <h1 class="page-title">Asignaturas & <span class="fw-semi-bold">Cursos</span></h1>
-<div class="col-lg-8 offset-lg-2">
+<div messenger-demo class="col-lg-8 offset-lg-2">
     <div class="clearfix">
       <ul class="nav nav-tabs float-xs-left" id="myTab" role="tablist">
         <li class="nav-item">
@@ -106,8 +106,8 @@
             <td>{{curso.periodo}}</td>
             <td>{{curso.tipo_curso}}</td>
             <td>
-              <a *ngIf="curso.estado" class="text-primary" (click)="desactivarAsignatura(curso)">Desactivar</a>
-              <a *ngIf="!curso.estado" class="text-success" (click)="activarAsignatura(curso)">Activar</a>
+              <a *ngIf="curso.estado" class="text-primary" (click)="desactivarCurso(curso)">Desactivar</a>
+              <a *ngIf="!curso.estado" class="text-success" (click)="activarCurso(curso)">Activar</a>
             </td>    
           </tr>
           <tr *ngIf="(mf2.data).length === 0">
