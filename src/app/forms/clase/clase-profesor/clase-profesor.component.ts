@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, Injector, HostListener } from '@angular/core';
+import { Component, ViewEncapsulation, Injector } from '@angular/core';
 import { FormsService } from '../../forms.service';
 import { AtributosClase } from '../../../common/interfaces';
 import { MessengerDemo } from '../../messenger/messenger.directive';
@@ -6,6 +6,10 @@ import { __platform_browser_private__ } from '@angular/platform-browser';
 import { deleteParametro, eliminarParametroObj, addParametro } from '../../../common/funtions';
 import { promiseMessage } from '../../../common/funtions';
 import { Select2TemplateFunction, Select2OptionData } from 'ng2-select2';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/map';
+
 declare var jQuery: any;
 
 @Component({
@@ -30,7 +34,7 @@ export class ClaseProfesor {
   cursos;
   clases;
   selectedAsignatura = null;
-  selectedProfesor = null;
+  selectedProfesor: any = {id: "", text: ""}
   selectedCurso = null;
   findProfesor: boolean = false;
   atributosClase: AtributosClase =
@@ -55,13 +59,6 @@ export class ClaseProfesor {
       }
     };
     this.getAtributosClase();
-  }
-
-  @HostListener('window:keyup', ['$event'])
-  keyEvent(event: any) {
-      console.log("buscando: " + event.target.value);
-      this.getProfesoresLike(event.target.value);
-    
   }
 
   ngOnInit(): void {
@@ -132,19 +129,23 @@ export class ClaseProfesor {
   }
 
   agregarClase(): void {
+    if (this.selectedProfesor.id) {
       let date = { profesor: '', asignatura: '', curso: '', estado: false };
-      date.profesor = this.getIdListaText(this.atributosClase.profesor, this.selectedProfesor).text;
+      date.profesor = this.selectedProfesor.text;
       date.asignatura = this.selectedAsignatura;
       date.curso = this.selectedCurso;
       let dateId = { id_profesor: '', id_asignatura: '', id_curso: ''};
-      dateId.id_profesor = this.selectedProfesor;
+      dateId.id_profesor = this.selectedProfesor.id;
       dateId.id_asignatura = this.getIdLista(
         this.atributosClase.asignatura, this.selectedAsignatura).id_asignatura;
       dateId.id_curso = this.getIdLista(
         this.atributosClase.curso, this.selectedCurso).id_curso;
       this.agregarParametro('/academica/agregar-clase', dateId, () => {
-        this.atributosClase.clase.push(date); 
+        this.atributosClase.clase.push(date);
+        this.selectedProfesor = '';
+        // this.selectedProfesor.text = '';
       });
+    }    
   }
 
   agregarParametro(url, parametro, callback): void {
@@ -174,16 +175,15 @@ export class ClaseProfesor {
       this.profesores = data.profesor;
       this.cursos = this.cargarLista(this.cursos, data.curso);
       this.asignaturas = this.cargarLista(this.asignaturas, data.asignatura);
-      this.selectedProfesor = this.profesores[0];
+      // this.selectedProfesor = this.profesores[0];
       this.selectedCurso = this.cursos[0];
       this.selectedAsignatura = this.asignaturas[0];
     });
   }
 
-  getProfesoresLike(nombre){
-    promiseMessage(this.formService.getProfesoresLike(nombre), this.messengerDemo, data => {
-      this.profesores = data
-      this.selectedProfesor = this.profesores[0];
+  getProfesoresLike(event: any) {
+    promiseMessage(this.formService.getProfesoresLike(event.target.value), this.messengerDemo, data => {
+      this.profesores = data;
     });
   }
 
@@ -203,6 +203,20 @@ export class ClaseProfesor {
 
   focusOutFunction(){
     this.findProfesor = !this.findProfesor;
+  }
+
+  public model: any;
+
+  search = (text$: Observable<string>) =>
+    text$
+      .debounceTime(200)
+      .map(term => term === '' ? [] : this.profesores);
+
+  formatter = (x:any) => x.text;
+
+  keyProfesor(event: any) {
+      console.log("buscando: " + event.target.value);
+      this.getProfesoresLike(event.target.value);
   }
 
 }

@@ -47,6 +47,7 @@ import { BootstrapWizardModule } from '../components/wizard/wizard.module';
 import { BootstrapApplicationWizard } from './wizard/bootstrap-application-wizard/bootstrap-application-wizard.directive';
 import { DropzoneDemo } from '../components/dropzone/dropzone.directive';
 import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 /* tslint:enable */
 import { Elements } from './elements/elements.component';
 import { Validation } from './validation/validation.component';
@@ -112,7 +113,8 @@ export const routes = [
     DataTableModule,
     BootstrapWizardModule,
     NKDatetimeModule,
-    Select2Module
+    Select2Module,
+    NgbModule.forRoot()
   ],
   providers: [ FormsService ]
 })
