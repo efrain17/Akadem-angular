@@ -1,5 +1,5 @@
 <div class="row ">
-  <div class="col-lg-8 offset-lg-2">
+  <div messenger-demo class="col-lg-8 offset-lg-2">
     <section class="widget" widget>
       <header>
         <h6>
@@ -98,8 +98,21 @@
             <!--form add -->
             <div class="form-group mb-0">
               <label for="normal-field" class="col-form-label text-md-right">Estudiante</label>
-              <div >
-               <select2 id="default-select"(valueChanged)="selectEstudiante($event)"[data]="estudiantesSearch" [options]="select2OptionsTemplate" width="100%"> </select2>
+              <div>
+              <template #rt let-r="result" let-t="term">
+              {{r.text}}
+              <br>
+              {{r.id}}
+              <br>
+              {{r.additional}}
+              </template>
+              <input (keyup)="getEstudiantesLIke($event)" type="text" class="form-control" [(ngModel)]="selectedEstudiante" [ngbTypeahead]="search" [resultTemplate]="rt" [inputFormatter]="formatter" />
+              </div>
+            </div>
+            <div class="form-group mb-0">
+              <label for="normal-field" class="col-form-label text-md-right">Cedula/Pasaporte</label>
+              <div>
+                <pre class="mb-0">{{selectedEstudiante.id  ? selectedEstudiante.id : 'No result found'}}</pre>
               </div>
             </div>
             <div class="form-group">

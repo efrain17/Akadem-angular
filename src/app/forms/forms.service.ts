@@ -86,9 +86,9 @@ export class FormsService {
     return this.getServer(url);
   }
 
-  getClaseEstudiante(id) {
+  getClaseEstudiante(id, curso) {
     console.log(id);
-    let url = this.BASE_URL + '/academica/clase-estudiante?id=' + id;
+    let url = this.BASE_URL + '/academica/clase-estudiante?id=' + id +'&curso=' + curso ;
     return this.getServer(url);
   }
 
@@ -102,8 +102,8 @@ export class FormsService {
     return this.getServer(url);
   }
 
-  getEstudiantes() {
-    let url = this.BASE_URL + '/academica/estudiante-clase';
+  getEstudiantesLike(nombre) {
+    let url = this.BASE_URL + '/academica/estudiante-claseLike?nombre=' + nombre;
     return this.getServer(url);
   }
 

@@ -6,6 +6,9 @@ import { __platform_browser_private__ } from '@angular/platform-browser';
 import { deleteParametro, eliminarParametroObj, addParametro } from '../../../common/funtions';
 import { promiseMessage } from '../../../common/funtions';
 import { Select2TemplateFunction, Select2OptionData } from 'ng2-select2';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/map';
 declare var jQuery: any;
 
 @Component({
@@ -29,7 +32,7 @@ export class ClaseEstudiante {
   estudiantesSearch: any;
   asignaturas: any = [];
   cursos: any;
-  selectedEstudiante = null;
+  selectedEstudiante: any = {id: '', text: '', additional: '' }
   selectedCurso;
 
   constructor(
@@ -47,7 +50,6 @@ export class ClaseEstudiante {
     };
 
     this.getCursosEstudiantes();
-    this.getEstudiantesSearch();
     this.getCursos();
 }
 
@@ -112,21 +114,23 @@ export class ClaseEstudiante {
   }
 
   getIdListaText(data, datefien) {
-    return data = data.find(date => date.id === datefien);
+    return data = data.find(date => date.id == datefien);
   }
 
   agregarClaseEstudiante(): void {
-    let date = { nombre: '', id_estudiante: '', curso: '', clases: [], estado: false };
-    date.id_estudiante = this.selectedEstudiante;
-    date.nombre = this.getIdListaText(this.estudiantesSearch, this.selectedEstudiante).text;
-    date.curso =  this.getIdListaText(this.cursos, this.selectedCurso).text;
-    date.clases = this.asignaturas;
-    // this.agregarParametro('/educacion/agregar-clase-estudiante', date, () => {
-    // date.clases = this.asignaturas.map(data => data.descripcion);
-    // this.estudiantes.push(date); 
-    // });
-    date.clases = this.asignaturas.map(data => data.descripcion);
-    this.estudiantes.push(date);
+    if(this.selectedEstudiante.id && this.asignaturas) {
+      console.log(this.selectedEstudiante)
+      let date = { nombre: '', id_estudiante: '', curso: '', clases: [], estado: true };
+      date.id_estudiante = this.selectedEstudiante.id;
+      date.nombre = this.selectedEstudiante.text;
+      date.curso =  this.getIdListaText(this.cursos, this.selectedCurso).text;
+      date.clases = this.asignaturas;
+      this.agregarParametro('/academica/agregar-claseEstudiante', date, () => {
+        date.clases = this.asignaturas.map(data => data.descripcion);
+        this.estudiantes.push(date); 
+        this.selectedEstudiante = '';
+      });
+    } 
   }
 
   agregarParametro(url, parametro, callback): void {
@@ -158,12 +162,12 @@ export class ClaseEstudiante {
   getCursos(): void {
     promiseMessage(this.formService.getCursos(), this.messengerDemo, data => {
       this.cursos = data
-
+      this.selectedCurso = this.cursos[0];
     });
   }
 
-  getEstudiantesSearch(): void {
-    promiseMessage(this.formService.getEstudiantes(), this.messengerDemo, data =>
+  getEstudiantesLIke(event: any): void {
+    promiseMessage(this.formService.getEstudiantesLike(event.target.value), this.messengerDemo, data =>
       this.estudiantesSearch = data);
   }
 
@@ -173,13 +177,24 @@ export class ClaseEstudiante {
   }
 
   getClaseEstudiante(estudiante): void {
-    promiseMessage(this.formService.getClaseEstudiante(estudiante.id_estudiante), this.messengerDemo, data =>
+    promiseMessage(this.formService.getClaseEstudiante(estudiante.id_estudiante, estudiante.id_curso), this.messengerDemo, data =>
      estudiante.clases = data);
   }
 
   getAsignaturas(idCurso): void {
     promiseMessage(this.formService.getClasesCurso(idCurso), this.messengerDemo, data =>
       this.asignaturas = data);
+  }
+
+  search = (text$: Observable<string>) =>
+    text$
+      .debounceTime(200)
+      .map(term => term === '' ? [] : this.estudiantesSearch);
+
+  formatter = (x:any) => x.text;
+
+  keyProfesor(event: any) {
+      this.getEstudiantesLIke(event.target.value);
   }
 
 }

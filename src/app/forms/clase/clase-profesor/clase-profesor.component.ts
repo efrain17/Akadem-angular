@@ -34,7 +34,7 @@ export class ClaseProfesor {
   cursos;
   clases;
   selectedAsignatura = null;
-  selectedProfesor: any = {id: "", text: ""}
+  selectedProfesor: any = {id: '', text: ''}
   selectedCurso = null;
   findProfesor: boolean = false;
   atributosClase: AtributosClase =
@@ -172,7 +172,6 @@ export class ClaseProfesor {
     promiseMessage(this.formService.getAtributosClase(), this.messengerDemo, data => {
       this.atributosClase = data;
       this.getClases();
-      this.profesores = data.profesor;
       this.cursos = this.cargarLista(this.cursos, data.curso);
       this.asignaturas = this.cargarLista(this.asignaturas, data.asignatura);
       // this.selectedProfesor = this.profesores[0];
@@ -193,30 +192,11 @@ export class ClaseProfesor {
     });
   }
 
-  onKey() { // without type info
-    console.log("escribiendo: " );
-  }
-
-  focusFunction() {
-     console.log("con foco");
-  }
-
-  focusOutFunction(){
-    this.findProfesor = !this.findProfesor;
-  }
-
-  public model: any;
-
   search = (text$: Observable<string>) =>
     text$
       .debounceTime(200)
       .map(term => term === '' ? [] : this.profesores);
 
   formatter = (x:any) => x.text;
-
-  keyProfesor(event: any) {
-      console.log("buscando: " + event.target.value);
-      this.getProfesoresLike(event.target.value);
-  }
 
 }
