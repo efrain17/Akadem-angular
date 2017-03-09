@@ -1,4 +1,4 @@
-# Sing Dashboard App (3.3.0 Full version) with Angular 2.0 Final Release support
+# AKADEM APP
 
 
 > An Angular 2 application featuring [Angular 2](https://angular.io)
@@ -205,14 +205,4 @@ If you're importing a module that uses Node.js modules which are CommonJS you ne
 ```typescript
 import * as _ from 'lodash';
 ```
-
-# Support, Questions, or Feedback
-> Contact us anytime for anything about this Sing App or Angular 2 consulting.
-
-* [Twitter: @Flatlogic](https://twitter.com/Flatlogic)
-* [Email: contact@flatlogic.com](mailto:contact@flatlogic.com)
-
-# License
-[Wrapbootstrap licence](http://support.wrapbootstrap.com/knowledge_base/topics/usage-licenses).
-
-Sing App 3.3.0 is based on [angular2-webpack-starter](https://github.com/AngularClass/angular2-webpack-starter).
+AKADEM APP is based on [angular2-webpack-starter](https://github.com/AngularClass/angular2-webpack-starter).
